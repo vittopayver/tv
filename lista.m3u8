@@ -1,10 +1,10 @@
 #EXTM3U url-tvg="https://epg.pw/xmltv/epg_BR.xml"
 
-#EXTINF:-1 tvg-id="cnnbr" tvg-name="CNN BRASIL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/cnnbr.png" group-title="NOTÍCIAS", CNN BRASIL
+#EXTINF:-1 tvg-id="cnnbr" tvg-name="CNN BRASIL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnnbr.png" group-title="NOTÍCIAS", CNN BRASIL
 https://d25usgadhphvwi.cloudfront.net/hls/stv-plus1280x720/playlist.m3u8
 
-#EXTINF:-1 tvg-id="jpnews" tvg-name="JOVEM PAN NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/jpnews.png" group-title="NOTÍCIAS", JOVEM PAN NEWS 
+#EXTINF:-1 tvg-id="jpnews" tvg-name="JOVEM PAN NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/jpnews.png" group-title="NOTÍCIAS", JOVEM PAN NEWS 
 https://d6yfbj4xxtrod.cloudfront.net/out/v1/7836eb391ec24452b149f3dc6df15bbd/index_10.m3u8
 
-#EXTINF:-1 tvg-id="globonews" tvg-name="GLOBO NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/globonews.png" group-title="NOTÍCIAS", GLOBO NEWS 
+#EXTINF:-1 tvg-id="globonews" tvg-name="GLOBO NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globonews.png" group-title="NOTÍCIAS", GLOBO NEWS 
 http://xxip9.top:8080/Gizvid192@giz.com/1234@4321/164945
