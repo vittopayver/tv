@@ -1,0 +1,4 @@
+#EXTM3U url-tvg="https://epg.pw/xmltv/epg_BR.xml"
+
+#EXTINF:-1 tvg-id="cnnbr" tvg-name="CNN BRASIL" group-title="NOTÍCIAS", CNN BRASIL
+https://iptv-org.github.io/iptv/countries/BR.m3u8
