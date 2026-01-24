@@ -425,8 +425,8 @@
                 
                 if (overlayVisible) {
                     channelsOverlay.classList.add('show');
-                    if (currentChannelIndex >= 4 && channelElements.length > 0) {
-                        focusedIndex = currentChannelIndex - 4;
+                    if (currentChannelIndex >= 0 && channelElements.length > 0) {
+                        focusedIndex = currentChannelIndex;
                         updateFocus();
                     }
                 } else {
@@ -525,14 +525,12 @@
                     return;
                 }
                 
-                const visibleChannels = channels.slice(4);
                 channelsList.innerHTML = '';
                 channelElements = [];
                 
-                channelCount.textContent = `${visibleChannels.length} canais`;
+                channelCount.textContent = `${channels.length} canais`;
                 
-                visibleChannels.forEach((channel, displayIndex) => {
-                    const actualIndex = displayIndex + 4;
+                channels.forEach((channel, index) => {
                     const channelItem = document.createElement('div');
                     channelItem.className = 'channel-item';
                     channelItem.setAttribute('tabindex', '0');
@@ -545,7 +543,7 @@
                     
                     channelItem.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        playChannel(actualIndex);
+                        playChannel(index);
                         hideOverlay();
                     });
                     
@@ -553,8 +551,8 @@
                     channelElements.push(channelItem);
                 });
                 
-                if (visibleChannels.length > 0) {
-                    playChannel(4);
+                if (channels.length > 0) {
+                    playChannel(0);
                     focusedIndex = 0;
                 }
             }
@@ -570,9 +568,8 @@
                     item.classList.remove('active');
                 });
                 
-                const visualIndex = index - 4;
-                if (visualIndex >= 0 && channelElements[visualIndex]) {
-                    channelElements[visualIndex].classList.add('active');
+                if (channelElements[index]) {
+                    channelElements[index].classList.add('active');
                 }
                 
                 channelTitle.textContent = channel.name;
@@ -657,8 +654,7 @@
                         if (nextIndex < channels.length) {
                             playChannel(nextIndex);
                         } else {
-                            // Volta para o primeiro canal visível
-                            playChannel(4);
+                            playChannel(0);
                         }
                         return;
                     }
@@ -666,10 +662,9 @@
                     if (e.key === 'ArrowUp' || e.key === 'Up') {
                         e.preventDefault();
                         const prevIndex = currentChannelIndex - 1;
-                        if (prevIndex >= 4) {
+                        if (prevIndex >= 0) {
                             playChannel(prevIndex);
                         } else {
-                            // Vai para o último canal
                             playChannel(channels.length - 1);
                         }
                         return;
@@ -696,8 +691,7 @@
                         case 'Enter':
                         case 'OK':
                             e.preventDefault();
-                            const actualIndex = focusedIndex + 4;
-                            playChannel(actualIndex);
+                            playChannel(focusedIndex);
                             hideOverlay();
                             break;
                     }
