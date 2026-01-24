@@ -2,3 +2,6 @@
 
 #EXTINF:-1 tvg-id="cnnbr" tvg-name="CNN BRASIL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/cnn.png" group-title="NOTÍCIAS", CNN BRASIL
 https://d25usgadhphvwi.cloudfront.net/hls/stv-plus1280x720/playlist.m3u8
+
+#EXTINF:-1 tvg-id="globonews" tvg-name="GLOBO NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/cnn.png" group-title="NOTÍCIAS", GLOBO NEWS 
+http://xxip9.top:8080/Gizvid192@giz.com/1234@4321/164945
