@@ -1,4 +1,4 @@
 #EXTM3U url-tvg="https://epg.pw/xmltv/epg_BR.xml"
 
-#EXTINF:-1 tvg-id="cnnbr" tvg-name="CNN BRASIL" group-title="NOTÍCIAS", CNN BRASIL
+#EXTINF:-1 tvg-id="cnnbr" tvg-name="CNN BRASIL" tvg-logo="#####" group-title="NOTÍCIAS", CNN BRASIL
 https://d25usgadhphvwi.cloudfront.net/hls/stv-plus1280x720/playlist.m3u8
