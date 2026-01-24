@@ -81,7 +81,7 @@
             left: 0;
             bottom: 0;
             width: 450px;
-            background: rgba(10,10,10,0.92);
+            background: rgba(10,10,10,0.50);
             backdrop-filter: blur(10px);
             padding: 30px 20px 30px 30px;
             overflow-y: auto;
@@ -125,28 +125,28 @@
         .channel-item {
             background: transparent;
             padding: 18px 16px;
-            border-radius: 10px;
+            border-radius: 5px;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
             gap: 16px;
             outline: none;
-            border: 3px solid transparent;
+            border: 2px solid transparent;
         }
         
         .channel-item:hover {
-            background: rgba(37,37,37,0.9);
+            background: rgba(10,10,10,0.40);
             transform: translateX(8px);
         }
         
         .channel-item.active {
-            background: rgba(229,9,20,0.3);
+            background: rgba(10,10,10,0.40);
             border-color: #e50914;
         }
         
         .channel-item.focused {
-            background: rgba(37,37,37,0.95);
+            background: rgba(10,10,10,0.40);
             border-color: #e50914;
             transform: scale(1.03);
             box-shadow: 0 0 25px rgba(229,9,20,0.6);
@@ -309,7 +309,7 @@
         
         <div class="channels-overlay" id="channels-overlay">
             <div class="channels-header">
-                <h3 class="channels-title">X-hub Tv</h3>
+                <h3 class="channels-title">G-Hub Tv</h3>
                 <span class="channels-count" id="channel-count">0 canais</span>
             </div>
             <div class="channels-list" id="channels-list">
@@ -528,7 +528,7 @@
                 channelsList.innerHTML = '';
                 channelElements = [];
                 
-                channelCount.textContent = `${channels.length} canais`;
+                channelCount.textContent = `${channels.length} | Canais Disponiveis`;
                 
                 channels.forEach((channel, index) => {
                     const channelItem = document.createElement('div');
