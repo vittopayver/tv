@@ -25,5 +25,8 @@ https://cr7v.short.gy/25mensais/s2/Whats7591634025.m3u8
 #EXTINF:-1 tvg-id="record" tvg-name="RECORD" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/record.png" group-title="canais | VARIADO", RECORD
 https://tvconquistalrv.duckdns.org:3334/hls/tvconquistalrv.m3u8?ManoTV
 
-#EXTINF:-1 tvg-id="gazeta" tvg-name="TV GAZETA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gazeta.png" group-title="canais | VARIADO", TV GAZETA
+#EXTINF:-1 tvg-id="gazeta" tvg-name="GAZETA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gazeta.png" group-title="canais | VARIADO", GAZETA
 https://video08.logicahost.com.br/tvc21/tvc21/playlist.m3u8
+
+#EXTINF:-1 tvg-id="diario" tvg-name="TV DIÁRIO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tvdiario.png" group-title="canais | VARIADO", TV DIÁRIO
+https://cdn-diariosm.ciclano.io:1443/diariosm/diariosm/playlist.m3u8
