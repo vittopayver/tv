@@ -7,8 +7,8 @@ https://cr7v.short.gy/25mensais/s2/Whats7591634025.m3u8
 #EXTINF:-1 tvg-id="record" tvg-name="RECORD" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/record.png" group-title="canais | VARIADO", RECORD
 https://tvconquistalrv.duckdns.org:3334/hls/tvconquistalrv.m3u8?ManoTV
 
-#EXTINF:-1 tvg-id="uol" tvg-name="UOL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/uoltv.png" group-title="canais | VARIADO", UOL
-https://service-stitcher.clusters.pluto.tv/v1/stitch/embed/hls/channel/64b9370b409629000802d32b/master.m3u8?deviceId=channel&deviceModel=web&deviceVersion=1.0&appVersion=1.0&deviceType=rokuChannel&deviceMake=rokuChannel&deviceDNT=1
+#EXTINF:-1 tvg-id="uol" tvg-name="CANAL UOL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/uoltv.png" group-title="canais | VARIADO", CANAL UOL
+https://video01.soultv.com.br/uoltv/uoltv/playlist.m3u8
 
 #EXTINF:-1 tvg-id="bbb" tvg-name="BBB 2026" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="canais | SERIE", BBB 2026
 https://cr7v.short.gy/ManoTV-Free/ManoTV2/index.m3u8
