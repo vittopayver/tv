@@ -42,3 +42,6 @@ http://46.151.196.223:14444/
 
 #EXTINF:-1 tvg-id="espn4" tvg-name="ESPN4" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="canais | SPORTE", ESPN4
 http://46.151.196.223:14450/
+
+#EXTINF:-1 tvg-id="space" tvg-name="SPACE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/space.png" group-title="canais | FILMES", SPACE
+http://200.4.96.59:8825/play/a02k/index.m3u8?art
