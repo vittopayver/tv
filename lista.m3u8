@@ -25,10 +25,10 @@ https://amg00527-amg00527c5-amgplt0026.playout.now3.amagi.tv/ts-us-w2-n1/playlis
 #EXTINF:-1 tvg-id="globonews" tvg-name="GLOBO NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globonews.png" group-title="canais | NOTÍCIAS", GLOBO NEWS 
 http://xxip9.top:8080/Gizvid192@giz.com/1234@4321/164945
 
-#EXTINF:-1 tvg-id="sportetv2" tvg-name="SPORTE TV2" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportetv.png" group-title="canais | SPORTE", SPORTE TV2
+#EXTINF:-1 tvg-id="sportv2" tvg-name="SPORTV2" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportetv.png" group-title="canais | SPORTE", SPORTV2
 http://79.127.243.211:14469/
 
-#EXTINF:-1 tvg-id="sportetv3" tvg-name="SPORTE TV3" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportetv.png" group-title="canais | SPORTE", SPORTE TV3
+#EXTINF:-1 tvg-id="sportv3" tvg-name="SPORTV3" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportetv.png" group-title="canais | SPORTE", SPORTV3
 http://79.127.243.211:14473/#EXTINF:-1 tvg-id="sportetv3" tvg-name="SPORTE TV3" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportetv.png" group-title="canais | VARIADO", SPORTE TV3
 
 #EXTINF:-1 tvg-id="espn" tvg-name="ESPN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="canais | SPORTE", ESPN
