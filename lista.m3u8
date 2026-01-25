@@ -44,6 +44,9 @@ http://46.151.196.223:14444/
 http://46.151.196.223:14450/
 
 #EXTINF:-1 tvg-id="bbb" tvg-name="BBB 2026" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="canais | SERIE", BBB 2026
+https://image-storage-51.imgcontent.xyz/live/bbb26-3/index.m3u8
+
+#EXTINF:-1 tvg-id="bbb1" tvg-name="BBB1 2026" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="canais | SERIE", BBB1 2026
 https://cr7v.short.gy/ManoTV-Free/ManoTV2/index.m3u8
 
 #EXTINF:-1 tvg-id="bbb2" tvg-name="BBB2 2026" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="canais | SERIE", BBB2 2026
