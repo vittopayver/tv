@@ -32,6 +32,7 @@ https://video08.logicahost.com.br/tvc21/tvc21/playlist.m3u8
 https://cdn-diariosm.ciclano.io:1443/diariosm/diariosm/playlist.m3u8
 
 #EXTINF:-1 tvg-id="tve" tvg-name="TVE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tve.png" group-title="canais | VARIADO", TVE
-https://cdn-diariosm.ciclano.io:1443/diariosm/diariosm/playlist.m3u8
-
 http://streaming.procergs.com.br:1935/tve/stve/playlist.m3u8
+
+#EXTINF:-1 tvg-id="sportetv2" tvg-name="SPORTE TV2" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportetv.png" group-title="canais | VARIADO", SPORTE TV2
+http://79.127.243.211:14469/
