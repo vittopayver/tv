@@ -25,14 +25,8 @@ https://cr7v.short.gy/25mensais/s2/Whats7591634025.m3u8
 #EXTINF:-1 tvg-id="record" tvg-name="RECORD" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/record.png" group-title="canais | VARIADO", RECORD
 https://tvconquistalrv.duckdns.org:3334/hls/tvconquistalrv.m3u8?ManoTV
 
-#EXTINF:-1 tvg-id="gazeta" tvg-name="GAZETA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gazeta.png" group-title="canais | VARIADO", GAZETA
-https://video08.logicahost.com.br/tvc21/tvc21/playlist.m3u8
-
-#EXTINF:-1 tvg-id="diario" tvg-name="TV DIÁRIO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tvdiario.png" group-title="canais | VARIADO", TV DIÁRIO
-https://cdn-diariosm.ciclano.io:1443/diariosm/diariosm/playlist.m3u8
-
-#EXTINF:-1 tvg-id="tve" tvg-name="TVE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tve.png" group-title="canais | VARIADO", TVE
-http://streaming.procergs.com.br:1935/tve/stve/playlist.m3u8
-
 #EXTINF:-1 tvg-id="sportetv2" tvg-name="SPORTE TV2" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportetv.png" group-title="canais | VARIADO", SPORTE TV2
 http://79.127.243.211:14469/
+
+#EXTINF:-1 tvg-id="sportetv3" tvg-name="SPORTE TV3" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportetv.png" group-title="canais | VARIADO", SPORTE TV3
+http://79.127.243.211:14473/
