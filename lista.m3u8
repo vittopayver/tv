@@ -51,3 +51,6 @@ http://79.127.238.228:14647/
 
 #EXTINF:-1 tvg-id="a&e" tvg-name="A&E" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/a&e.png" group-title="canais | FILMES", A&E
 http://79.127.238.228:14551/
+
+#EXTINF:-1 tvg-id="axn" tvg-name="AXN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/axn.png" group-title="canais | FILMES", AXN
+http://200.4.96.59:8825/play/a02t/index.m3u8
