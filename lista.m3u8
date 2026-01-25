@@ -25,6 +25,9 @@ https://amg00527-amg00527c5-amgplt0026.playout.now3.amagi.tv/ts-us-w2-n1/playlis
 #EXTINF:-1 tvg-id="globonews" tvg-name="GLOBO NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globonews.png" group-title="canais | NOTÍCIAS", GLOBO NEWS 
 http://xxip9.top:8080/Gizvid192@giz.com/1234@4321/164945
 
+#EXTINF:-1 tvg-id="getv" tvg-name="GETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/getv.png" group-title="canais | SPORTE", GETV
+https://amg00716-globo-amg00716c1-tcl-br-9495.playouts.now.amagi.tv/1080p-cc/index.m3u8
+
 #EXTINF:-1 tvg-id="sportv2" tvg-name="SPORTV2" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportetv.png" group-title="canais | SPORTE", SPORTV2
 http://79.127.243.211:14469/
 
