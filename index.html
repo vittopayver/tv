@@ -83,12 +83,12 @@
             width: 450px;
             background: rgba(10,10,10,0.50);
             backdrop-filter: blur(10px);
-            padding: 30px 20px 30px 30px;
-            overflow-y: auto;
             z-index: 10;
             transform: translateX(-100%);
             transition: transform 0.3s ease;
             border-right: 2px solid rgba(229,9,20,0.4);
+            display: flex;
+            flex-direction: column;
         }
         
         .channels-overlay.show {
@@ -96,15 +96,31 @@
         }
         
         .channels-header {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #e50914;
+            padding: 30px 20px 1px 30px;
+            background: rgba(10,10,10,0.50);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .channels-header::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.90), transparent);
+            pointer-events: none;
+            z-index: 1;
         }
         
         .channels-title {
             font-size: 2rem;
             color: #fff;
             margin-bottom: 10px;
+            position: relative;
+            z-index: 3;
         }
         
         .channels-count {
@@ -114,12 +130,17 @@
             border-radius: 20px;
             font-size: 1rem;
             display: inline-block;
+            position: relative;
+            z-index: 3;
         }
         
         .channels-list {
             display: flex;
             flex-direction: column;
             gap: 10px;
+            padding: 20px 20px 30px 30px;
+            overflow-y: auto;
+            flex: 1;
         }
         
         .channel-item {
