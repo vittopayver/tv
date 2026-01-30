@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player de Vídeo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <video id="videoPlayer" controls autoplay muted loop>
+        <source src="starlink.mp4" type="video/mp4">
+       Seu navegador não suporta a tag de vídeo.
+    </video>
+
+    <script>
+        // Garantir que o vídeo seja reproduzido automaticamente
+        const video = document.getElementById('videoPlayer');
+        
+        // Tentar reproduzir quando a página carregar
+        window.addEventListener('load', () => {
+            video.play().catch(error => {
+                console.log('Autoplay bloqueado:', error);
+            });
+        });
+
+        // Reproduzir ao clicar em qualquer lugar da página
+        document.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+            }
+        });
+    </script>
+</body>
+</html>
