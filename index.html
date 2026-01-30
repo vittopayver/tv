@@ -75,6 +75,34 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
         
+        .saiba-mais-btn {
+            position: absolute;
+            bottom: 250px;
+            right: 50px;
+            background: rgba(10,10,10,0.50);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: normal;
+            cursor: pointer;
+            border: none;
+            z-index: 6;
+            display: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(229,9,20,0.5);
+        }
+        
+        .saiba-mais-btn.show {
+            display: block;
+        }
+        
+        .saiba-mais-btn:hover {
+            background: #f40612;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(229,9,20,0.7);
+        }
+        
         .channels-overlay {
             position: absolute;
             top: 0;
@@ -306,6 +334,13 @@
             .channel-name {
                 font-size: 1rem;
             }
+            
+            .saiba-mais-btn {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 30px;
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -320,6 +355,8 @@
             <p class="channel-description">Clique na tela ou pressione OK para abrir a lista</p>
         </div>
         
+        <button class="saiba-mais-btn" id="saiba-mais-btn">Saiba Mais</button>
+        
         <div class="toggle-hint" id="toggle-hint">
             Pressione OK ou clique para abrir/fechar a lista
         </div>
@@ -331,7 +368,7 @@
         <div class="channels-overlay" id="channels-overlay">
             <div class="channels-header">
                 <h3 class="channels-title">G-Hub Tv</h3>
-                <span class="channels-count" id="channel-count">0 canais</span>
+                <span class="channels-count" id="channel-count">0 | Canais Disponiveis</span>
             </div>
             <div class="channels-list" id="channels-list">
                 <div class="loading">Carregando canais...</div>
@@ -351,6 +388,7 @@
             const toggleHint = document.getElementById('toggle-hint');
             const clickOverlay = document.getElementById('click-overlay');
             const loadingScreen = document.getElementById('loading-screen');
+            const saibaMaisBtn = document.getElementById('saiba-mais-btn');
             
             const playlistUrl = 'https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/lista.m3u8';
             
@@ -363,6 +401,23 @@
             let hideInfoTimeout = null;
             let isFirstLoad = true;
             let wakeLock = null;
+            
+            // ===== BOTÃO SAIBA MAIS =====
+            saibaMaisBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Abrir o link do primeiro canal se existir
+                if (channels.length > 0 && channels[0].link) {
+                    window.open(channels[0].link, '_blank');
+                }
+            });
+            
+            // ===== LOOP DO VÍDEO NO PRIMEIRO CANAL =====
+            videoPlayer.addEventListener('ended', function() {
+                if (currentChannelIndex === 0) {
+                    videoPlayer.currentTime = 0;
+                    videoPlayer.play();
+                }
+            });
             
             // ===== OCULTAR BARRA DE NAVEGAÇÃO =====
             function enterFullscreen() {
@@ -527,11 +582,18 @@
                                 group = groupMatch[1];
                             }
                             
+                            let link = '';
+                            const linkMatch = attributes.match(/link="([^"]*)"/);
+                            if (linkMatch) {
+                                link = linkMatch[1];
+                            }
+                            
                             channels.push({
                                 name: name,
                                 url: url,
                                 logo: logo,
-                                group: group
+                                group: group,
+                                link: link
                             });
                         }
                     }
@@ -595,6 +657,13 @@
                 
                 channelTitle.textContent = channel.name;
                 channelDescription.textContent = channel.group || 'Aproveite o conteúdo';
+                
+                // Mostrar botão apenas no primeiro canal
+                if (index === 0 && channel.link) {
+                    saibaMaisBtn.classList.add('show');
+                } else {
+                    saibaMaisBtn.classList.remove('show');
+                }
                 
                 videoPlayer.src = channel.url;
                 videoPlayer.load();
