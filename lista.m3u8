@@ -10,9 +10,6 @@ https://cr7v.short.gy/25mensais/s2/Whats7591634025.m3u8
 #EXTINF:-1 tvg-id="record" tvg-name="RECORD" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/record.png" group-title="canais | VARIADO", RECORD
 https://tvconquistalrv.duckdns.org:3334/hls/tvconquistalrv.m3u8?ManoTV
 
-#EXTINF:-1 tvg-id="bbb" tvg-name="BBB 2026" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="canais | SERIE", BBB 2026
-https://cr7v.short.gy/ManoTV-Free/ManoTV2/index.m3u8
-
 #EXTINF:-1 tvg-id="cultura" tvg-name="TV CULTURA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cultura.png" group-title="canais | SERIE", TV CULTURA
 https://player-tvcultura.stream.uol.com.br/live/tvcultura.m3u8
 
