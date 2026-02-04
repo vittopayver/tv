@@ -34,6 +34,7 @@
             height: 100%;
             object-fit: contain;
             background: #000;
+            display: block;
         }
         
         .click-overlay {
@@ -327,12 +328,87 @@
                 width: 80%;
             }
             
-            .channel-title {
+            body {
+                position: fixed;
+                overflow: hidden;
+            }
+            
+            .player-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+            
+            #video-player {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                height: 100%;
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+            }
+            
+            .channels-list::after {
+                content: '';
+                display: block;
+                height: 0px;
+                flex-shrink: 0;
+            }
+            
+            .channels-header {
+                padding: 20px 15px 10px 20px;
+            }
+            
+            .channels-title {
                 font-size: 1.5rem;
+            }
+            
+            .channels-count {
+                font-size: 0.9rem;
+                padding: 5px 12px;
+            }
+            
+            .channels-list {
+                padding: 15px 15px 20px 20px;
+                gap: 8px;
+            }
+            
+            .channel-item {
+                padding: 10px 20px;
+            }
+            
+            .channel-logo {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
             }
             
             .channel-name {
                 font-size: 1rem;
+            }
+            
+            .channel-title {
+                font-size: 1.8rem;
+            }
+            
+            .channel-description {
+                font-size: 1.1rem;
+            }
+            
+            .video-info {
+                padding: 40px 25px 20px;
+            }
+            
+            .spinner {
+                width: 50px;
+                height: 50px;
+                border-width: 4px;
             }
             
             .saiba-mais-btn {
@@ -340,6 +416,95 @@
                 right: 20px;
                 padding: 12px 30px;
                 font-size: 1.2rem;
+            }
+        }
+        
+        /* Mobile - Modo Retrato */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .channels-overlay {
+                width: 85%;
+            }
+            
+            .channel-title {
+                font-size: 1.6rem;
+            }
+            
+            .channel-description {
+                font-size: 1rem;
+            }
+            
+            .video-info {
+                padding: 35px 20px 18px;
+            }
+        }
+        
+        /* Mobile - Modo Paisagem */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .channels-overlay {
+                width: 35%;
+            }
+            
+            #video-player {
+                object-fit: contain;
+                max-width: 100%;
+                max-height: 100vh;
+            }
+            
+            .channels-header {
+                padding: 15px 12px 8px 15px;
+            }
+            
+            .channels-title {
+                font-size: 1.3rem;
+            }
+            
+            .channels-count {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+            }
+            
+            .channels-list {
+                padding: 12px 12px 15px 15px;
+                gap: 6px;
+            }
+            
+            .channel-item {
+                padding: 8px 15px;
+            }
+            
+            .channel-logo {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .channel-name {
+                font-size: 0.95rem;
+            }
+            
+            .channel-title {
+                font-size: 1.4rem;
+            }
+            
+            .channel-description {
+                font-size: 0.95rem;
+            }
+            
+            .video-info {
+                padding: 30px 20px 15px;
+            }
+            
+            .saiba-mais-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 25px;
+                font-size: 1.1rem;
+            }
+            
+            .spinner {
+                width: 45px;
+                height: 45px;
+                border-width: 3px;
             }
         }
     </style>
@@ -709,15 +874,126 @@
                 channelsList.innerHTML = `<div class="error">${message}</div>`;
             }
             
+            // ===== DETECTAR SE É DISPOSITIVO MÓVEL =====
+            function isMobileDevice() {
+                return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+                    || window.innerWidth <= 768;
+            }
+            
+            const isMobile = isMobileDevice();
+            
+            // ===== PREVENIR COMPORTAMENTO PADRÃO DO BOTÃO VOLTAR (APENAS MOBILE) =====
+            if (isMobile) {
+                let backPressCount = 0;
+                let backPressTimer = null;
+                
+                // Adicionar entrada no histórico para interceptar o botão voltar
+                window.history.pushState(null, '', window.location.href);
+                
+                window.addEventListener('popstate', function(e) {
+                    e.preventDefault();
+                    
+                    // Se overlay estiver aberto, fechar
+                    if (overlayVisible) {
+                        hideOverlay();
+                        window.history.pushState(null, '', window.location.href);
+                        return false;
+                    }
+                    
+                    // Sistema de duplo clique para sair
+                    backPressCount++;
+                    
+                    if (backPressCount === 1) {
+                        // Primeira vez - mostrar mensagem
+                        showVideoInfo();
+                        channelTitle.textContent = 'Pressione VOLTAR novamente para sair';
+                        channelDescription.textContent = '';
+                        
+                        window.history.pushState(null, '', window.location.href);
+                        
+                        // Resetar contador após 2 segundos
+                        if (backPressTimer) clearTimeout(backPressTimer);
+                        backPressTimer = setTimeout(() => {
+                            backPressCount = 0;
+                        }, 2000);
+                        
+                    } else if (backPressCount >= 2) {
+                        // Segunda vez - permitir sair
+                        backPressCount = 0;
+                        if (wakeLock !== null) {
+                            wakeLock.release();
+                        }
+                        window.history.back();
+                    }
+                    
+                    return false;
+                });
+            }
+            
+            // Wake Lock API para manter a tela sempre ativa (APENAS MOBILE)
+            let wakeLock = null;
+            
+            async function requestWakeLock() {
+                if (!isMobile) return; // Não ativar em TV
+                
+                try {
+                    if ('wakeLock' in navigator) {
+                        wakeLock = await navigator.wakeLock.request('screen');
+                        console.log('Wake Lock ativado - tela permanecerá acesa (Mobile)');
+                        
+                        wakeLock.addEventListener('release', () => {
+                            console.log('Wake Lock liberado');
+                        });
+                    }
+                } catch (err) {
+                    console.log('Wake Lock não suportado ou bloqueado:', err);
+                }
+            }
+            
+            // Reativar wake lock quando a página voltar a ficar visível (APENAS MOBILE)
+            if (isMobile) {
+                // Ativar wake lock IMEDIATAMENTE ao carregar
+                requestWakeLock();
+                
+                document.addEventListener('visibilitychange', async () => {
+                    if (document.visibilityState === 'visible') {
+                        await requestWakeLock();
+                        // Tentar continuar reproduzindo o vídeo
+                        if (videoPlayer && videoPlayer.paused && currentChannelIndex >= 0) {
+                            videoPlayer.play().catch(err => console.log('Autoplay bloqueado:', err));
+                        }
+                    }
+                });
+                
+                // Reativar wake lock ao entrar em fullscreen
+                document.addEventListener('fullscreenchange', function() {
+                    if (document.fullscreenElement) {
+                        requestWakeLock();
+                    }
+                });
+                
+                // Reativar ao tocar no vídeo (garante que wake lock esteja ativo)
+                videoPlayer.addEventListener('play', () => {
+                    requestWakeLock();
+                });
+            }
+            
             // ===== NAVEGAÇÃO POR TECLADO =====
             document.addEventListener('keydown', function(e) {
-                // Back/Escape sai do fullscreen
+                // Back/Escape - comportamento diferente para Mobile e TV
                 if (e.key === 'Back' || e.key === 'Backspace' || e.key === 'Escape') {
+                    e.preventDefault();
+                    
                     if (overlayVisible) {
-                        e.preventDefault();
                         hideOverlay();
                     } else {
-                        exitFullscreen();
+                        if (isMobile) {
+                            // Mobile: simular botão voltar (duplo clique)
+                            window.history.back();
+                        } else {
+                            // TV: sair do fullscreen
+                            exitFullscreen();
+                        }
                     }
                     return;
                 }
@@ -781,6 +1057,41 @@
                             hideOverlay();
                             break;
                     }
+                }
+            });
+            
+            // ===== DETECÇÃO DE ORIENTAÇÃO =====
+            function handleOrientationChange() {
+                const orientation = window.screen.orientation || window.orientation;
+                const isLandscape = window.innerWidth > window.innerHeight;
+                
+                console.log('Orientação alterada:', isLandscape ? 'Paisagem' : 'Retrato');
+                
+                // Forçar re-render do vídeo para ajustar ao novo layout
+                if (currentChannelIndex >= 0) {
+                    setTimeout(() => {
+                        videoPlayer.style.width = '100%';
+                        videoPlayer.style.height = '100%';
+                    }, 100);
+                }
+            }
+            
+            // Listeners para mudança de orientação
+            window.addEventListener('orientationchange', handleOrientationChange);
+            window.addEventListener('resize', handleOrientationChange);
+            
+            // Tentar usar Screen Orientation API (quando disponível)
+            if (screen.orientation) {
+                screen.orientation.addEventListener('change', handleOrientationChange);
+            }
+            
+            // Solicitar lock de orientação paisagem em fullscreen (opcional, pode falhar)
+            document.addEventListener('fullscreenchange', function() {
+                if (document.fullscreenElement && screen.orientation && screen.orientation.lock) {
+                    // Tentar travar em paisagem (pode ser bloqueado pelo navegador)
+                    screen.orientation.lock('landscape').catch(err => {
+                        console.log('Lock de orientação não permitido:', err);
+                    });
                 }
             });
             
