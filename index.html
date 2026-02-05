@@ -82,9 +82,9 @@
             right: 100px;
             background: rgba(10,10,10,0.50);
             color: white;
-            padding: 15px 40px;
+            padding: 12px 30px;
             border-radius: 50px;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: normal;
             cursor: pointer;
             border: none;
@@ -414,8 +414,8 @@
             .saiba-mais-btn {
                 bottom: 20px;
                 right: 20px;
-                padding: 12px 30px;
-                font-size: 1.2rem;
+                padding: 10px 25px;
+                font-size: 1rem;
             }
         }
         
@@ -497,8 +497,8 @@
             .saiba-mais-btn {
                 bottom: 15px;
                 right: 15px;
-                padding: 10px 25px;
-                font-size: 1.1rem;
+                padding: 8px 20px;
+                font-size: 0.9rem;
             }
             
             .spinner {
@@ -616,6 +616,14 @@
             let hideOverlayTimeout = null;
             let hideInfoTimeout = null;
             let isFirstLoad = true;
+            
+            // ===== DETECTAR SE É DISPOSITIVO MÓVEL =====
+            function isMobileDevice() {
+                return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+                    || window.innerWidth <= 768;
+            }
+            
+            const isMobile = isMobileDevice();
             
             // Proxy para ocultar URLs
             const urlProxy = new Map();
@@ -767,9 +775,55 @@
                 }, 3000);
             }
             
+            // Variáveis para detectar pressão longa
+            let pressTimer = null;
+            let isPressing = false;
+            
             clickOverlay.addEventListener('click', function(e) {
-                toggleOverlay();
+                if (!isPressing) {
+                    toggleOverlay();
+                }
             });
+            
+            // Rotação de tela ao segurar (apenas mobile)
+            if (isMobileDevice()) {
+                clickOverlay.addEventListener('touchstart', function(e) {
+                    isPressing = false;
+                    pressTimer = setTimeout(() => {
+                        isPressing = true;
+                        rotateScreen();
+                    }, 800); // 800ms de pressão
+                });
+                
+                clickOverlay.addEventListener('touchend', function(e) {
+                    clearTimeout(pressTimer);
+                    setTimeout(() => {
+                        isPressing = false;
+                    }, 100);
+                });
+                
+                clickOverlay.addEventListener('touchmove', function(e) {
+                    clearTimeout(pressTimer);
+                    isPressing = false;
+                });
+            }
+            
+            async function rotateScreen() {
+                try {
+                    if (screen.orientation && screen.orientation.lock) {
+                        const currentOrientation = screen.orientation.type;
+                        
+                        // Alternar entre portrait e landscape
+                        if (currentOrientation.includes('portrait')) {
+                            await screen.orientation.lock('landscape');
+                        } else {
+                            await screen.orientation.lock('portrait');
+                        }
+                    }
+                } catch (err) {
+                    console.log('Rotação de tela não disponível');
+                }
+            }
             
             channelsOverlay.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -961,13 +1015,6 @@
             function showError(message) {
                 channelsList.innerHTML = `<div class="error">${message}</div>`;
             }
-            
-            function isMobileDevice() {
-                return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
-                    || window.innerWidth <= 768;
-            }
-            
-            const isMobile = isMobileDevice();
             
             if (isMobile) {
                 let backPressCount = 0;
