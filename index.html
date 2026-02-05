@@ -542,6 +542,56 @@
     </div>
 
     <script>
+        // ===== PROTEÇÃO CONTRA INSPEÇÃO =====
+        (function() {
+            'use strict';
+            
+            // Bloquear DevTools
+            const devtoolsDetector = () => {
+                const threshold = 160;
+                const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+                const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+                
+                if (widthThreshold || heightThreshold) {
+                    window.location.reload();
+                }
+            };
+            
+            // Bloquear menu de contexto
+            document.addEventListener('contextmenu', e => e.preventDefault());
+            
+            // Bloquear atalhos do teclado
+            document.addEventListener('keydown', e => {
+                // F12
+                if (e.keyCode === 123) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+                if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+U (view source)
+                if (e.ctrlKey && e.keyCode === 85) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+S (save)
+                if (e.ctrlKey && e.keyCode === 83) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Detectar abertura do DevTools
+            setInterval(devtoolsDetector, 1000);
+            
+            // Bloquear seleção de texto adicional
+            document.onselectstart = () => false;
+            document.oncopy = () => false;
+        })();
+        
         document.addEventListener('DOMContentLoaded', function() {
             const videoPlayer = document.getElementById('video-player');
             const channelsList = document.getElementById('channels-list');
@@ -555,7 +605,9 @@
             const loadingScreen = document.getElementById('loading-screen');
             const saibaMaisBtn = document.getElementById('saiba-mais-btn');
             
-            const playlistUrl = 'https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/lista.m3u8';
+            // URL ofuscada
+            const _0x4a2b = ['68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f76697474706179766572', '2f74762f726566732f68656164732f6d61696e2f6c697374612e6d337538'];
+            const playlistUrl = atob(_0x4a2b[0]) + '/' + atob(_0x4a2b[1]);
             
             let channels = [];
             let currentChannelIndex = -1;
@@ -566,10 +618,48 @@
             let hideInfoTimeout = null;
             let isFirstLoad = true;
             
+            // Proxy para ocultar URLs
+            const urlProxy = new Map();
+            let urlCounter = 0;
+            
+            const obfuscateUrl = (url) => {
+                const token = `__vid_${urlCounter++}_${Math.random().toString(36).substr(2, 9)}`;
+                urlProxy.set(token, url);
+                return token;
+            };
+            
+            const deobfuscateUrl = (token) => {
+                return urlProxy.get(token) || '';
+            };
+            
+            // Interceptar propriedade src do vídeo
+            const originalSrcDescriptor = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'src');
+            Object.defineProperty(videoPlayer, 'src', {
+                get: function() {
+                    return '[PROTECTED]';
+                },
+                set: function(value) {
+                    if (value.startsWith('__vid_')) {
+                        const realUrl = deobfuscateUrl(value);
+                        originalSrcDescriptor.set.call(this, realUrl);
+                    } else {
+                        originalSrcDescriptor.set.call(this, value);
+                    }
+                },
+                configurable: false
+            });
+            
+            // Bloquear acesso a currentSrc
+            Object.defineProperty(videoPlayer, 'currentSrc', {
+                get: function() {
+                    return '[PROTECTED]';
+                },
+                configurable: false
+            });
+            
             // ===== BOTÃO SAIBA MAIS =====
             saibaMaisBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                // Abrir o link do primeiro canal se existir
                 if (channels.length > 0 && channels[0].link) {
                     window.open(channels[0].link, '_blank');
                 }
@@ -583,7 +673,7 @@
                 }
             });
             
-            // ===== FULLSCREEN - OCULTAR BARRA DE NAVEGAÇÃO =====
+            // ===== FULLSCREEN =====
             function enterFullscreen() {
                 const elem = document.documentElement;
                 
@@ -612,12 +702,10 @@
                 }
             }
             
-            // Garantir fullscreen ao carregar
             setTimeout(() => {
                 enterFullscreen();
             }, 500);
             
-            // Reentrar em fullscreen se sair
             document.addEventListener('fullscreenchange', function() {
                 if (!document.fullscreenElement) {
                     setTimeout(() => {
@@ -702,8 +790,8 @@
                         parsePlaylist(data);
                     })
                     .catch(error => {
-                        console.error('Erro:', error);
-                        showError(`Erro ao carregar a playlist: ${error.message}`);
+                        console.log('Erro de carregamento');
+                        showError(`Erro ao carregar a playlist`);
                     });
             }
             
@@ -741,9 +829,12 @@
                                 link = linkMatch[1];
                             }
                             
+                            // Ofuscar URL antes de armazenar
+                            const obfuscatedUrl = obfuscateUrl(url);
+                            
                             channels.push({
                                 name: name,
-                                url: url,
+                                url: obfuscatedUrl,
                                 logo: logo,
                                 group: group,
                                 link: link
@@ -811,24 +902,22 @@
                 channelTitle.textContent = channel.name;
                 channelDescription.textContent = channel.group || 'Aproveite o conteúdo';
                 
-                // Mostrar botão apenas no primeiro canal
                 if (index === 0 && channel.link) {
                     saibaMaisBtn.classList.add('show');
                 } else {
                     saibaMaisBtn.classList.remove('show');
                 }
                 
+                // Usar URL ofuscada
                 videoPlayer.src = channel.url;
                 videoPlayer.load();
                 
                 const onCanPlay = () => {
                     loadingScreen.classList.remove('show');
-                    
-                    // Garantir fullscreen ao trocar de canal
                     enterFullscreen();
                     
                     videoPlayer.play().catch(e => {
-                        console.log('Reprodução automática bloqueada:', e);
+                        console.log('Reprodução bloqueada');
                         loadingScreen.classList.remove('show');
                     });
                     
@@ -874,7 +963,6 @@
                 channelsList.innerHTML = `<div class="error">${message}</div>`;
             }
             
-            // ===== DETECTAR SE É DISPOSITIVO MÓVEL =====
             function isMobileDevice() {
                 return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
                     || window.innerWidth <= 768;
@@ -882,43 +970,36 @@
             
             const isMobile = isMobileDevice();
             
-            // ===== PREVENIR COMPORTAMENTO PADRÃO DO BOTÃO VOLTAR (APENAS MOBILE) =====
             if (isMobile) {
                 let backPressCount = 0;
                 let backPressTimer = null;
                 
-                // Adicionar entrada no histórico para interceptar o botão voltar
                 window.history.pushState(null, '', window.location.href);
                 
                 window.addEventListener('popstate', function(e) {
                     e.preventDefault();
                     
-                    // Se overlay estiver aberto, fechar
                     if (overlayVisible) {
                         hideOverlay();
                         window.history.pushState(null, '', window.location.href);
                         return false;
                     }
                     
-                    // Sistema de duplo clique para sair
                     backPressCount++;
                     
                     if (backPressCount === 1) {
-                        // Primeira vez - mostrar mensagem
                         showVideoInfo();
                         channelTitle.textContent = 'Pressione VOLTAR novamente para sair';
                         channelDescription.textContent = '';
                         
                         window.history.pushState(null, '', window.location.href);
                         
-                        // Resetar contador após 2 segundos
                         if (backPressTimer) clearTimeout(backPressTimer);
                         backPressTimer = setTimeout(() => {
                             backPressCount = 0;
                         }, 2000);
                         
                     } else if (backPressCount >= 2) {
-                        // Segunda vez - permitir sair
                         backPressCount = 0;
                         if (wakeLock !== null) {
                             wakeLock.release();
@@ -930,57 +1011,48 @@
                 });
             }
             
-            // Wake Lock API para manter a tela sempre ativa (APENAS MOBILE)
             let wakeLock = null;
             
             async function requestWakeLock() {
-                if (!isMobile) return; // Não ativar em TV
+                if (!isMobile) return;
                 
                 try {
                     if ('wakeLock' in navigator) {
                         wakeLock = await navigator.wakeLock.request('screen');
-                        console.log('Wake Lock ativado - tela permanecerá acesa (Mobile)');
                         
                         wakeLock.addEventListener('release', () => {
                             console.log('Wake Lock liberado');
                         });
                     }
                 } catch (err) {
-                    console.log('Wake Lock não suportado ou bloqueado:', err);
+                    console.log('Wake Lock bloqueado');
                 }
             }
             
-            // Reativar wake lock quando a página voltar a ficar visível (APENAS MOBILE)
             if (isMobile) {
-                // Ativar wake lock IMEDIATAMENTE ao carregar
                 requestWakeLock();
                 
                 document.addEventListener('visibilitychange', async () => {
                     if (document.visibilityState === 'visible') {
                         await requestWakeLock();
-                        // Tentar continuar reproduzindo o vídeo
                         if (videoPlayer && videoPlayer.paused && currentChannelIndex >= 0) {
-                            videoPlayer.play().catch(err => console.log('Autoplay bloqueado:', err));
+                            videoPlayer.play().catch(err => console.log('Autoplay bloqueado'));
                         }
                     }
                 });
                 
-                // Reativar wake lock ao entrar em fullscreen
                 document.addEventListener('fullscreenchange', function() {
                     if (document.fullscreenElement) {
                         requestWakeLock();
                     }
                 });
                 
-                // Reativar ao tocar no vídeo (garante que wake lock esteja ativo)
                 videoPlayer.addEventListener('play', () => {
                     requestWakeLock();
                 });
             }
             
-            // ===== NAVEGAÇÃO POR TECLADO =====
             document.addEventListener('keydown', function(e) {
-                // Back/Escape - comportamento diferente para Mobile e TV
                 if (e.key === 'Back' || e.key === 'Backspace' || e.key === 'Escape') {
                     e.preventDefault();
                     
@@ -988,10 +1060,8 @@
                         hideOverlay();
                     } else {
                         if (isMobile) {
-                            // Mobile: simular botão voltar (duplo clique)
                             window.history.back();
                         } else {
-                            // TV: sair do fullscreen
                             exitFullscreen();
                         }
                     }
@@ -1004,7 +1074,6 @@
                     return;
                 }
                 
-                // Navegar canais quando overlay está FECHADO
                 if (!overlayVisible && channelElements.length > 0) {
                     if (e.key === 'ArrowDown' || e.key === 'Down') {
                         e.preventDefault();
@@ -1014,7 +1083,6 @@
                         } else {
                             playChannel(0);
                         }
-                        // Mostrar informações do canal ao trocar
                         showVideoInfo();
                         return;
                     }
@@ -1027,13 +1095,11 @@
                         } else {
                             playChannel(channels.length - 1);
                         }
-                        // Mostrar informações do canal ao trocar
                         showVideoInfo();
                         return;
                     }
                 }
                 
-                // Navegar na lista quando overlay está ABERTO
                 if (overlayVisible && channelElements.length > 0) {
                     switch(e.key) {
                         case 'ArrowDown':
@@ -1060,14 +1126,9 @@
                 }
             });
             
-            // ===== DETECÇÃO DE ORIENTAÇÃO =====
             function handleOrientationChange() {
-                const orientation = window.screen.orientation || window.orientation;
                 const isLandscape = window.innerWidth > window.innerHeight;
                 
-                console.log('Orientação alterada:', isLandscape ? 'Paisagem' : 'Retrato');
-                
-                // Forçar re-render do vídeo para ajustar ao novo layout
                 if (currentChannelIndex >= 0) {
                     setTimeout(() => {
                         videoPlayer.style.width = '100%';
@@ -1076,21 +1137,17 @@
                 }
             }
             
-            // Listeners para mudança de orientação
             window.addEventListener('orientationchange', handleOrientationChange);
             window.addEventListener('resize', handleOrientationChange);
             
-            // Tentar usar Screen Orientation API (quando disponível)
             if (screen.orientation) {
                 screen.orientation.addEventListener('change', handleOrientationChange);
             }
             
-            // Solicitar lock de orientação paisagem em fullscreen (opcional, pode falhar)
             document.addEventListener('fullscreenchange', function() {
                 if (document.fullscreenElement && screen.orientation && screen.orientation.lock) {
-                    // Tentar travar em paisagem (pode ser bloqueado pelo navegador)
                     screen.orientation.lock('landscape').catch(err => {
-                        console.log('Lock de orientação não permitido:', err);
+                        console.log('Lock de orientação não permitido');
                     });
                 }
             });
