@@ -35,6 +35,12 @@
             object-fit: contain;
             background: #000;
             display: block;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+        
+        #video-player.ready {
+            opacity: 1;
         }
         
         .click-overlay {
@@ -511,7 +517,7 @@
 </head>
 <body>
     <div class="player-container">
-        <video id="video-player"></video>
+        <video id="video-player" preload="auto" muted></video>
         
         <div class="click-overlay" id="click-overlay"></div>
         
@@ -679,6 +685,27 @@
                     videoPlayer.play();
                 }
             });
+            
+            // ===== FUNÇÃO PARA IR PARA O ÚLTIMO MINUTO =====
+            function seekToLastMinute() {
+                return new Promise((resolve) => {
+                    if (videoPlayer.duration && isFinite(videoPlayer.duration)) {
+                        // Vai para 60 segundos antes do final
+                        const targetTime = Math.max(0, videoPlayer.duration - 60);
+                        
+                        const onSeeked = () => {
+                            console.log(`Posicionado em: ${videoPlayer.currentTime.toFixed(2)}s de ${videoPlayer.duration.toFixed(2)}s`);
+                            videoPlayer.removeEventListener('seeked', onSeeked);
+                            resolve();
+                        };
+                        
+                        videoPlayer.addEventListener('seeked', onSeeked);
+                        videoPlayer.currentTime = targetTime;
+                    } else {
+                        resolve();
+                    }
+                });
+            }
             
             // ===== FULLSCREEN =====
             function enterFullscreen() {
@@ -944,6 +971,9 @@
                 
                 loadingScreen.classList.add('show');
                 
+                // Esconder vídeo durante carregamento
+                videoPlayer.classList.remove('ready');
+                
                 document.querySelectorAll('.channel-item').forEach(item => {
                     item.classList.remove('active');
                 });
@@ -965,19 +995,32 @@
                 videoPlayer.src = channel.url;
                 videoPlayer.load();
                 
-                const onCanPlay = () => {
-                    loadingScreen.classList.remove('show');
-                    enterFullscreen();
+                const onCanPlay = async () => {
+                    // ===== POSICIONAR NO ÚLTIMO MINUTO E AGUARDAR =====
+                    await seekToLastMinute();
                     
-                    videoPlayer.play().catch(e => {
-                        console.log('Reprodução bloqueada');
+                    // Delay mínimo apenas para garantir o frame correto
+                    setTimeout(() => {
                         loadingScreen.classList.remove('show');
-                    });
-                    
-                    if (isFirstLoad) {
-                        isFirstLoad = false;
-                        showOverlayInitial();
-                    }
+                        
+                        // Mostrar vídeo apenas após seek completo
+                        videoPlayer.classList.add('ready');
+                        
+                        // Ativar áudio
+                        videoPlayer.muted = false;
+                        
+                        enterFullscreen();
+                        
+                        videoPlayer.play().catch(e => {
+                            console.log('Reprodução bloqueada');
+                            loadingScreen.classList.remove('show');
+                        });
+                        
+                        if (isFirstLoad) {
+                            isFirstLoad = false;
+                            showOverlayInitial();
+                        }
+                    }, 50);
                     
                     videoPlayer.removeEventListener('canplay', onCanPlay);
                     videoPlayer.removeEventListener('error', onError);
@@ -990,8 +1033,15 @@
                     videoPlayer.removeEventListener('error', onError);
                 };
                 
+                // ===== LISTENER ADICIONAL PARA GARANTIR POSICIONAMENTO =====
+                const onLoadedMetadata = () => {
+                    seekToLastMinute();
+                    videoPlayer.removeEventListener('loadedmetadata', onLoadedMetadata);
+                };
+                
                 videoPlayer.addEventListener('canplay', onCanPlay);
                 videoPlayer.addEventListener('error', onError);
+                videoPlayer.addEventListener('loadedmetadata', onLoadedMetadata);
                 
                 currentChannelIndex = index;
                 
