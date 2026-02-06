@@ -16,7 +16,7 @@ http://hqf6tcxuhk.singularcdn.net.br/live/019498af-1fdf-7df5-86bd-e4a6f588d6a7/s
 #EXTINF:-1 tvg-id="cultura" tvg-name="TV CULTURA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cultura.png" group-title="canais | SERIE", TV CULTURA
 https://player-tvcultura.stream.uol.com.br/live/tvcultura.m3u8
 
-#EXTINF:-1 tvg-id="toon" tvg-name="TOON" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/toon.png" group-title="canais | INFANTIL ", TONN GOGGLES
+#EXTINF:-1 tvg-id="toon" tvg-name="TOON" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/toon.png" group-title="canais | INFANTIL ", TOON GOGGLES
 https://stream.ads.ottera.tv/playlist.m3u8?network_id=5442
 
 #EXTINF:-1 tvg-id="cnnbr" tvg-name="CNN BRASIL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnnbr.png" group-title="canais | NOTÍCIAS", CNN BRASIL
