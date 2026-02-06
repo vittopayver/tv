@@ -7,11 +7,11 @@ https://cr7v.short.gy/25mensais/s2/Whats7591634025.m3u8
 #EXTINF:-1 tvg-id="record" tvg-name="RECORD" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/record.png" group-title="canais | VARIADO", RECORD
 https://tvconquistalrv.duckdns.org:3334/hls/tvconquistalrv.m3u8?ManoTV
 
-#EXTINF:-1 tvg-id="redetv" tvg-name="REDE TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redetv.png" group-title="canais | VARIADO", REDE TV
-https://stmv6.voxtvhd.com.br/imperialtv/imperialtv/playlist.m3u8
-
 #EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/band.png" group-title="canais | VARIADO", BAND
 http://hqf6tcxuhk.singularcdn.net.br/live/019498af-1fdf-7df5-86bd-e4a6f588d6a7/s1/playlist_nova-a.m3u8?sjwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmlfc3ViIjoiLzAxOTQ5OGFmLTFmZGYtN2RmNS04NmJkLWU0YTZmNTg4ZDZhNy8iLCJ1aWQiOiI0MDY2ZjA0Mi1iMjU5LTQxNDctOTZiOC1iMGY2NTZkMzBhZmIiLCJyYXUiOm51bGwsImJleSI6ZmFsc2UsImlpcCI6ZmFsc2UsIm5iZiI6MTc3MDMxMDk4NywiaWF0IjoxNzcwMzEwOTg3LCJleHAiOjE4MDE4NDY5ODcsImp0aSI6IjQwNjZmMDQyLWIyNTktNDE0Ny05NmI4LWIwZjY1NmQzMGFmYiIsImlzcyI6IlNwYWxsYSJ9.dIRKAqYJKvHBy0QCLbvRESG8Rw3MWNjuHfF8Ihy2X84&uid=4066f042-b259-4147-96b8-b0f656d30afb&magica=sim
+
+#EXTINF:-1 tvg-id="redetv" tvg-name="REDE TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redetv.png" group-title="canais | VARIADO", REDE TV
+https://stmv6.voxtvhd.com.br/imperialtv/imperialtv/playlist.m3u8
 
 #EXTINF:-1 tvg-id="cultura" tvg-name="TV CULTURA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cultura.png" group-title="canais | SERIE", TV CULTURA
 https://player-tvcultura.stream.uol.com.br/live/tvcultura.m3u8
