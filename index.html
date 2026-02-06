@@ -43,15 +43,6 @@
             opacity: 1;
         }
         
-        /* Iframe escondido para bypass */
-        #proxy-iframe {
-            display: none;
-            position: absolute;
-            width: 0;
-            height: 0;
-            border: none;
-        }
-        
         .click-overlay {
             position: absolute;
             top: 0;
@@ -542,8 +533,7 @@
 </head>
 <body>
     <div class="player-container">
-        <video id="video-player" preload="auto" muted crossorigin="anonymous"></video>
-        <iframe id="proxy-iframe" sandbox="allow-same-origin allow-scripts"></iframe>
+        <video id="video-player" preload="auto" muted></video>
         
         <div class="click-overlay" id="click-overlay"></div>
         
@@ -578,6 +568,7 @@
         (function() {
             'use strict';
             
+            // Bloquear DevTools
             const devtoolsDetector = () => {
                 const threshold = 160;
                 const widthThreshold = window.outerWidth - window.innerWidth > threshold;
@@ -588,29 +579,37 @@
                 }
             };
             
+            // Bloquear menu de contexto
             document.addEventListener('contextmenu', e => e.preventDefault());
             
+            // Bloquear atalhos do teclado
             document.addEventListener('keydown', e => {
+                // F12
                 if (e.keyCode === 123) {
                     e.preventDefault();
                     return false;
                 }
+                // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
                 if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) {
                     e.preventDefault();
                     return false;
                 }
+                // Ctrl+U (view source)
                 if (e.ctrlKey && e.keyCode === 85) {
                     e.preventDefault();
                     return false;
                 }
+                // Ctrl+S (save)
                 if (e.ctrlKey && e.keyCode === 83) {
                     e.preventDefault();
                     return false;
                 }
             });
             
+            // Detectar abertura do DevTools
             setInterval(devtoolsDetector, 1000);
             
+            // Bloquear seleção de texto adicional
             document.onselectstart = () => false;
             document.oncopy = () => false;
         })();
@@ -627,20 +626,9 @@
             const clickOverlay = document.getElementById('click-overlay');
             const loadingScreen = document.getElementById('loading-screen');
             const saibaMaisBtn = document.getElementById('saiba-mais-btn');
-            const proxyIframe = document.getElementById('proxy-iframe');
             
+            // URL ofuscada
             const playlistUrl = atob('aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3ZpdHRvcGF5dmVyL3R2L3JlZnMvaGVhZHMvbWFpbi9saXN0YS5tM3U4');
-            
-            // ===== PROXIES CORS PÚBLICOS =====
-            const corsProxies = [
-                '', // Tentar direto primeiro
-                'https://cors-anywhere.herokuapp.com/',
-                'https://api.allorigins.win/raw?url=',
-                'https://corsproxy.io/?',
-                'https://api.codetabs.com/v1/proxy?quest='
-            ];
-            
-            let currentProxyIndex = 0;
             
             let channels = [];
             let currentChannelIndex = -1;
@@ -651,6 +639,7 @@
             let hideInfoTimeout = null;
             let isFirstLoad = true;
             
+            // ===== DETECTAR SE É DISPOSITIVO MÓVEL =====
             function isMobileDevice() {
                 return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
                     || window.innerWidth <= 768;
@@ -658,7 +647,7 @@
             
             const isMobile = isMobileDevice();
             
-            // ===== SISTEMA DE OFUSCAÇÃO MELHORADO =====
+            // Proxy para ocultar URLs
             const urlProxy = new Map();
             let urlCounter = 0;
             
@@ -672,24 +661,7 @@
                 return urlProxy.get(token) || '';
             };
             
-            // ===== BYPASS DE CORS E REFERRER =====
-            function getProxiedUrl(url) {
-                // Se já está com proxy, retorna direto
-                if (url.includes('cors-anywhere') || url.includes('allorigins') || url.includes('corsproxy')) {
-                    return url;
-                }
-                
-                // Tenta com proxy atual
-                const proxy = corsProxies[currentProxyIndex];
-                return proxy ? proxy + encodeURIComponent(url) : url;
-            }
-            
-            function tryNextProxy() {
-                currentProxyIndex = (currentProxyIndex + 1) % corsProxies.length;
-                console.log(`Tentando proxy ${currentProxyIndex}: ${corsProxies[currentProxyIndex] || 'direto'}`);
-            }
-            
-            // ===== INTERCEPTAR E MODIFICAR REQUESTS =====
+            // Interceptar propriedade src do vídeo
             const originalSrcDescriptor = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'src');
             Object.defineProperty(videoPlayer, 'src', {
                 get: function() {
@@ -697,11 +669,7 @@
                 },
                 set: function(value) {
                     if (value.startsWith('__vid_')) {
-                        let realUrl = deobfuscateUrl(value);
-                        
-                        // Tentar com proxy CORS
-                        realUrl = getProxiedUrl(realUrl);
-                        
+                        const realUrl = deobfuscateUrl(value);
                         originalSrcDescriptor.set.call(this, realUrl);
                     } else {
                         originalSrcDescriptor.set.call(this, value);
@@ -710,6 +678,7 @@
                 configurable: false
             });
             
+            // Bloquear acesso a currentSrc
             Object.defineProperty(videoPlayer, 'currentSrc', {
                 get: function() {
                     return '[PROTECTED]';
@@ -717,58 +686,7 @@
                 configurable: false
             });
             
-            // ===== REMOVER REFERRER =====
-            const metaReferrer = document.createElement('meta');
-            metaReferrer.name = 'referrer';
-            metaReferrer.content = 'no-referrer';
-            document.head.appendChild(metaReferrer);
-            
-            // ===== FUNÇÃO DE FETCH COM BYPASS =====
-            async function fetchWithBypass(url, options = {}) {
-                // Tentar fetch direto primeiro
-                try {
-                    const response = await fetch(url, {
-                        ...options,
-                        mode: 'cors',
-                        credentials: 'omit',
-                        referrerPolicy: 'no-referrer',
-                        headers: {
-                            ...options.headers,
-                            'Origin': window.location.origin,
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    });
-                    
-                    if (response.ok) return response;
-                } catch (e) {
-                    console.log('Fetch direto falhou, tentando com proxy...');
-                }
-                
-                // Tentar com proxies
-                for (let i = 0; i < corsProxies.length; i++) {
-                    const proxy = corsProxies[i];
-                    const proxiedUrl = proxy ? proxy + encodeURIComponent(url) : url;
-                    
-                    try {
-                        const response = await fetch(proxiedUrl, {
-                            ...options,
-                            mode: 'cors',
-                            credentials: 'omit',
-                            referrerPolicy: 'no-referrer'
-                        });
-                        
-                        if (response.ok) {
-                            currentProxyIndex = i;
-                            return response;
-                        }
-                    } catch (e) {
-                        console.log(`Proxy ${i} falhou`);
-                    }
-                }
-                
-                throw new Error('Todos os proxies falharam');
-            }
-            
+            // ===== BOTÃO SAIBA MAIS =====
             saibaMaisBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 if (channels.length > 0 && channels[0].link) {
@@ -776,6 +694,7 @@
                 }
             });
             
+            // ===== LOOP DO VÍDEO NO PRIMEIRO CANAL =====
             videoPlayer.addEventListener('ended', function() {
                 if (currentChannelIndex === 0) {
                     videoPlayer.currentTime = 0;
@@ -783,9 +702,11 @@
                 }
             });
             
+            // ===== FUNÇÃO PARA IR PARA O ÚLTIMO MINUTO =====
             function seekToLastMinute() {
                 return new Promise((resolve) => {
                     if (videoPlayer.duration && isFinite(videoPlayer.duration)) {
+                        // Vai para 60 segundos antes do final
                         const targetTime = Math.max(0, videoPlayer.duration - 60);
                         
                         const onSeeked = () => {
@@ -802,20 +723,44 @@
                 });
             }
             
+            // ===== DETECTAR ORIENTAÇÃO ATUAL =====
+            function getCurrentOrientation() {
+                if (screen.orientation && screen.orientation.type) {
+                    return screen.orientation.type;
+                }
+                // Fallback: detectar pela proporção
+                return window.innerWidth > window.innerHeight ? 'landscape-primary' : 'portrait-primary';
+            }
+            
+            // ===== FORÇAR MODO PAISAGEM INTELIGENTE =====
             async function forceLandscapeMode() {
                 try {
                     if (screen.orientation && screen.orientation.lock) {
-                        await screen.orientation.lock('landscape-primary').catch(async () => {
-                            await screen.orientation.lock('landscape').catch(() => {
-                                console.log('Não foi possível bloquear em landscape');
+                        const currentOrientation = getCurrentOrientation();
+                        
+                        // Se já está em landscape, manter o lado atual
+                        if (currentOrientation.includes('landscape')) {
+                            await screen.orientation.lock(currentOrientation).catch(async () => {
+                                // Se falhar, tenta landscape genérico
+                                await screen.orientation.lock('landscape').catch(() => {
+                                    console.log('Não foi possível bloquear em landscape');
+                                });
                             });
-                        });
+                        } else {
+                            // Se está em portrait, vai para landscape-primary primeiro
+                            await screen.orientation.lock('landscape-primary').catch(async () => {
+                                await screen.orientation.lock('landscape').catch(() => {
+                                    console.log('Não foi possível bloquear em landscape');
+                                });
+                            });
+                        }
                     }
                 } catch (err) {
                     console.log('Lock de orientação não disponível');
                 }
             }
             
+            // ===== FULLSCREEN =====
             function enterFullscreen() {
                 const elem = document.documentElement;
                 
@@ -847,6 +792,7 @@
             setTimeout(() => {
                 enterFullscreen();
                 
+                // Aguardar fullscreen estar ativo antes de forçar landscape
                 setTimeout(() => {
                     if (isMobile) {
                         forceLandscapeMode();
@@ -862,6 +808,7 @@
                 } else {
                     requestWakeLock();
                     
+                    // Forçar landscape quando entrar em fullscreen (especialmente no primeiro canal)
                     if (isMobile && currentChannelIndex === 0) {
                         setTimeout(() => {
                             forceLandscapeMode();
@@ -879,6 +826,7 @@
                     requestWakeLock();
                     
                     if (isMobile && currentChannelIndex === 0) {
+                        // Forçar landscape quando entrar em fullscreen webkit
                         setTimeout(() => {
                             forceLandscapeMode();
                         }, 100);
@@ -886,6 +834,7 @@
                 }
             });
             
+            // ===== FUNÇÕES DO PLAYER =====
             function showOverlayInitial() {
                 overlayVisible = true;
                 channelsOverlay.classList.add('show');
@@ -931,63 +880,97 @@
                 }, 3000);
             }
             
-            let pressTimer = null;
-            let isPressing = false;
+            // Variáveis para detectar duplo clique
+            let lastClickTime = 0;
+            const DOUBLE_CLICK_DELAY = 300; // 300ms para duplo clique
             
             clickOverlay.addEventListener('click', function(e) {
-                if (!isPressing) {
+                const currentTime = new Date().getTime();
+                const timeDiff = currentTime - lastClickTime;
+                
+                // Duplo clique = rotacionar tela
+                if (timeDiff < DOUBLE_CLICK_DELAY && isMobileDevice()) {
+                    e.stopPropagation();
+                    
+                    // Garantir que está em fullscreen antes de rotacionar
+                    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                        enterFullscreen();
+                        setTimeout(() => {
+                            rotateScreen();
+                        }, 200);
+                    } else {
+                        rotateScreen();
+                    }
+                    
+                    lastClickTime = 0; // Resetar para evitar triplo clique
+                } 
+                // Clique simples = toggle overlay
+                else {
                     toggleOverlay();
+                    lastClickTime = currentTime;
                 }
             });
             
-            if (isMobileDevice()) {
-                clickOverlay.addEventListener('touchstart', function(e) {
-                    isPressing = false;
-                    pressTimer = setTimeout(() => {
-                        isPressing = true;
-                        
-                        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-                            enterFullscreen();
-                            setTimeout(() => {
-                                rotateScreen();
-                            }, 200);
-                        } else {
-                            rotateScreen();
-                        }
-                    }, 800);
-                });
-                
-                clickOverlay.addEventListener('touchend', function(e) {
-                    clearTimeout(pressTimer);
-                    setTimeout(() => {
-                        isPressing = false;
-                    }, 100);
-                });
-                
-                clickOverlay.addEventListener('touchmove', function(e) {
-                    clearTimeout(pressTimer);
-                    isPressing = false;
-                });
-            }
-            
+            // ===== ROTAÇÃO INTELIGENTE - ALTERNA ENTRE LANDSCAPE-PRIMARY E LANDSCAPE-SECONDARY =====
             async function rotateScreen() {
                 try {
                     if (screen.orientation && screen.orientation.lock) {
-                        const currentOrientation = screen.orientation.type;
+                        const currentOrientation = getCurrentOrientation();
                         
+                        // Se está em portrait, vai para landscape-primary
                         if (currentOrientation.includes('portrait')) {
                             await screen.orientation.lock('landscape-primary').catch(async () => {
                                 await screen.orientation.lock('landscape');
                             });
-                        } else {
-                            await screen.orientation.lock('portrait-primary').catch(async () => {
-                                await screen.orientation.lock('portrait');
+                        } 
+                        // Se está em landscape-primary, vai para landscape-secondary
+                        else if (currentOrientation === 'landscape-primary') {
+                            await screen.orientation.lock('landscape-secondary').catch(() => {
+                                console.log('landscape-secondary não disponível');
+                            });
+                        }
+                        // Se está em landscape-secondary, volta para landscape-primary
+                        else if (currentOrientation === 'landscape-secondary') {
+                            await screen.orientation.lock('landscape-primary').catch(() => {
+                                console.log('landscape-primary não disponível');
+                            });
+                        }
+                        // Fallback genérico
+                        else {
+                            await screen.orientation.lock('landscape-primary').catch(async () => {
+                                await screen.orientation.lock('landscape');
                             });
                         }
                     }
                 } catch (err) {
-                    console.log('Rotação de tela não disponível');
+                    console.log('Rotação de tela não disponível:', err);
                 }
+            }
+            
+            // ===== DETECTAR ROTAÇÃO FÍSICA DO DISPOSITIVO =====
+            if (isMobileDevice() && screen.orientation) {
+                screen.orientation.addEventListener('change', async function() {
+                    const newOrientation = getCurrentOrientation();
+                    console.log('Orientação física mudou para:', newOrientation);
+                    
+                    // Liberar o lock temporariamente para permitir a rotação física
+                    // Depois re-aplicar o lock na nova orientação detectada
+                    if (newOrientation.includes('landscape')) {
+                        try {
+                            // Lock na orientação que o usuário escolheu fisicamente
+                            await screen.orientation.lock(newOrientation).catch(async () => {
+                                await screen.orientation.lock('landscape');
+                            });
+                        } catch (err) {
+                            console.log('Não foi possível travar na nova orientação');
+                        }
+                    } else if (newOrientation.includes('portrait') && currentChannelIndex === 0) {
+                        // Se tentar voltar para portrait no primeiro canal, força landscape novamente
+                        setTimeout(() => {
+                            forceLandscapeMode();
+                        }, 100);
+                    }
+                });
             }
             
             channelsOverlay.addEventListener('click', function(e) {
@@ -997,8 +980,13 @@
             function loadPlaylist(url) {
                 channelsList.innerHTML = '<div class="loading">Carregando lista de canais...</div>';
                 
-                fetchWithBypass(url)
-                    .then(response => response.text())
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao carregar a playlist');
+                        }
+                        return response.text();
+                    })
                     .then(data => {
                         parsePlaylist(data);
                     })
@@ -1042,6 +1030,7 @@
                                 link = linkMatch[1];
                             }
                             
+                            // Ofuscar URL antes de armazenar
                             const obfuscatedUrl = obfuscateUrl(url);
                             
                             channels.push({
@@ -1102,6 +1091,8 @@
                 const channel = channels[index];
                 
                 loadingScreen.classList.add('show');
+                
+                // Esconder vídeo durante carregamento
                 videoPlayer.classList.remove('ready');
                 
                 document.querySelectorAll('.channel-item').forEach(item => {
@@ -1121,19 +1112,27 @@
                     saibaMaisBtn.classList.remove('show');
                 }
                 
+                // Usar URL ofuscada
                 videoPlayer.src = channel.url;
                 videoPlayer.load();
                 
                 const onCanPlay = async () => {
+                    // ===== POSICIONAR NO ÚLTIMO MINUTO E AGUARDAR =====
                     await seekToLastMinute();
                     
+                    // Delay mínimo apenas para garantir o frame correto
                     setTimeout(() => {
                         loadingScreen.classList.remove('show');
+                        
+                        // Mostrar vídeo apenas após seek completo
                         videoPlayer.classList.add('ready');
+                        
+                        // Ativar áudio
                         videoPlayer.muted = false;
                         
                         enterFullscreen();
                         
+                        // Forçar landscape no primeiro canal após fullscreen
                         if (isMobile && index === 0) {
                             setTimeout(() => {
                                 forceLandscapeMode();
@@ -1155,32 +1154,14 @@
                     videoPlayer.removeEventListener('error', onError);
                 };
                 
-                const onError = (e) => {
-                    console.log('Erro ao carregar, tentando próximo proxy...');
-                    
-                    // Tentar com próximo proxy
-                    tryNextProxy();
-                    
-                    // Recarregar com novo proxy
+                const onError = () => {
+                    loadingScreen.classList.remove('show');
+                    showVideoInfo();
                     videoPlayer.removeEventListener('canplay', onCanPlay);
                     videoPlayer.removeEventListener('error', onError);
-                    
-                    // Tentar novamente após breve delay
-                    setTimeout(() => {
-                        if (currentProxyIndex < corsProxies.length) {
-                            videoPlayer.src = channel.url;
-                            videoPlayer.load();
-                            videoPlayer.addEventListener('canplay', onCanPlay);
-                            videoPlayer.addEventListener('error', onError);
-                        } else {
-                            loadingScreen.classList.remove('show');
-                            showVideoInfo();
-                            channelTitle.textContent = 'Erro ao carregar canal';
-                            channelDescription.textContent = 'Tente outro canal';
-                        }
-                    }, 500);
                 };
                 
+                // ===== LISTENER ADICIONAL PARA GARANTIR POSICIONAMENTO =====
                 const onLoadedMetadata = () => {
                     seekToLastMinute();
                     videoPlayer.removeEventListener('loadedmetadata', onLoadedMetadata);
@@ -1391,6 +1372,7 @@
                 if (document.fullscreenElement) {
                     requestWakeLock();
                     
+                    // Forçar landscape quando entrar em fullscreen (especialmente no primeiro canal)
                     if (isMobile && currentChannelIndex === 0) {
                         setTimeout(() => {
                             forceLandscapeMode();
@@ -1403,6 +1385,7 @@
                 if (document.webkitFullscreenElement) {
                     requestWakeLock();
                     
+                    // Forçar landscape quando entrar em fullscreen (especialmente no primeiro canal)
                     if (isMobile && currentChannelIndex === 0) {
                         setTimeout(() => {
                             forceLandscapeMode();
