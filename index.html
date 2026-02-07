@@ -723,37 +723,16 @@
                 });
             }
             
-            // ===== DETECTAR ORIENTAÇÃO ATUAL =====
-            function getCurrentOrientation() {
-                if (screen.orientation && screen.orientation.type) {
-                    return screen.orientation.type;
-                }
-                // Fallback: detectar pela proporção
-                return window.innerWidth > window.innerHeight ? 'landscape-primary' : 'portrait-primary';
-            }
-            
-            // ===== FORÇAR MODO PAISAGEM INTELIGENTE =====
+            // ===== FORÇAR MODO PAISAGEM =====
             async function forceLandscapeMode() {
                 try {
                     if (screen.orientation && screen.orientation.lock) {
-                        const currentOrientation = getCurrentOrientation();
-                        
-                        // Se já está em landscape, manter o lado atual
-                        if (currentOrientation.includes('landscape')) {
-                            await screen.orientation.lock(currentOrientation).catch(async () => {
-                                // Se falhar, tenta landscape genérico
-                                await screen.orientation.lock('landscape').catch(() => {
-                                    console.log('Não foi possível bloquear em landscape');
-                                });
+                        await screen.orientation.lock('landscape-primary').catch(async () => {
+                            // Se landscape-primary falhar, tenta landscape genérico
+                            await screen.orientation.lock('landscape').catch(() => {
+                                console.log('Não foi possível bloquear em landscape');
                             });
-                        } else {
-                            // Se está em portrait, vai para landscape-primary primeiro
-                            await screen.orientation.lock('landscape-primary').catch(async () => {
-                                await screen.orientation.lock('landscape').catch(() => {
-                                    console.log('Não foi possível bloquear em landscape');
-                                });
-                            });
-                        }
+                        });
                     }
                 } catch (err) {
                     console.log('Lock de orientação não disponível');
@@ -880,97 +859,68 @@
                 }, 3000);
             }
             
-            // Variáveis para detectar duplo clique
-            let lastClickTime = 0;
-            const DOUBLE_CLICK_DELAY = 300; // 300ms para duplo clique
+            // Variáveis para detectar pressão longa
+            let pressTimer = null;
+            let isPressing = false;
             
             clickOverlay.addEventListener('click', function(e) {
-                const currentTime = new Date().getTime();
-                const timeDiff = currentTime - lastClickTime;
-                
-                // Duplo clique = rotacionar tela
-                if (timeDiff < DOUBLE_CLICK_DELAY && isMobileDevice()) {
-                    e.stopPropagation();
-                    
-                    // Garantir que está em fullscreen antes de rotacionar
-                    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-                        enterFullscreen();
-                        setTimeout(() => {
-                            rotateScreen();
-                        }, 200);
-                    } else {
-                        rotateScreen();
-                    }
-                    
-                    lastClickTime = 0; // Resetar para evitar triplo clique
-                } 
-                // Clique simples = toggle overlay
-                else {
+                if (!isPressing) {
                     toggleOverlay();
-                    lastClickTime = currentTime;
                 }
             });
             
-            // ===== ROTAÇÃO INTELIGENTE - ALTERNA ENTRE LANDSCAPE-PRIMARY E LANDSCAPE-SECONDARY =====
+            // Rotação de tela ao segurar/pressionar (apenas mobile)
+            if (isMobileDevice()) {
+                clickOverlay.addEventListener('touchstart', function(e) {
+                    isPressing = false;
+                    pressTimer = setTimeout(() => {
+                        isPressing = true;
+                        
+                        // Garantir que está em fullscreen antes de rotacionar
+                        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                            enterFullscreen();
+                            setTimeout(() => {
+                                rotateScreen();
+                            }, 200);
+                        } else {
+                            rotateScreen();
+                        }
+                    }, 1000); // 1 segundo de pressão para girar
+                });
+                
+                clickOverlay.addEventListener('touchend', function(e) {
+                    clearTimeout(pressTimer);
+                    setTimeout(() => {
+                        isPressing = false;
+                    }, 100);
+                });
+                
+                clickOverlay.addEventListener('touchmove', function(e) {
+                    clearTimeout(pressTimer);
+                    isPressing = false;
+                });
+            }
+            
             async function rotateScreen() {
                 try {
                     if (screen.orientation && screen.orientation.lock) {
-                        const currentOrientation = getCurrentOrientation();
+                        const currentOrientation = screen.orientation.type;
                         
-                        // Se está em portrait, vai para landscape-primary
+                        // Alternar entre portrait e landscape
                         if (currentOrientation.includes('portrait')) {
                             await screen.orientation.lock('landscape-primary').catch(async () => {
                                 await screen.orientation.lock('landscape');
                             });
-                        } 
-                        // Se está em landscape-primary, vai para landscape-secondary
-                        else if (currentOrientation === 'landscape-primary') {
-                            await screen.orientation.lock('landscape-secondary').catch(() => {
-                                console.log('landscape-secondary não disponível');
-                            });
-                        }
-                        // Se está em landscape-secondary, volta para landscape-primary
-                        else if (currentOrientation === 'landscape-secondary') {
-                            await screen.orientation.lock('landscape-primary').catch(() => {
-                                console.log('landscape-primary não disponível');
-                            });
-                        }
-                        // Fallback genérico
-                        else {
-                            await screen.orientation.lock('landscape-primary').catch(async () => {
-                                await screen.orientation.lock('landscape');
+                        } else {
+                            // Permite voltar ao portrait se usuário quiser
+                            await screen.orientation.lock('portrait-primary').catch(async () => {
+                                await screen.orientation.lock('portrait');
                             });
                         }
                     }
                 } catch (err) {
-                    console.log('Rotação de tela não disponível:', err);
+                    console.log('Rotação de tela não disponível');
                 }
-            }
-            
-            // ===== DETECTAR ROTAÇÃO FÍSICA DO DISPOSITIVO =====
-            if (isMobileDevice() && screen.orientation) {
-                screen.orientation.addEventListener('change', async function() {
-                    const newOrientation = getCurrentOrientation();
-                    console.log('Orientação física mudou para:', newOrientation);
-                    
-                    // Liberar o lock temporariamente para permitir a rotação física
-                    // Depois re-aplicar o lock na nova orientação detectada
-                    if (newOrientation.includes('landscape')) {
-                        try {
-                            // Lock na orientação que o usuário escolheu fisicamente
-                            await screen.orientation.lock(newOrientation).catch(async () => {
-                                await screen.orientation.lock('landscape');
-                            });
-                        } catch (err) {
-                            console.log('Não foi possível travar na nova orientação');
-                        }
-                    } else if (newOrientation.includes('portrait') && currentChannelIndex === 0) {
-                        // Se tentar voltar para portrait no primeiro canal, força landscape novamente
-                        setTimeout(() => {
-                            forceLandscapeMode();
-                        }, 100);
-                    }
-                });
             }
             
             channelsOverlay.addEventListener('click', function(e) {
