@@ -19,9 +19,6 @@ https://video08.logicahost.com.br/tvc21/tvc21/playlist.m3u8
 #EXTINF:-1 tvg-id="cultura" tvg-name="TV CULTURA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cultura.png" group-title="canais | SERIE", TV CULTURA
 https://player-tvcultura.stream.uol.com.br/live/tvcultura.m3u8
 
-#EXTINF:-1 tvg-id="h&h" tvg-name="H&H" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/h&h.png" group-title="canais | VARIADO ", H&H
-http://hls1.sua.tv:80/live/discoveryhehfhd/s.m3u8
-
 #EXTINF:-1 tvg-id="toon" tvg-name="TOON" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/toon.png" group-title="canais | INFANTIL ", TOON GOGGLES
 https://stream.ads.ottera.tv/playlist.m3u8?network_id=5442
 
@@ -67,14 +64,11 @@ http://46.151.196.223:14444/
 #EXTINF:-1 tvg-id="espn4" tvg-name="ESPN4" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="canais | SPORTE", ESPN4
 http://46.151.196.223:14450/
 
-#EXTINF:-1 tvg-id="space" tvg-name="SPACE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/space.png" group-title="canais | FILMES", SPACE
-http://200.4.96.59:8825/play/a02k/index.m3u8?art
-
-#EXTINF:-1 tvg-id="warner" tvg-name="WARNER" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/warner.png" group-title="canais | FILMES", WARNER
-http://79.127.238.228:14647/
+#EXTINF:-1 tvg-id="h&h" tvg-name="H&H" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/h&h.png" group-title="canais | VARIADO ", H&H
+http://hls1.sua.tv:80/live/discoveryhehfhd/s.m3u8
 
 #EXTINF:-1 tvg-id="a&e" tvg-name="A&E" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/a&e.png" group-title="canais | FILMES", A&E
 http://79.127.238.228:14551/
 
-#EXTINF:-1 tvg-id="axn" tvg-name="AXN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/axn.png" group-title="canais | FILMES", AXN
-http://200.4.96.59:8825/play/a02t/index.m3u8
+#EXTINF:-1 tvg-id="warner" tvg-name="WARNER" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/warner.png" group-title="canais | FILMES", WARNER
+http://79.127.238.228:14647/
