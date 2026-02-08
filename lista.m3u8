@@ -13,6 +13,9 @@ http://hqf6tcxuhk.singularcdn.net.br/live/019498af-1fdf-7df5-86bd-e4a6f588d6a7/s
 #EXTINF:-1 tvg-id="redetv" tvg-name="REDE TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redetv.png" group-title="canais | VARIADO", REDE TV
 https://stmv6.voxtvhd.com.br/imperialtv/imperialtv/playlist.m3u8
 
+#EXTINF:-1 tvg-id="gazeta" tvg-name="GAZETA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gazeta.png" group-title="canais | VARIADO ", GAZETA
+https://video08.logicahost.com.br/tvc21/tvc21/playlist.m3u8
+
 #EXTINF:-1 tvg-id="cultura" tvg-name="TV CULTURA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cultura.png" group-title="canais | SERIE", TV CULTURA
 https://player-tvcultura.stream.uol.com.br/live/tvcultura.m3u8
 
