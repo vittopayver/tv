@@ -723,19 +723,48 @@
                 });
             }
             
-            // ===== FORÇAR MODO PAISAGEM =====
-            async function forceLandscapeMode() {
+            // ===== ROTAÇÃO DE TELA CORRIGIDA =====
+            async function rotateScreen() {
                 try {
                     if (screen.orientation && screen.orientation.lock) {
-                        await screen.orientation.lock('landscape-primary').catch(async () => {
-                            // Se landscape-primary falhar, tenta landscape genérico
-                            await screen.orientation.lock('landscape').catch(() => {
-                                console.log('Não foi possível bloquear em landscape');
+                        const currentOrientation = screen.orientation.type;
+                        
+                        // Desbloquear orientação primeiro
+                        if (screen.orientation.unlock) {
+                            screen.orientation.unlock();
+                        }
+                        
+                        // Aguardar um momento para o unlock
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                        
+                        // Alternar entre orientações
+                        if (currentOrientation.includes('portrait')) {
+                            // De portrait para landscape
+                            await screen.orientation.lock('landscape').catch(err => {
+                                console.log('Não foi possível travar em landscape:', err);
                             });
-                        });
+                        } else if (currentOrientation.includes('landscape-primary')) {
+                            // De landscape-primary para landscape-secondary (outro lado)
+                            await screen.orientation.lock('landscape-secondary').catch(async err => {
+                                console.log('Landscape-secondary não disponível, tentando portrait');
+                                await screen.orientation.lock('portrait').catch(e => {
+                                    console.log('Não foi possível travar em portrait:', e);
+                                });
+                            });
+                        } else if (currentOrientation.includes('landscape-secondary')) {
+                            // De landscape-secondary para portrait
+                            await screen.orientation.lock('portrait').catch(err => {
+                                console.log('Não foi possível travar em portrait:', err);
+                            });
+                        } else {
+                            // Qualquer outro caso, vai para landscape
+                            await screen.orientation.lock('landscape').catch(err => {
+                                console.log('Não foi possível travar em landscape:', err);
+                            });
+                        }
                     }
                 } catch (err) {
-                    console.log('Lock de orientação não disponível');
+                    console.log('Rotação de tela não disponível:', err);
                 }
             }
             
@@ -770,13 +799,6 @@
             
             setTimeout(() => {
                 enterFullscreen();
-                
-                // Aguardar fullscreen estar ativo antes de forçar landscape
-                setTimeout(() => {
-                    if (isMobile) {
-                        forceLandscapeMode();
-                    }
-                }, 300);
             }, 500);
             
             document.addEventListener('fullscreenchange', function() {
@@ -786,13 +808,6 @@
                     }, 100);
                 } else {
                     requestWakeLock();
-                    
-                    // Forçar landscape quando entrar em fullscreen (especialmente no primeiro canal)
-                    if (isMobile && currentChannelIndex === 0) {
-                        setTimeout(() => {
-                            forceLandscapeMode();
-                        }, 100);
-                    }
                 }
             });
             
@@ -803,13 +818,6 @@
                     }, 100);
                 } else {
                     requestWakeLock();
-                    
-                    if (isMobile && currentChannelIndex === 0) {
-                        // Forçar landscape quando entrar em fullscreen webkit
-                        setTimeout(() => {
-                            forceLandscapeMode();
-                        }, 100);
-                    }
                 }
             });
             
@@ -881,7 +889,7 @@
                             enterFullscreen();
                             setTimeout(() => {
                                 rotateScreen();
-                            }, 200);
+                            }, 300);
                         } else {
                             rotateScreen();
                         }
@@ -899,28 +907,6 @@
                     clearTimeout(pressTimer);
                     isPressing = false;
                 });
-            }
-            
-            async function rotateScreen() {
-                try {
-                    if (screen.orientation && screen.orientation.lock) {
-                        const currentOrientation = screen.orientation.type;
-                        
-                        // Alternar entre portrait e landscape
-                        if (currentOrientation.includes('portrait')) {
-                            await screen.orientation.lock('landscape-primary').catch(async () => {
-                                await screen.orientation.lock('landscape');
-                            });
-                        } else {
-                            // Permite voltar ao portrait se usuário quiser
-                            await screen.orientation.lock('portrait-primary').catch(async () => {
-                                await screen.orientation.lock('portrait');
-                            });
-                        }
-                    }
-                } catch (err) {
-                    console.log('Rotação de tela não disponível');
-                }
             }
             
             channelsOverlay.addEventListener('click', function(e) {
@@ -1081,13 +1067,6 @@
                         videoPlayer.muted = false;
                         
                         enterFullscreen();
-                        
-                        // Forçar landscape no primeiro canal após fullscreen
-                        if (isMobile && index === 0) {
-                            setTimeout(() => {
-                                forceLandscapeMode();
-                            }, 300);
-                        }
                         
                         videoPlayer.play().catch(e => {
                             console.log('Reprodução bloqueada');
@@ -1317,32 +1296,6 @@
             if (screen.orientation) {
                 screen.orientation.addEventListener('change', handleOrientationChange);
             }
-            
-            document.addEventListener('fullscreenchange', function() {
-                if (document.fullscreenElement) {
-                    requestWakeLock();
-                    
-                    // Forçar landscape quando entrar em fullscreen (especialmente no primeiro canal)
-                    if (isMobile && currentChannelIndex === 0) {
-                        setTimeout(() => {
-                            forceLandscapeMode();
-                        }, 100);
-                    }
-                }
-            });
-            
-            document.addEventListener('webkitfullscreenchange', function() {
-                if (document.webkitFullscreenElement) {
-                    requestWakeLock();
-                    
-                    // Forçar landscape quando entrar em fullscreen (especialmente no primeiro canal)
-                    if (isMobile && currentChannelIndex === 0) {
-                        setTimeout(() => {
-                            forceLandscapeMode();
-                        }, 100);
-                    }
-                }
-            });
             
             loadPlaylist(playlistUrl);
         });
