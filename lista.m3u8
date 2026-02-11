@@ -16,7 +16,7 @@ https://stmv6.voxtvhd.com.br/imperialtv/imperialtv/playlist.m3u8
 #EXTINF:-1 tvg-id="gazeta" tvg-name="GAZETA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gazeta.png" group-title="Canal Aberto | HD", GAZETA
 https://video08.logicahost.com.br/tvc21/tvc21/playlist.m3u8
 
-#EXTINF:-1 tvg-id="cultura" tvg-name="TV CULTURA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cultura.png" group-title="Canal Aberto | HD", TV CULTURA
+#EXTINF:-1 tvg-id="cultura" tvg-name="TV CULTURA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cultura.png" group-title="Canal Aberto | FHD", TV CULTURA
 https://player-tvcultura.stream.uol.com.br/live/tvcultura.m3u8
 
 #EXTINF:-1 tvg-id="toon" tvg-name="TOON" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/toon.png" group-title="Canal Infantil | FHD", TOON GOGGLES
@@ -37,7 +37,7 @@ https://amg00527-amg00527c5-amgplt0026.playout.now3.amagi.tv/ts-us-w2-n1/playlis
 #EXTINF:-1 tvg-id="globonews" tvg-name="GLOBO NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globonews.png" group-title="Canal de Notícias | HD", GLOBO NEWS 
 http://xxip9.top:8080/Gizvid192@giz.com/1234@4321/164945
 
-#EXTINF:-1 tvg-id="getv" tvg-name="GETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/getv.png" group-title="Canal de Esportes | HD", GE TV
+#EXTINF:-1 tvg-id="getv" tvg-name="GETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/getv.png" group-title="Canal de Esportes | FHD", GE TV
 https://amg00716-globo-amg00716c1-tcl-br-9495.playouts.now.amagi.tv/1080p-cc/index.m3u8
 
 #EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/caze.png" group-title="Canal de Esportes | HD", CAZÉ TV
