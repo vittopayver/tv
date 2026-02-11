@@ -53,7 +53,7 @@ http://79.127.243.211:14469/
 http://79.127.243.211:14473/#EXTINF:-1 tvg-id="sportetv3" tvg-name="SPORTE TV3" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportetv.png" group-title="canais | VARIADO", SPORTE TV3
 
 #EXTINF:-1 tvg-id="espn" tvg-name="ESPN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes | HD", ESPN
-https://cr7v.short.gy/live25/spn/Index.m3u8
+https://cr7v.short.gy/manoiTVOP2/spnHD²/Index.m3u8
 
 #EXTINF:-1 tvg-id="espn2" tvg-name="ESPN2" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes | HD", ESPN2
 http://46.151.196.223:14438/
