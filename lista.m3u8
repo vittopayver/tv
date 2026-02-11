@@ -40,29 +40,14 @@ http://xxip9.top:8080/Gizvid192@giz.com/1234@4321/164945
 #EXTINF:-1 tvg-id="getv" tvg-name="GETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/getv.png" group-title="Canal de Esportes | FHD", GE TV
 https://amg00716-globo-amg00716c1-tcl-br-9495.playouts.now.amagi.tv/1080p-cc/index.m3u8
 
-#EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/caze.png" group-title="Canal de Esportes | HD", CAZÉ TV
+#EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/caze.png" group-title="Canal de Esportes | FHD", CAZÉ TV
 https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.m3u8
 
-#EXTINF:-1 tvg-id="desimpedidos" tvg-name="DESIMPEDIDOS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/desimpedidos.png" group-title="Canal de Esportes | HD", DESIMPEDIDOS
+#EXTINF:-1 tvg-id="desimpedidos" tvg-name="DESIMPEDIDOS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/desimpedidos.png" group-title="Canal de Esportes | FHD", DESIMPEDIDOS
 https://cc-vvkv6xjfc6w5v.akamaized.net/ogc/desi/desi_h265.m3u8
 
-#EXTINF:-1 tvg-id="sportv2" tvg-name="SPORTV2" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportetv.png" group-title="Canal de Esportes | HD", SPORTV2
-http://79.127.243.211:14469/
-
-#EXTINF:-1 tvg-id="sportv3" tvg-name="SPORTV3" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportetv.png" group-title="Canal de Esportes | HD", SPORTV3
-http://79.127.243.211:14473/#EXTINF:-1 tvg-id="sportetv3" tvg-name="SPORTE TV3" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportetv.png" group-title="canais | VARIADO", SPORTE TV3
-
-#EXTINF:-1 tvg-id="espn" tvg-name="ESPN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes | HD", ESPN
+#EXTINF:-1 tvg-id="espn" tvg-name="ESPN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes | FHD", ESPN
 https://cr7v.short.gy/manoiTVOP2/spnHD²/Index.m3u8
-
-#EXTINF:-1 tvg-id="espn2" tvg-name="ESPN2" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes | HD", ESPN2
-http://46.151.196.223:14438/
-
-#EXTINF:-1 tvg-id="espn3" tvg-name="ESPN3" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes | HD", ESPN3
-http://46.151.196.223:14444/
-
-#EXTINF:-1 tvg-id="espn4" tvg-name="ESPN4" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes | HD", ESPN4
-http://46.151.196.223:14450/
 
 #EXTINF:-1 tvg-id="h&h" tvg-name="H&H" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/h&h.png" group-title="Canal Diversos | HD", H&H
 http://hls1.sua.tv:80/live/discoveryhehfhd/s.m3u8
