@@ -1,77 +1,77 @@
-#EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto | FHD", GLOBO
+#EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto", GLOBO
 http://79.127.238.228:14211/
 
-#EXTINF:-1 tvg-id="sbt" tvg-name="SBT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sbt.png" group-title="Canal Aberto | FHD", SBT
+#EXTINF:-1 tvg-id="sbt" tvg-name="SBT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sbt.png" group-title="Canal Aberto", SBT
 http://79.127.243.211:14095/
 
-#EXTINF:-1 tvg-id="record" tvg-name="RECORD" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/record.png" group-title="Canal Aberto | FHD", RECORD
+#EXTINF:-1 tvg-id="record" tvg-name="RECORD" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/record.png" group-title="Canal Aberto", RECORD
 http://79.127.238.228:14057/
 
-#EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/band.png" group-title="Canal Aberto | FHD", BAND
+#EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/band.png" group-title="Canal Aberto", BAND
 http://79.127.238.228:14298/
 
-#EXTINF:-1 tvg-id="redetv" tvg-name="REDETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redetv.png" group-title="Canal Aberto | HD", REDE TV
+#EXTINF:-1 tvg-id="redetv" tvg-name="REDETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redetv.png" group-title="Canal Aberto", REDE TV
 http://185.152.67.187:14266/
 
-#EXTINF:-1 tvg-id="gazeta" tvg-name="GAZETA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gazeta.png" group-title="Canal Aberto | HD", GAZETA
+#EXTINF:-1 tvg-id="gazeta" tvg-name="GAZETA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gazeta.png" group-title="Canal Aberto", GAZETA
 https://video08.logicahost.com.br/tvc21/tvc21/playlist.m3u8
 
-#EXTINF:-1 tvg-id="cultura" tvg-name="TV CULTURA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cultura.png" group-title="Canal Aberto | FHD", TV CULTURA
+#EXTINF:-1 tvg-id="cultura" tvg-name="TV CULTURA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cultura.png" group-title="Canal Aberto", TV CULTURA
 https://player-tvcultura.stream.uol.com.br/live/tvcultura.m3u8
 
-#EXTINF:-1 tvg-id="toon" tvg-name="TOON" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/toon.png" group-title="Canal Infantil | FHD", TOON GOGGLES
+#EXTINF:-1 tvg-id="toon" tvg-name="TOON" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/toon.png" group-title="Canal Infantil", TOON GOGGLES
 https://stream.ads.ottera.tv/playlist.m3u8?network_id=5442
 
-#EXTINF:-1 tvg-id="gloob" tvg-name="GLOOB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gloob.png" group-title="Canal Infantil | FHD", GLOOB
+#EXTINF:-1 tvg-id="gloob" tvg-name="GLOOB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gloob.png" group-title="Canal Infantil", GLOOB
 http://79.127.243.211:14436/
 
-#EXTINF:-1 tvg-id="ratimbum" tvg-name="RATIMBUM" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/ratimbum.png" group-title="Canal Infantil | HD", RATIMBUM
+#EXTINF:-1 tvg-id="ratimbum" tvg-name="RATIMBUM" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/ratimbum.png" group-title="Canal Infantil", RATIMBUM
 http://79.127.243.211:14432/
 
-#EXTINF:-1 tvg-id="cnnbr" tvg-name="CNN BRASIL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnnbr.png" group-title="Canal de Notícias | FHD", CNN BRASIL
+#EXTINF:-1 tvg-id="cnnbr" tvg-name="CNN BRASIL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnnbr.png" group-title="Canal de Notícias", CNN BRASIL
 https://d25usgadhphvwi.cloudfront.net/hls/stv-plus1280x720/playlist.m3u8
 
-#EXTINF:-1 tvg-id="recordnews" tvg-name="RECORD NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/recordnews.png" group-title="Canal de Notícias | FHD", RECORD NEWS 
+#EXTINF:-1 tvg-id="recordnews" tvg-name="RECORD NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/recordnews.png" group-title="Canal de Notícias", RECORD NEWS 
 https://stream.ads.ottera.tv/playlist.m3u8?network_id=5431&avod=1&coppa=0&is_lat=0&dnt=0&us_privacy=1YN-&did=9794a1b041ad875093e398bc1632460a&app_bundle=com.ammo.runtime&app_store_url=https%3A%2F%2Fwww.runtime.tv%2Fdevices&app_domain=runtime.tv&app_name=runtime&custom_targeting=web&custom_4=internal&h=720&w=1280&content_channel=runtime&content_dist_name=internal&device_make=&device_model=&preferred_language=EN&consent=1&gdpr=0&custom_12=0&custom_15=pt-br&custom_16=EN&custom_17=en&site_page=https%253A%252F%252Fwww.runtime.tv%252F&gender=not_specified&yob=0&livestream=1&custom_param_0=&custom_param_1=handset&custom_param_2=&custom_param_3=&custom_param_4=internal&custom_param_5=web&custom_param_6=South%2520America&timestamp=1688604990&id=11709&ip=138.185.238.172&override_expiration=1500&sign=z%2BA66gwNz60ZptKvp8RUzKwjztJdlXb4BFuJDdDAARg%3D
 
-#EXTINF:-1 tvg-id="jpnews" tvg-name="JOVEM PAN NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/jpnews.png" group-title="Canal de Notícias | FHD", JOVEM PAN NEWS 
+#EXTINF:-1 tvg-id="jpnews" tvg-name="JOVEM PAN NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/jpnews.png" group-title="Canal de Notícias", JOVEM PAN NEWS 
 https://d6yfbj4xxtrod.cloudfront.net/out/v1/7836eb391ec24452b149f3dc6df15bbd/index_10.m3u8
 
-#EXTINF:-1 tvg-id="sbtnews" tvg-name="SBT NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sbtnews.png" group-title="Canal de Notícias | FHD", SBT NEWS 
+#EXTINF:-1 tvg-id="sbtnews" tvg-name="SBT NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sbtnews.png" group-title="Canal de Notícias", SBT NEWS 
 https://amg00527-amg00527c5-amgplt0026.playout.now3.amagi.tv/ts-us-w2-n1/playlist/amg00527-amg00527c5-amgplt0026/playlist.m3u8?ads.devicemodel=[DEVICE_MODEL]&ads.gdprconsent=[GDPR_CONSENT]&ads.ua=[UA]&ads.appname=[APP_NAME]&ads.appstoreurl=[APP_STOREURL]&ads.devicemake=[DEVICE_MAKE]&ads.devicetype=[DEVICE_TYPE]&ads.lat=[LMT]&ads.donotsell=[DNS]&ads.ip=[IP]&ads.targetad=[TARGETAD_ALLOWED]&ads.usprivacy=[US_PRIVACY]&ads.appversion=[APP_VERSION]&ads.country=[COUNTRY]&ads.deviceid=[DEVICE_ID]&ads.gdpr=[GDPR]&ads.ifa=[IFA]&ads.ifatype=[IFA_TYPE]&ads.bundleid=[APP_BUNDLE]&coppa=0&ads.url=[URL]&ads.iu=[IU]&ads.idtype=[IDTYPE]&ads.lmt=[LMT]&ads.content_livestream=[CONTENT_LIVESTREAM]&ads.gpp=[GPP]&ads.channel_name=[CHANNEL_NAME]&ads.network_name=[NETWORK_NAME]&ads.gpp_sid=[GPP_SID]&ads.prodq=[PRODQ]&ads.inv_partner_domain=[INV_PARTNER_DOMAIN]&ads.schain=[SCHAIN]&ads.fck=[FCK]&ads.viewsize=[VIEWSIZE]&ads.givn=[NONCE]
 
-#EXTINF:-1 tvg-id="globonews" tvg-name="GLOBO NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globonews.png" group-title="Canal de Notícias | FHD", GLOBO NEWS 
+#EXTINF:-1 tvg-id="globonews" tvg-name="GLOBO NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globonews.png" group-title="Canal de Notícias", GLOBO NEWS 
 http://79.127.238.228:14093/
 
-#EXTINF:-1 tvg-id="getv" tvg-name="GETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/getv.png" group-title="Canal de Esportes | FHD", GE TV
+#EXTINF:-1 tvg-id="getv" tvg-name="GETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/getv.png" group-title="Canal de Esportes", GE TV
 https://amg00716-globo-amg00716c1-tcl-br-9495.playouts.now.amagi.tv/1080p-cc/index.m3u8
 
-#EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/caze.png" group-title="Canal de Esportes | FHD", CAZÉ TV
+#EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/caze.png" group-title="Canal de Esportes", CAZÉ TV
 https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.m3u8
 
-#EXTINF:-1 tvg-id="desimpedidos" tvg-name="DESIMPEDIDOS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/desimpedidos.png" group-title="Canal de Esportes | FHD", DESIMPEDIDOS
+#EXTINF:-1 tvg-id="desimpedidos" tvg-name="DESIMPEDIDOS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/desimpedidos.png" group-title="Canal de Esportes", DESIMPEDIDOS
 https://cc-vvkv6xjfc6w5v.akamaized.net/ogc/desi/desi_h265.m3u8
 
-#EXTINF:-1 tvg-id="espn" tvg-name="ESPN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes | FHD", ESPN
+#EXTINF:-1 tvg-id="espn" tvg-name="ESPN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes", ESPN
 http://46.151.196.223:14432/
 
-#EXTINF:-1 tvg-id="premiere" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes | FHD", PREMIERE
+#EXTINF:-1 tvg-id="premiere" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE
 http://79.127.238.228:14157/
 
-#EXTINF:-1 tvg-id="h&h" tvg-name="H&H" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/h&h.png" group-title="Canal Diversos | FHD", H&H
+#EXTINF:-1 tvg-id="h&h" tvg-name="H&H" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/h&h.png" group-title="Canal Diversos", H&H
 http://hls1.sua.tv:80/live/discoveryhehfhd/s.m3u8
 
-#EXTINF:-1 tvg-id="tlc" tvg-name="TLC" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tlc.png" group-title="Canal Diversos | HD", TLC
+#EXTINF:-1 tvg-id="tlc" tvg-name="TLC" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tlc.png" group-title="Canal Diversos", TLC
 http://79.127.238.228:14433/
 
-#EXTINF:-1 tvg-id="a&e" tvg-name="A&E" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/a&e.png" group-title="Canal Diversos | HD", A&E
+#EXTINF:-1 tvg-id="a&e" tvg-name="A&E" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/a&e.png" group-title="Canal Diversos", A&E
 http://79.127.238.228:14551/
 
-#EXTINF:-1 tvg-id="warner" tvg-name="WARNER" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/warner.png" group-title="Canal Diversos | FHD", WARNER
+#EXTINF:-1 tvg-id="warner" tvg-name="WARNER" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/warner.png" group-title="Canal Diversos", WARNER
 http://79.127.238.228:14647/
 
-#EXTINF:-1 tvg-id="megapix" tvg-name="MEGAPIX" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/megapix.png" group-title="Canal Filmes | FHD", MEGAPIX
+#EXTINF:-1 tvg-id="megapix" tvg-name="MEGAPIX" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/megapix.png" group-title="Canal Filmes", MEGAPIX
 http://79.127.238.228:14592/
 
-#EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal Filmes | HD", TNT
+#EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal Filmes", TNT
 http://79.127.238.228:14629/
