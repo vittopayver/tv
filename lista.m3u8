@@ -75,3 +75,6 @@ http://79.127.238.228:14592/
 
 #EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal Filmes", TNT
 http://79.127.238.228:14629/
+
+#EXTINF:-1 tvg-id="history" tvg-name="HISTORY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/history.png" group-title="Canal Filmes", HISTORY
+http://46.151.196.223:14410/
