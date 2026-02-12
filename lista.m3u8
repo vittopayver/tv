@@ -102,3 +102,21 @@ http://46.151.196.223:14456/
 
 #EXTINF:-1 tvg-id="premiere" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE
 http://79.127.238.228:14157/
+
+#EXTINF:-1 tvg-id="premiere2" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE
+http://79.127.243.211:14481/
+
+#EXTINF:-1 tvg-id="premiere3" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE
+http://79.127.243.211:14485/
+
+#EXTINF:-1 tvg-id="premiere4" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE
+http://79.127.243.211:14489/
+
+#EXTINF:-1 tvg-id="premiere5" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE
+http://79.127.243.211:14493/
+
+#EXTINF:-1 tvg-id="premiere6" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE
+http://79.127.243.211:14497/
+
+#EXTINF:-1 tvg-id="premiere7" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE
+http://79.127.243.211:14501/
