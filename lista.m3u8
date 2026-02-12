@@ -25,7 +25,7 @@ https://stream.ads.ottera.tv/playlist.m3u8?network_id=5442
 #EXTINF:-1 tvg-id="gloob" tvg-name="GLOOB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gloob.png" group-title="Canal Infantil | FHD", GLOOB
 http://79.127.243.211:14436/
 
-#EXTINF:-1 tvg-id="ratibum" tvg-name="RATIBUM" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/ratibum.png" group-title="Canal Infantil | FHD", RATIBUM
+#EXTINF:-1 tvg-id="ratimbum" tvg-name="RATIMBUM" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/ratimbum.png" group-title="Canal Infantil | FHD", RATIMBUM
 http://79.127.243.211:14432/
 
 #EXTINF:-1 tvg-id="cnnbr" tvg-name="CNN BRASIL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnnbr.png" group-title="Canal de Notícias | HD", CNN BRASIL
