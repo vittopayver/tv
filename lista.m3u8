@@ -49,6 +49,15 @@ https://amg00716-globo-amg00716c1-tcl-br-9495.playouts.now.amagi.tv/1080p-cc/ind
 #EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/caze.png" group-title="Canal de Esportes", CAZÉ TV
 https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.m3u8
 
+#EXTINF:-1 tvg-id="sportv" tvg-name="SPORTV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportv.png" group-title="Canal de Esportes", SPORTV
+http://46.151.196.223:14286/
+
+#EXTINF:-1 tvg-id="sportv2" tvg-name="SPORTV2" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportv.png" group-title="Canal de Esportes", SPORTV 2
+http://185.152.67.187:14292/
+
+#EXTINF:-1 tvg-id="sportv3" tvg-name="SPORTV3" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportv.png" group-title="Canal de Esportes", SPORTV 3
+http://185.152.67.187:14298/
+
 #EXTINF:-1 tvg-id="desimpedidos" tvg-name="DESIMPEDIDOS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/desimpedidos.png" group-title="Canal de Esportes", DESIMPEDIDOS
 https://cc-vvkv6xjfc6w5v.akamaized.net/ogc/desi/desi_h265.m3u8
 
