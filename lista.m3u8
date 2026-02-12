@@ -43,11 +43,17 @@ https://amg00527-amg00527c5-amgplt0026.playout.now3.amagi.tv/ts-us-w2-n1/playlis
 #EXTINF:-1 tvg-id="globonews" tvg-name="GLOBO NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globonews.png" group-title="Canal de Notícias", GLOBO NEWS 
 http://79.127.238.228:14093/
 
+#EXTINF:-1 tvg-id="desimpedidos" tvg-name="DESIMPEDIDOS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/desimpedidos.png" group-title="Canal de Esportes", DESIMPEDIDOS
+https://cc-vvkv6xjfc6w5v.akamaized.net/ogc/desi/desi_h265.m3u8
+
 #EXTINF:-1 tvg-id="getv" tvg-name="GETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/getv.png" group-title="Canal de Esportes", GE TV
 https://amg00716-globo-amg00716c1-tcl-br-9495.playouts.now.amagi.tv/1080p-cc/index.m3u8
 
 #EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/caze.png" group-title="Canal de Esportes", CAZÉ TV
 https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.m3u8
+
+#EXTINF:-1 tvg-id="premiere" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE
+http://79.127.238.228:14157/
 
 #EXTINF:-1 tvg-id="sportv" tvg-name="SPORTV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportv.png" group-title="Canal de Esportes", SPORTV
 http://46.151.196.223:14286/
@@ -58,11 +64,20 @@ http://185.152.67.187:14292/
 #EXTINF:-1 tvg-id="sportv3" tvg-name="SPORTV3" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportv.png" group-title="Canal de Esportes", SPORTV 3
 http://185.152.67.187:14298/
 
-#EXTINF:-1 tvg-id="desimpedidos" tvg-name="DESIMPEDIDOS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/desimpedidos.png" group-title="Canal de Esportes", DESIMPEDIDOS
-https://cc-vvkv6xjfc6w5v.akamaized.net/ogc/desi/desi_h265.m3u8
-
 #EXTINF:-1 tvg-id="espn" tvg-name="ESPN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes", ESPN
 http://46.151.196.223:14432/
+
+#EXTINF:-1 tvg-id="espn 2" tvg-name="ESPN 2" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes", ESPN 2
+http://46.151.196.223:14438/
+
+#EXTINF:-1 tvg-id="espn 3" tvg-name="ESPN 3" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes", ESPN 3
+http://46.151.196.223:14444/
+
+#EXTINF:-1 tvg-id="espn 4" tvg-name="ESPN 4" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes", ESPN 4
+http://46.151.196.223:14450/
+
+#EXTINF:-1 tvg-id="espn 5" tvg-name="ESPN 5" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes", ESPN 5
+http://46.151.196.223:14456/
 
 #EXTINF:-1 tvg-id="premiere" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE
 http://79.127.238.228:14157/
