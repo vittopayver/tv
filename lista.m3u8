@@ -52,7 +52,7 @@ http://hls1.sua.tv:80/live/discoveryhehfhd/s.m3u8
 #EXTINF:-1 tvg-id="a&e" tvg-name="A&E" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/a&e.png" group-title="Canal Diversos | HD", A&E
 http://79.127.238.228:14551/
 
-#EXTINF:-1 tvg-id="warner" tvg-name="WARNER" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/warner.png" group-title="Canal Diversos | HD", WARNER
+#EXTINF:-1 tvg-id="warner" tvg-name="WARNER" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/warner.png" group-title="Canal Diversos | FHD", WARNER
 http://79.127.238.228:14647/
 
 #EXTINF:-1 tvg-id="megapix" tvg-name="MEGAPIX" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/megapix.png" group-title="Canal Filmes | FHD", MEGAPIX
