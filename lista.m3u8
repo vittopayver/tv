@@ -64,6 +64,12 @@ http://79.127.238.228:14629/
 #EXTINF:-1 tvg-id="tntseries" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal de SÉRIES", TNT SÉRIES
 http://79.127.243.211:14619/
 
+#EXTINF:-1 tvg-id="hbo" tvg-name="HBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", HBO
+http://79.127.243.211:14668/
+
+#EXTINF:-1 tvg-id="hbo2" tvg-name="HBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", HBO2
+http://79.127.243.211:14660/
+
 #EXTINF:-1 tvg-id="telecine action" tvg-name="TELECINE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/telecine.png" group-title="Canal de Filmes", TELECINE ACTION
 http://79.127.243.211:14632/
 
