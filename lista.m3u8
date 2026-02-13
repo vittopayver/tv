@@ -136,15 +136,15 @@ http://79.127.243.211:14493/
 #EXTINF:-1 tvg-id="premiere6" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE 6
 http://79.127.243.211:14501/
 
-#EXTINF:-1 tvg-id="conmebol" tvg-name="CONMEBOL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/conmebol.png" group-title="Canal de Esportes", LIBERTADORES
+#EXTINF:-1 tvg-id="paramount" tvg-name="PARAMOUNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/paramount.png" group-title="Canal de Esportes", PARAMOUNT+
 http://79.127.243.211:14649/
 
-#EXTINF:-1 tvg-id="conmebol2" tvg-name="CONMEBOL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/conmebol.png" group-title="Canal de Esportes", LIBERTADORES 2
+#EXTINF:-1 tvg-id="paramount2" tvg-name="PARAMOUNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/paramount.png" group-title="Canal de Esportes", PARAMOUNT+ 2
 http://79.127.243.211:14653/
 
-#EXTINF:-1 tvg-id="conmebol3" tvg-name="CONMEBOL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/conmebol.png" group-title="Canal de Esportes", LIBERTADORES 3
+#EXTINF:-1 tvg-id="paramount3" tvg-name="PARAMOUNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/paramount.png" group-title="Canal de Esportes", PARAMOUNT+ 3
 http://79.127.243.211:14657/
 
-#EXTINF:-1 tvg-id="conmebol4" tvg-name="CONMEBOL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/conmebol.png" group-title="Canal de Esportes", LIBERTADORES 4
+#EXTINF:-1 tvg-id="paramount4" tvg-name="PARAMOUNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/paramount.png" group-title="Canal de Esportes", PARAMOUNT+ 4
 http://79.127.243.211:14658/
 
