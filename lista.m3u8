@@ -58,6 +58,9 @@ http://79.127.238.228:14647/
 #EXTINF:-1 tvg-id="megapix" tvg-name="MEGAPIX" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/megapix.png" group-title="Canal Filmes", MEGAPIX
 http://79.127.238.228:14592/
 
+#EXTINF:-1 tvg-id="universaltv" tvg-name="UNIVERSALTV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/universaltv.png" group-title="Canal Filmes", UNIVERSAL TV
+http://79.127.243.211:14623/
+
 #EXTINF:-1 tvg-id="hbo" tvg-name="HBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", HBO
 http://79.127.243.211:14668/
 
