@@ -135,3 +135,16 @@ http://79.127.243.211:14493/
 
 #EXTINF:-1 tvg-id="premiere6" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE 6
 http://79.127.243.211:14501/
+
+#EXTINF:-1 tvg-id="conmebol" tvg-name="CONMEBOL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/conmebol.png" group-title="Canal de Esportes", CONMEBOL LIBERTADORES
+http://79.127.243.211:14649/
+
+#EXTINF:-1 tvg-id="conmebol2" tvg-name="CONMEBOL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/conmebol.png" group-title="Canal de Esportes", CONMEBOL LIBERTADORES 2
+http://79.127.243.211:14653/
+
+#EXTINF:-1 tvg-id="conmebol3" tvg-name="CONMEBOL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/conmebol.png" group-title="Canal de Esportes", CONMEBOL LIBERTADORES 3
+http://79.127.243.211:14657/
+
+#EXTINF:-1 tvg-id="conmebol4" tvg-name="CONMEBOL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/conmebol.png" group-title="Canal de Esportes", CONMEBOL LIBERTADORES 4
+http://79.127.243.211:14658/
+
