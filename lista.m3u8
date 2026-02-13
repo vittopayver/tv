@@ -103,7 +103,7 @@ http://185.152.67.187:14367/
 #EXTINF:-1 tvg-id="discoveryid" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Filmes", DISCOVERY ID
 http://185.152.67.187:14379/
 
-#EXTINF:-1 tvg-id="discoveryanimalplanet" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Filmes", DISCOVERY ANIMAL PLANET
+#EXTINF:-1 tvg-id="discoveryanimalplanet" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Filmes", D. ANIMAL PLANET
 http://185.152.67.187:14386/
 
 #EXTINF:-1 tvg-id="history" tvg-name="HISTORY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/history.png" group-title="Canal de Documentários", HISTORY
