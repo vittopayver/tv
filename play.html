@@ -1,119 +1,156 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Player</title>
-
-<!-- mux.js: demux MPEG-TS → fMP4 para MediaSource API do Chrome -->
 <script src="https://cdn.jsdelivr.net/npm/mux.js@6.3.0/dist/mux.js"></script>
-
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   html, body { width:100%; height:100%; background:#000; overflow:hidden; }
   video { width:100%; height:100%; display:block; background:#000; }
+  #erro {
+    display:none; position:fixed; inset:0;
+    background:#000; color:#ef4444;
+    font-family:monospace; font-size:13px;
+    align-items:center; justify-content:center;
+    flex-direction:column; gap:10px; text-align:center; padding:20px;
+  }
+  #erro span { color:#64748b; font-size:11px; }
 </style>
 </head>
 <body>
 
 <video id="v" controls autoplay muted playsinline></video>
+<div id="erro">
+  ⚠ Servidor não respondeu<br>
+  <span id="erromsg"></span>
+</div>
 
 <script>
+/*
+  ✅ COMO USAR — leia uma vez só:
+
+  Este arquivo funciona de DUAS formas:
+
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  FORMA 1 — Abrir direto no Chrome (melhor)
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Salve este arquivo no seu computador e
+  abra clicando duas vezes nele.
+  O Chrome acessa o stream diretamente.
+  Funciona 100% sem nenhuma configuração.
+
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  FORMA 2 — GitHub Pages (requer proxy)
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Troque a URL abaixo por uma versão https://
+  usando Cloudflare Worker ou outro proxy.
+*/
+
 const STREAM = 'http://46.151.196.223:14432/';
 
-const v   = document.getElementById('v');
-const ms  = new MediaSource();
-v.src     = URL.createObjectURL(ms);
+// ── Setup ────────────────────────────────
+const v     = document.getElementById('v');
+const erro  = document.getElementById('erro');
+const ms    = new MediaSource();
+v.src       = URL.createObjectURL(ms);
 
-ms.addEventListener('sourceopen', () => {
+// ── Abre o MediaSource ───────────────────
+ms.addEventListener('sourceopen', async () => {
 
-  // mux.js converte MPEG-TS → fMP4 fragmentado que o Chrome entende
-  const transmuxer = new muxjs.mp4.Transmuxer({
-    keepOriginalTimestamps: true,
-  });
+  // Configura mux.js: converte MPEG-TS → fMP4 fragmentado
+  const tx = new muxjs.mp4.Transmuxer({ keepOriginalTimestamps: true });
 
-  // Mime type fMP4 — suportado nativamente pelo Chrome
-  const mime = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
-  if (!MediaSource.isTypeSupported(mime)) {
-    console.warn('Tentando mime alternativo...');
-  }
+  // Testa mimetypes em ordem até achar um que o Chrome suporte
+  const mimes = [
+    'video/mp4; codecs="avc1.42E01E, mp4a.40.2"',
+    'video/mp4; codecs="avc1.4d401f, mp4a.40.2"',
+    'video/mp4; codecs="avc1.640028, mp4a.40.2"',
+    'video/mp4; codecs="avc1.42E01E"',
+    'video/mp4',
+  ];
+  const mime = mimes.find(m => MediaSource.isTypeSupported(m)) || mimes[0];
 
-  const sb = ms.addSourceBuffer(mime);
-  sb.mode  = 'sequence';
+  let sb;
+  try { sb = ms.addSourceBuffer(mime); }
+  catch(e) { mostrarErro('Codec não suportado: ' + e.message); return; }
+  sb.mode = 'sequence';
 
-  const queue  = [];
-  let flushing = false;
+  // Fila para não sobrecarregar o buffer
+  const fila   = [];
+  let ocupado  = false;
 
-  function flushQueue() {
-    if (flushing || queue.length === 0 || sb.updating) return;
-    flushing = true;
-    const chunk = queue.shift();
-    try { sb.appendBuffer(chunk); }
-    catch(e) { console.error('appendBuffer:', e); flushing = false; }
+  function despachar() {
+    if (ocupado || !fila.length || sb.updating) return;
+    ocupado = true;
+    try { sb.appendBuffer(fila.shift()); }
+    catch(e) { ocupado = false; }
   }
 
   sb.addEventListener('updateend', () => {
-    flushing = false;
-    flushQueue();
-    // Tenta dar play assim que tiver dados suficientes
-    if (v.readyState >= 2 && v.paused) v.play().catch(()=>{});
+    ocupado = false;
+    despachar();
+    if (v.readyState >= 2 && v.paused) v.play().catch(() => {});
   });
 
-  // Quando o transmuxer tiver segmentos prontos, enfileira
-  transmuxer.on('data', segment => {
-    // Junta initSegment + data em um único ArrayBuffer
-    const data = new Uint8Array(
-      segment.initSegment.byteLength + segment.data.byteLength
-    );
-    data.set(segment.initSegment, 0);
-    data.set(segment.data, segment.initSegment.byteLength);
-    queue.push(data.buffer);
-    flushQueue();
+  // mux.js entrega segmentos fMP4 prontos
+  tx.on('data', seg => {
+    const b = new Uint8Array(seg.initSegment.byteLength + seg.data.byteLength);
+    b.set(seg.initSegment, 0);
+    b.set(seg.data, seg.initSegment.byteLength);
+    fila.push(b.buffer);
+    despachar();
   });
 
-  transmuxer.on('done', () => {
-    // Todos os segmentos foram processados
-    if (!sb.updating) {
-      try { ms.endOfStream(); } catch(e){}
-    }
+  tx.on('done', () => {
+    if (!sb.updating) try { ms.endOfStream(); } catch(_) {}
   });
 
-  // Fetch do stream em chunks e alimenta o transmuxer
-  fetch(STREAM, { mode: 'cors' })
-    .then(res => {
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const reader = res.body.getReader();
-
-      function pump() {
-        reader.read().then(({ done, value }) => {
-          if (done) {
-            transmuxer.flush();
-            return;
-          }
-          // Alimenta o mux.js com os bytes crus do MPEG-TS
-          transmuxer.push(value);
-          pump();
-        }).catch(e => console.error('read error:', e));
-      }
-
-      pump();
-    })
-    .catch(e => {
-      console.error('Fetch falhou:', e.message);
-      // Tenta no-cors como último recurso
-      fetch(STREAM, { mode: 'no-cors' })
-        .then(r => r.arrayBuffer())
-        .then(buf => {
-          transmuxer.push(new Uint8Array(buf));
-          transmuxer.flush();
-        })
-        .catch(e2 => console.error('no-cors falhou:', e2.message));
+  // ── Fetch do stream ──────────────────────
+  try {
+    const res = await fetch(STREAM, {
+      mode: 'cors',
+      headers: { 'Accept': '*/*' }
     });
+
+    if (!res.ok) throw new Error('Servidor retornou HTTP ' + res.status);
+
+    const reader = res.body.getReader();
+
+    // Lê o stream em tempo real e alimenta o mux.js
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) { tx.flush(); break; }
+      tx.push(value);
+    }
+
+  } catch(e) {
+    mostrarErro(e.message);
+  }
 });
 
-// Eventos
-v.addEventListener('playing', () => console.log('▶ Reproduzindo'));
-v.addEventListener('error',   () => console.error('Erro vídeo:', v.error?.code));
+// ── Remove mudo ao iniciar ───────────────
+v.addEventListener('playing', () => {
+  setTimeout(() => { v.muted = false; }, 500);
+});
+
+// ── Erro de codec/rede no elemento video ─
+v.addEventListener('error', () => {
+  const msg = {
+    2: 'Erro de rede — servidor inacessível',
+    3: 'Erro de decodificação do vídeo',
+    4: 'Formato não suportado pelo Chrome',
+  };
+  mostrarErro(msg[v.error?.code] || 'Erro desconhecido');
+});
+
+function mostrarErro(msg) {
+  erro.style.display  = 'flex';
+  document.getElementById('erromsg').textContent = msg;
+}
 </script>
+
 </body>
 </html>
