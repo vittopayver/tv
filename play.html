@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Player</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+  video { width: 100%; height: 100%; display: block; background: #000; }
+
+  #status {
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,.75);
+    color: #22d3ee;
+    font-family: monospace;
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    pointer-events: none;
+    transition: opacity .6s;
+    white-space: nowrap;
+  }
+  #status.hide { opacity: 0; }
+</style>
+</head>
+<body>
+
+<video id="v" controls autoplay muted playsinline></video>
+<div id="status">Registrando Service Worker...</div>
+
+<script>
+  const v      = document.getElementById('v');
+  const status = document.getElementById('status');
+
+  function msg(t, fade) {
+    status.style.opacity = '1';
+    status.classList.remove('hide');
+    status.textContent = t;
+    if (fade) setTimeout(() => status.classList.add('hide'), 3000);
+  }
+
+  async function init() {
+    // Service Workers só funcionam em HTTPS ou localhost
+    // Se estiver em file://, avisa
+    if (location.protocol === 'file:') {
+      msg('⚠ Abra via http:// ou https:// — Service Workers não funcionam em file://');
+      fallback();
+      return;
+    }
+
+    if (!('serviceWorker' in navigator)) {
+      msg('Service Worker não suportado — tentando direto...');
+      fallback();
+      return;
+    }
+
+    try {
+      // Registra o sw.js na mesma pasta
+      const reg = await navigator.serviceWorker.register('./sw.js', { scope: './' });
+      msg('Service Worker registrado...');
+
+      // Aguarda ativação
+      await new Promise(resolve => {
+        if (reg.active) return resolve();
+        const sw = reg.installing || reg.waiting;
+        sw.addEventListener('statechange', e => {
+          if (e.target.state === 'activated') resolve();
+        });
+      });
+
+      msg('Conectando ao stream...');
+
+      // Aponta o vídeo para /proxy-stream — o SW intercepta
+      // Adiciona timestamp para evitar cache
+      v.src = './proxy-stream?t=' + Date.now();
+      v.load();
+      v.play().catch(() => {});
+
+    } catch (e) {
+      msg('Erro SW: ' + e.message + ' — tentando direto...');
+      fallback();
+    }
+  }
+
+  // Fallback: tenta apontar direto para a URL (funciona se o servidor tiver CORS)
+  function fallback() {
+    v.src = 'http://46.151.196.223:14432/';
+    v.load();
+    v.play().catch(() => {});
+  }
+
+  // Eventos do vídeo
+  v.addEventListener('loadedmetadata', () => msg('▶ Reproduzindo!', true));
+  v.addEventListener('playing',        () => msg('▶ Ao vivo', true));
+  v.addEventListener('waiting',        () => msg('⏳ Buffering...'));
+  v.addEventListener('error', e => {
+    const c = v.error?.code;
+    const m = { 2: 'Erro de rede', 3: 'Codec não suportado', 4: 'Formato inválido' };
+    msg('⚠ ' + (m[c] || 'Erro ' + c));
+  });
+
+  init();
+</script>
+</body>
+</html>
