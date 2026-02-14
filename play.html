@@ -4,291 +4,116 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Player</title>
+
+<!-- mux.js: demux MPEG-TS → fMP4 para MediaSource API do Chrome -->
+<script src="https://cdn.jsdelivr.net/npm/mux.js@6.3.0/dist/mux.js"></script>
+
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  html, body { width:100%; height:100%; background:#000; overflow:hidden; font-family:monospace; }
-
+  html, body { width:100%; height:100%; background:#000; overflow:hidden; }
   video { width:100%; height:100%; display:block; background:#000; }
-
-  #ui {
-    position:fixed; inset:0;
-    display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    background:#000; gap:16px; padding:20px;
-    z-index:10;
-  }
-  #ui.gone { display:none; }
-
-  #ui h2 { color:#22d3ee; font-size:15px; letter-spacing:2px; text-transform:uppercase; }
-
-  #urlbox {
-    display:flex; gap:8px; width:100%; max-width:560px; flex-wrap:wrap;
-  }
-  #urlbox input {
-    flex:1; min-width:200px;
-    background:#111; border:1px solid #1e3a4a; border-radius:7px;
-    color:#cbd5e1; font-family:monospace; font-size:12px;
-    padding:10px 12px; outline:none;
-  }
-  #urlbox input:focus { border-color:#22d3ee; }
-  #btnGo {
-    padding:10px 20px; background:#22d3ee; color:#000;
-    border:none; border-radius:7px; font-weight:700;
-    font-size:12px; cursor:pointer; letter-spacing:1px;
-    text-transform:uppercase; white-space:nowrap;
-  }
-  #btnGo:hover { background:#06b6d4; }
-  #btnGo:disabled { opacity:.4; cursor:not-allowed; }
-
-  /* log */
-  #log {
-    width:100%; max-width:560px;
-    background:#0a0f14; border:1px solid #1e3a4a; border-radius:8px;
-    padding:10px 12px; height:120px; overflow-y:auto;
-    font-size:11px; line-height:1.7; color:#64748b;
-  }
-  .ok   { color:#22c55e; }
-  .err  { color:#ef4444; }
-  .info { color:#22d3ee; }
-  .warn { color:#facc15; }
-
-  /* progress */
-  #progwrap { width:100%; max-width:560px; display:none; }
-  #progwrap.show { display:block; }
-  #plbl { font-size:10px; color:#64748b; margin-bottom:4px; display:flex; justify-content:space-between; }
-  #pbar { height:3px; background:#1e3a4a; border-radius:2px; overflow:hidden; }
-  #pfill { height:100%; background:linear-gradient(90deg,#22d3ee,#3b82f6); width:0%; transition:width .3s; }
-
-  /* status badge over video */
-  #badge {
-    position:fixed; bottom:14px; left:50%; transform:translateX(-50%);
-    background:rgba(0,0,0,.7); color:#22d3ee;
-    font-family:monospace; font-size:11px;
-    padding:5px 14px; border-radius:20px;
-    pointer-events:none; display:none; white-space:nowrap; z-index:5;
-  }
 </style>
 </head>
 <body>
 
-<div id="ui">
-  <h2>▶ Player</h2>
-
-  <div id="urlbox">
-    <input id="inp" type="text"
-      value="http://46.151.196.223:14432/"
-      placeholder="URL do stream .m2ts / .ts ..."/>
-    <button id="btnGo" onclick="start()">Play</button>
-  </div>
-
-  <div id="progwrap">
-    <div id="plbl"><span id="plbltxt">Aguardando...</span><span id="ppct">0%</span></div>
-    <div id="pbar"><div id="pfill"></div></div>
-  </div>
-
-  <div id="log"><span class="info">› Pronto. Clique em Play para iniciar.</span></div>
-</div>
-
 <video id="v" controls autoplay muted playsinline></video>
-<div id="badge"></div>
 
-<script type="module">
-import { FFmpeg }                    from 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/esm/index.js';
-import { fetchFile, toBlobURL }      from 'https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.1/dist/esm/index.js';
+<script>
+const STREAM = 'http://46.151.196.223:14432/';
 
-const v       = document.getElementById('v');
-const ui      = document.getElementById('ui');
-const inp     = document.getElementById('inp');
-const btnGo   = document.getElementById('btnGo');
-const logEl   = document.getElementById('log');
-const progwrap= document.getElementById('progwrap');
-const pfill   = document.getElementById('pfill');
-const plbltxt = document.getElementById('plbltxt');
-const ppct    = document.getElementById('ppct');
-const badge   = document.getElementById('badge');
+const v   = document.getElementById('v');
+const ms  = new MediaSource();
+v.src     = URL.createObjectURL(ms);
 
-/* ── helpers ── */
-function log(msg, cls='') {
-  const d = document.createElement('div');
-  d.className = cls;
-  d.textContent = '› ' + msg;
-  logEl.appendChild(d);
-  logEl.scrollTop = logEl.scrollHeight;
-}
-function prog(pct, lbl) {
-  progwrap.classList.add('show');
-  pfill.style.width = pct + '%';
-  plbltxt.textContent = lbl || '';
-  ppct.textContent = Math.round(pct) + '%';
-}
-function showBadge(t, fade) {
-  badge.style.display = 'block';
-  badge.textContent = t;
-  if (fade) setTimeout(() => badge.style.display = 'none', 3000);
-}
+ms.addEventListener('sourceopen', () => {
 
-/* ── FFmpeg singleton ── */
-let ff = null;
-async function getFF() {
-  if (ff) return ff;
-  log('Carregando FFmpeg.wasm...', 'info');
-  prog(0, 'Baixando FFmpeg (~30MB, só na 1ª vez)...');
-  ff = new FFmpeg();
-  ff.on('log',      ({ message }) => log(message));
-  ff.on('progress', ({ progress }) => {
-    prog(Math.min(progress * 100, 99), 'Convertendo...');
+  // mux.js converte MPEG-TS → fMP4 fragmentado que o Chrome entende
+  const transmuxer = new muxjs.mp4.Transmuxer({
+    keepOriginalTimestamps: true,
   });
-  const base = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/esm';
-  await ff.load({
-    coreURL: await toBlobURL(base + '/ffmpeg-core.js',   'text/javascript'),
-    wasmURL: await toBlobURL(base + '/ffmpeg-core.wasm', 'application/wasm'),
+
+  // Mime type fMP4 — suportado nativamente pelo Chrome
+  const mime = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
+  if (!MediaSource.isTypeSupported(mime)) {
+    console.warn('Tentando mime alternativo...');
+  }
+
+  const sb = ms.addSourceBuffer(mime);
+  sb.mode  = 'sequence';
+
+  const queue  = [];
+  let flushing = false;
+
+  function flushQueue() {
+    if (flushing || queue.length === 0 || sb.updating) return;
+    flushing = true;
+    const chunk = queue.shift();
+    try { sb.appendBuffer(chunk); }
+    catch(e) { console.error('appendBuffer:', e); flushing = false; }
+  }
+
+  sb.addEventListener('updateend', () => {
+    flushing = false;
+    flushQueue();
+    // Tenta dar play assim que tiver dados suficientes
+    if (v.readyState >= 2 && v.paused) v.play().catch(()=>{});
   });
-  log('FFmpeg.wasm pronto!', 'ok');
-  return ff;
-}
 
-/* ── fetch stream ── */
-async function download(url) {
-  log('Conectando: ' + url, 'info');
-  prog(0, 'Conectando...');
+  // Quando o transmuxer tiver segmentos prontos, enfileira
+  transmuxer.on('data', segment => {
+    // Junta initSegment + data em um único ArrayBuffer
+    const data = new Uint8Array(
+      segment.initSegment.byteLength + segment.data.byteLength
+    );
+    data.set(segment.initSegment, 0);
+    data.set(segment.data, segment.initSegment.byteLength);
+    queue.push(data.buffer);
+    flushQueue();
+  });
 
-  // Detecta Mixed Content (https page + http url)
-  if (location.protocol === 'https:' && url.startsWith('http:')) {
-    log('⚠ Mixed Content: GitHub Pages é HTTPS mas a URL é HTTP.', 'warn');
-    log('  Tentando via proxy CORS público...', 'warn');
-    // Usa proxy CORS público para contornar Mixed Content + CORS
-    url = 'https://corsproxy.io/?' + encodeURIComponent(url);
-    log('  URL proxy: ' + url, 'info');
-  }
-
-  const res = await fetch(url);
-  if (!res.ok) throw new Error('HTTP ' + res.status + ' — ' + res.statusText);
-
-  const ct = res.headers.get('content-type') || '?';
-  log('Resposta OK. Content-Type: ' + ct, 'ok');
-
-  const total = parseInt(res.headers.get('content-length') || '0');
-  const MAX   = 60 * 1024 * 1024; // 60MB max
-
-  const reader = res.body.getReader();
-  const chunks = [];
-  let   got    = 0;
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    chunks.push(value);
-    got += value.length;
-    const pct = total ? Math.min((got / total) * 100, 99) : Math.min((got / MAX) * 100, 40);
-    const mb  = (got / 1048576).toFixed(1);
-    prog(pct, `Baixando... ${mb}MB${total ? ' / ' + (total/1048576).toFixed(1) + 'MB' : ''}`);
-    if (got >= MAX) { reader.cancel(); log('Limite 60MB — convertendo trecho.', 'warn'); break; }
-  }
-
-  const buf = new Uint8Array(got);
-  let off = 0;
-  for (const c of chunks) { buf.set(c, off); off += c.length; }
-  log(`Download: ${(got/1048576).toFixed(1)}MB recebidos.`, 'ok');
-  return buf;
-}
-
-/* ── convert ── */
-async function convert(buf, ext) {
-  const ffmpeg = await getFF();
-  const inName = 'in.' + ext;
-  log('Escrevendo arquivo de entrada (' + inName + ')...', 'info');
-  await ffmpeg.writeFile(inName, buf);
-
-  log('Convertendo para MP4/H.264...', 'info');
-  prog(0, 'Iniciando conversão...');
-
-  // Tenta copy primeiro (mais rápido, mantém qualidade)
-  let ok = false;
-  try {
-    await ffmpeg.exec([
-      '-i', inName,
-      '-c:v', 'copy',
-      '-c:a', 'aac',
-      '-movflags', '+faststart',
-      'out.mp4'
-    ]);
-    ok = true;
-    log('Conversão com copy OK.', 'ok');
-  } catch (_) {
-    log('Copy falhou, reencondando vídeo...', 'warn');
-  }
-
-  if (!ok) {
-    await ffmpeg.exec([
-      '-i', inName,
-      '-c:v', 'libx264', '-preset', 'ultrafast', '-crf', '22',
-      '-c:a', 'aac',
-      '-movflags', '+faststart',
-      'out.mp4'
-    ]);
-    log('Reencode concluído.', 'ok');
-  }
-
-  const data = await ffmpeg.readFile('out.mp4');
-  log('MP4 gerado: ' + (data.byteLength / 1048576).toFixed(1) + 'MB', 'ok');
-  // limpa memória
-  await ffmpeg.deleteFile(inName).catch(() => {});
-  await ffmpeg.deleteFile('out.mp4').catch(() => {});
-  return data;
-}
-
-/* ── play ── */
-function playBlob(data) {
-  const blob = new Blob([data.buffer], { type: 'video/mp4' });
-  const url  = URL.createObjectURL(blob);
-  v.src = url;
-  v.play().catch(() => {});
-  ui.classList.add('gone');
-  prog(100, 'Concluído!');
-  log('Reproduzindo!', 'ok');
-}
-
-/* ── main ── */
-async function start() {
-  let url = inp.value.trim();
-  if (!url) return;
-  btnGo.disabled = true;
-  logEl.innerHTML = '';
-
-  try {
-    // detecta extensão
-    const raw = url.split('?')[0];
-    const parts = raw.split('.');
-    const ext = ['m2ts','ts','mts','m2t','mp4','mkv','avi','mov','flv','webm']
-      .find(e => raw.toLowerCase().endsWith('.'+e)) || 'ts';
-
-    log('Extensão detectada: ' + ext, 'info');
-
-    const buf  = await download(url);
-    const data = await convert(buf, ext);
-    playBlob(data);
-
-  } catch (e) {
-    log('ERRO: ' + e.message, 'err');
-    if (e.message.includes('fetch') || e.message.includes('Failed') || e.message.includes('NetworkError')) {
-      log('O servidor pode estar offline ou sem CORS.', 'warn');
-      log('Tente: habilitar CORS no servidor, ou usar um arquivo local.', 'warn');
+  transmuxer.on('done', () => {
+    // Todos os segmentos foram processados
+    if (!sb.updating) {
+      try { ms.endOfStream(); } catch(e){}
     }
-  } finally {
-    btnGo.disabled = false;
-  }
-}
+  });
 
-/* vídeo events */
-v.addEventListener('playing',        () => showBadge('▶ Reproduzindo', true));
-v.addEventListener('waiting',        () => showBadge('⏳ Buffering...'));
-v.addEventListener('loadedmetadata', () => showBadge('✓ Vídeo carregado', true));
+  // Fetch do stream em chunks e alimenta o transmuxer
+  fetch(STREAM, { mode: 'cors' })
+    .then(res => {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const reader = res.body.getReader();
 
-/* expõe para onclick */
-window.start = start;
+      function pump() {
+        reader.read().then(({ done, value }) => {
+          if (done) {
+            transmuxer.flush();
+            return;
+          }
+          // Alimenta o mux.js com os bytes crus do MPEG-TS
+          transmuxer.push(value);
+          pump();
+        }).catch(e => console.error('read error:', e));
+      }
 
-/* autoplay ao abrir — descomente se quiser iniciar automaticamente */
-// window.addEventListener('load', start);
+      pump();
+    })
+    .catch(e => {
+      console.error('Fetch falhou:', e.message);
+      // Tenta no-cors como último recurso
+      fetch(STREAM, { mode: 'no-cors' })
+        .then(r => r.arrayBuffer())
+        .then(buf => {
+          transmuxer.push(new Uint8Array(buf));
+          transmuxer.flush();
+        })
+        .catch(e2 => console.error('no-cors falhou:', e2.message));
+    });
+});
+
+// Eventos
+v.addEventListener('playing', () => console.log('▶ Reproduzindo'));
+v.addEventListener('error',   () => console.error('Erro vídeo:', v.error?.code));
 </script>
 </body>
 </html>
