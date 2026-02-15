@@ -64,7 +64,7 @@ http://79.127.243.211:14569/
 #EXTINF:-1 tvg-id="space" tvg-name="SPACE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/space.png" group-title="Canal Filmes", SPACE
 https://cr7v.short.gy/ManoTV/space/index.m3u8
 
-#EXTINF:-1 tvg-id="hbo" tvg-name="HBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.pg" group-title="Canal de Filmes", HBO
+#EXTINF:-1 tvg-id="hbo" tvg-name="HBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", HBO
 http://79.127.243.211:14668/
 
 #EXTINF:-1 tvg-id="hbo2" tvg-name="HBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", HBO2
