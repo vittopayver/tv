@@ -13,7 +13,7 @@ http://79.127.238.228:14298/
 #EXTINF:-1 tvg-id="redetv" tvg-name="REDETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redetv.png" group-title="Canal Aberto", REDE TV
 http://185.152.67.187:14266/
 
-#EXTINF:-1 tvg-id="cnbc" tvg-name="CNBC" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnbc.png" group-title="Canal Aberto", CNBC
+#EXTINF:-1 tvg-id="cnbc" tvg-name="CNBC" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnbc.png" group-title="Canal de Notícias", CNBC
 https://cr7v.short.gy/ManoTV/TimesBrasil/Whats75991634025/CNBC/Index.m3u8
 
 #EXTINF:-1 tvg-id="jpnews" tvg-name="JOVEM PAN NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/jpnews.png" group-title="Canal de Notícias", JOVEM PAN NEWS 
