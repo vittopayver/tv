@@ -130,13 +130,13 @@ http://46.151.196.223:14410/
 #EXTINF:-1 tvg-id="history2" tvg-name="HISTORY 2" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/history.png" group-title="Canal de Documentários", HISTORY 2
 http://185.152.67.187:14392/
 
-#EXTINF:-1 tvg-id="tvnt" tvg-name="NOVOTEMPO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tvnt.png" group-title="Canal de Documentários", NOVO TEMPO
+#EXTINF:-1 tvg-id="tvnt" tvg-name="NOVOTEMPO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tvnt.png" group-title="Canal Evangélico", NOVO TEMPO
 https://stream.live.novotempo.com/tv/smil:tvnovotempo.smil/chunklist_b3628000_slpor.m3u8
 
-#EXTINF:-1 tvg-id="redevida" tvg-name="REDEVIDA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redevida.png" group-title="Canal de Documentários", REDE VIDA
+#EXTINF:-1 tvg-id="redevida" tvg-name="REDEVIDA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redevida.png" group-title="Canal Católico", REDE VIDA
 http://46.151.196.223:14244/
 
-#EXTINF:-1 tvg-id="cnova" tvg-name="CNOVA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnova.png" group-title="Canal de Documentários", CANÇÃO NOVA
+#EXTINF:-1 tvg-id="cnova" tvg-name="CNOVA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnova.png" group-title="Canal Católico", CANÇÃO NOVA
 http://46.151.196.223:14225/
 
 #EXTINF:-1 tvg-id="desimpedidos" tvg-name="DESIMPEDIDOS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/desimpedidos.png" group-title="Canal de Esportes", DESIMPEDIDOS
