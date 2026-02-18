@@ -37,6 +37,9 @@ http://79.127.243.211:14640/
 #EXTINF:-1 tvg-id="gnt" tvg-name="GNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gnt.png" group-title="Canal Diversos", GNT
 http://79.127.243.211:14312/
 
+#EXTINF:-1 tvg-id="bis" tvg-name="BIS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bis.png" group-title="Canal Diversos", BIS
+http://79.127.243.211:14286/
+
 #EXTINF:-1 tvg-id="cultura" tvg-name="TV CULTURA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cultura.png" group-title="Canal Diversos", TV CULTURA
 https://player-tvcultura.stream.uol.com.br/live/tvcultura.m3u8
 
