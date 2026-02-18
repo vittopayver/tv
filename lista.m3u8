@@ -67,7 +67,7 @@ http://200.4.96.59:8825/play/a04w/index.m3u8
 #EXTINF:-1 tvg-id="hbofamily" tvg-name="HBOFAMILY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", HBO FAMILY
 http://200.4.96.59:8825/play/a0ko/index.m3u8
 
-#EXTINF:-1 tvg-id="hbosig" tvg-name="HBOFAMILY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", HBO FAMILY
+#EXTINF:-1 tvg-id="hbosignatury" tvg-name="HBOSIGNATURY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", HBO SIGNATURY
 http://streaming.sattvgo.com.br/HBO_SIGNATURE/index.m3u8
 
 #EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal de Filmes", TNT
