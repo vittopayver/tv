@@ -31,9 +31,6 @@ http://79.127.238.228:14093/
 #EXTINF:-1 tvg-id="gazeta" tvg-name="GAZETA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gazeta.png" group-title="Canal Diversos", GAZETA
 https://video08.logicahost.com.br/tvc21/tvc21/playlist.m3u8
 
-#EXTINF:-1 tvg-id="amc" tvg-name="AMC" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/amc.png" group-title="Canal Diversos", AMC
-http://79.127.243.211:14565/
-
 #EXTINF:-1 tvg-id="recordplus" tvg-name="RECORDPLUS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/record.png" group-title="Canal Diversos", RECORD PLUS
 http://79.127.243.211:14640/
 
@@ -105,6 +102,9 @@ http://79.127.238.228:14433/
 
 #EXTINF:-1 tvg-id="a&e" tvg-name="A&E" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/a&e.png" group-title="Canal de Séries", A&E
 http://79.127.238.228:14551/
+
+#EXTINF:-1 tvg-id="amc" tvg-name="AMC" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/amc.png" group-title="Canal de Séries", AMC
+http://79.127.243.211:14565/
 
 #EXTINF:-1 tvg-id="warner" tvg-name="WARNER" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/warner.png" group-title="Canal de Séries", WARNER
 http://79.127.238.228:14647/
