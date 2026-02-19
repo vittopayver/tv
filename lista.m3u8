@@ -1,3 +1,12 @@
+#EXTINF:-1 tvg-id="bbbmosaico" tvg-name="BBB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="Canal Aberto", BBB MOSAICO
+https://image-storage-51.imgcontent.xyz/live/bbb26-3/index.m3u8
+
+#EXTINF:-1 tvg-id="bbb1" tvg-name="BBB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="Canal Aberto", BBB CÂMERA 1
+https://image-storage-51.imgcontent.xyz/live/bbb26/index.m3u8
+
+#EXTINF:-1 tvg-id="bbb2" tvg-name="BBB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="Canal Aberto", BBB CÂMERA 2
+https://image-storage-51.imgcontent.xyz/live/bbb26-2/index.m3u8
+
 #EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto", GLOBO
 http://79.127.238.228:14217/
 
