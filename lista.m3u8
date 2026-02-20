@@ -23,7 +23,6 @@ http://79.127.238.228:14057/
 http://79.127.238.228:14298/
 #EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/band.png" group-title="Canal Aberto", BAND
 http://79.127.243.211:14703/
-l
 
 #EXTINF:-1 tvg-id="redetv" tvg-name="REDETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redetv.png" group-title="Canal Aberto", REDE TV
 http://185.152.67.187:14266/
