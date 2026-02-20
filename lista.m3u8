@@ -138,7 +138,7 @@ http://185.152.67.187:14373/
 http://185.152.67.187:14355/
 #EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", THEATER
 http://185.152.67.187:14361/
-#EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", DISCOVERY
+#EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", H&H
 http://79.127.243.211:14769/
 #EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", TURBO
 http://185.152.67.187:14367/
