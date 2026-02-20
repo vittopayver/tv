@@ -132,19 +132,19 @@ http://200.229.190.189:8001/play/a01b
 
 #EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", DISCOVERY
 http://185.152.67.187:14343/
-#EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", DISCOVERY
+#EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", WORLD
 http://185.152.67.187:14373/
-#EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", DISCOVERY
+#EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", SCIENCE
 http://185.152.67.187:14355/
-#EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", DISCOVERY
+#EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", THEATER
 http://185.152.67.187:14361/
 #EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", DISCOVERY
 http://79.127.243.211:14769/
-#EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", DISCOVERY
+#EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", TURBO
 http://185.152.67.187:14367/
-#EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", DISCOVERY
+#EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", ID
 http://185.152.67.187:14379/
-#EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", DISCOVERY
+#EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", ANIMAL PLANET
 http://185.152.67.187:14386/
 
 #EXTINF:-1 tvg-id="history" tvg-name="HISTORY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/history.png" group-title="Canal de Documentários", HISTORY
