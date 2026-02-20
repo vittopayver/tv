@@ -167,6 +167,10 @@ https://cc-vvkv6xjfc6w5v.akamaized.net/ogc/desi/desi_h265.m3u8
 https://amg00716-globo-amg00716c1-tcl-br-9495.playouts.now.amagi.tv/1080p-cc/index.m3u8
 
 #EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cazetv.png" group-title="Canal de Esportes", CAZÉ TV
+https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.m3u8 FHD
+#EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cazetv.png" group-title="Canal de Esportes", CAZÉ TV 2
+https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/720p-vtt/index.m3u8 HD
+#EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cazetv.png" group-title="Canal de Esportes", CAZÉ TV 3
 http://79.127.243.211:14697/
 
 #EXTINF:-1 tvg-id="band sports" tvg-name="BAND SPORTS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bandsports.png" group-title="Canal de Esportes", BAND SPORTS
