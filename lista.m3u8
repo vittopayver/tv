@@ -184,58 +184,28 @@ http://185.152.67.187:14474/
 
 #EXTINF:-1 tvg-id="sportv" tvg-name="SPORTV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportv.png" group-title="Canal de Esportes", SPORTV
 http://46.151.196.223:14286/
-
-#EXTINF:-1 tvg-id="sportv2" tvg-name="SPORTV2" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportv.png" group-title="Canal de Esportes", SPORTV 2
 http://185.152.67.187:14292/
-
-#EXTINF:-1 tvg-id="sportv3" tvg-name="SPORTV3" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportv.png" group-title="Canal de Esportes", SPORTV 3
 http://185.152.67.187:14298/
-
-#EXTINF:-1 tvg-id="premiere5" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportv.png" group-title="Canal de Esportes", SPORTV 4
 http://79.127.243.211:14493/
 
 #EXTINF:-1 tvg-id="espn" tvg-name="ESPN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes", ESPN
 http://46.151.196.223:14432/
-
-#EXTINF:-1 tvg-id="espn 2" tvg-name="ESPN 2" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes", ESPN 2
 http://46.151.196.223:14438/
-
-#EXTINF:-1 tvg-id="espn 3" tvg-name="ESPN 3" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes", ESPN 3
 http://46.151.196.223:14444/
-
-#EXTINF:-1 tvg-id="espn 4" tvg-name="ESPN 4" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes", ESPN 4
 http://46.151.196.223:14450/
-
-#EXTINF:-1 tvg-id="espn 5" tvg-name="ESPN 5" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes", ESPN 5
 http://46.151.196.223:14456/
-
-#EXTINF:-1 tvg-id="espn 6" tvg-name="ESPN 6" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/espn.png" group-title="Canal de Esportes", ESPN 6
 http://hls1.sua.tv:80/live/espnextrafhd/s.m3u8
 
 #EXTINF:-1 tvg-id="premiere" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE
 http://79.127.238.228:14157/
-
-#EXTINF:-1 tvg-id="premiere2" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE 2
 http://79.127.243.211:14485/
-
-#EXTINF:-1 tvg-id="premiere3" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE 3
 http://79.127.243.211:14481/
-
-#EXTINF:-1 tvg-id="premiere4" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE 4
 http://79.127.243.211:14489/
-
-#EXTINF:-1 tvg-id="premiere6" tvg-name="PREMIERE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/premiere.png" group-title="Canal de Esportes", PREMIERE 5
 http://79.127.243.211:14501/
 
 #EXTINF:-1 tvg-id="paramount" tvg-name="PARAMOUNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/paramount.png" group-title="Canal de Esportes", PARAMOUNT+
 http://79.127.243.211:14649/
-
-#EXTINF:-1 tvg-id="paramount2" tvg-name="PARAMOUNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/paramount.png" group-title="Canal de Esportes", PARAMOUNT+ 2
 http://79.127.243.211:14653/
-
-#EXTINF:-1 tvg-id="paramount3" tvg-name="PARAMOUNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/paramount.png" group-title="Canal de Esportes", PARAMOUNT+ 3
 http://79.127.243.211:14657/
-
-#EXTINF:-1 tvg-id="paramount4" tvg-name="PARAMOUNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/paramount.png" group-title="Canal de Esportes", PARAMOUNT+ 4
 http://79.127.243.211:14658/
 
