@@ -78,9 +78,9 @@ http://79.127.243.211:14660/
 http://200.4.96.59:8825/play/a04w/index.m3u8
 
 #EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal de Filmes", TNT
-https://cr7v.short.gy/ManoTV/esc2/index.m3u8
-#EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal de Filmes", TNT
 http://79.127.243.211:14619/
+#EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal de Filmes", TNT SÉRIES
+https://cr7v.short.gy/ManoTV/esc2/index.m3u8
 #EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal de Filmes", TNT
 http://200.4.96.59:8825/play/a04f/index.m3u8
 
@@ -148,7 +148,7 @@ https://cc-vvkv6xjfc6w5v.akamaized.net/ogc/desi/desi_h265.m3u8
 #EXTINF:-1 tvg-id="getv" tvg-name="GETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/getv.png" group-title="Canal de Esportes", GE TV
 https://amg00716-globo-amg00716c1-tcl-br-9495.playouts.now.amagi.tv/1080p-cc/index.m3u8
 
-#EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cazetv.png" group-title="Canal de Esportes", CAZÉ TV Play3
+#EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cazetv.png" group-title="Canal de Esportes", CAZÉ TV
 http://79.127.243.211:14697/
 
 #EXTINF:-1 tvg-id="band sports" tvg-name="BAND SPORTS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bandsports.png" group-title="Canal de Esportes", BAND SPORTS
