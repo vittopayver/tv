@@ -88,7 +88,7 @@ http://79.127.243.211:14668/
 http://79.127.243.211:14660/
 #EXTINF:-1 tvg-id="hbo" tvg-name="HBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", HBO+
 http://200.4.96.59:8825/play/a04w/index.m3u8
-#EXTINF:-1 tvg-id="hbo" tvg-name="HBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", HBO SIGNAPURY 
+#EXTINF:-1 tvg-id="hbo" tvg-name="HBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", HBO SIGNATURE
 http://streaming.sattvgo.com.br/HBO_SIGNATURE/index.m3u8
 
 #EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal de Filmes", TNT
