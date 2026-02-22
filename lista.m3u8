@@ -33,7 +33,7 @@ http://79.127.243.211:14258/
 http://79.127.243.211:14249/
 
 #EXTINF:-1 tvg-id="uol" tvg-name="uol" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/uol.png" group-title="Canal Diversos", UOL
-https://video01.soultv.com.br/uoltv/uoltv/playlist.m3u8
+https://raw.githubusercontent.com/vittopayver/lista/refs/heads/main/links/globosp.html
 
 #EXTINF:-1 tvg-id="gazeta" tvg-name="GAZETA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gazeta.png" group-title="Canal Diversos", GAZETA
 https://video08.logicahost.com.br/tvc21/tvc21/playlist.m3u8
