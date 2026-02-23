@@ -89,14 +89,14 @@ http://79.127.243.211:14648/
 #EXTINF:-1 tvg-id="telecine" tvg-name="TELECINE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/telecine.png" group-title="Canal de Filmes", TOUCH
 http://79.127.243.211:14652/
 
+#EXTINF:-1 tvg-id="amc" tvg-name="AMC" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/amc.png" group-title="Canal de Filmes e Séries", AMC
+http://79.127.243.211:14565/
+
 #EXTINF:-1 tvg-id="tlc" tvg-name="TLC" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tlc.png" group-title="Canal de Séries", TLC
 http://79.127.238.228:14433/
 
 #EXTINF:-1 tvg-id="a&e" tvg-name="A&E" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/a&e.png" group-title="Canal de Séries", A&E
 http://79.127.238.228:14551/
-
-#EXTINF:-1 tvg-id="amc" tvg-name="AMC" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/amc.png" group-title="Canal de Séries", AMC
-http://79.127.243.211:14565/
 
 #EXTINF:-1 tvg-id="warner" tvg-name="WARNER" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/warner.png" group-title="Canal de Séries", WARNER
 http://79.127.238.228:14647/
@@ -126,10 +126,10 @@ http://46.151.196.223:14410/
 #EXTINF:-1 tvg-id="history" tvg-name="HISTORY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/history.png" group-title="Canal de Documentários", HISTORY 2
 http://185.152.67.187:14392/
 
-#EXTINF:-1 tvg-id="tvnt" tvg-name="NT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tvnt.png" group-title="Canal de Documentários", NOVO TEMPO
+#EXTINF:-1 tvg-id="tvnt" tvg-name="NT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tvnt.png" group-title="Canal Evangélico", NOVO TEMPO
 https://stream.live.novotempo.com/tv/smil:tvnovotempo.smil/chunklist_b3628000_slpor.m3u8
 
-#EXTINF:-1 tvg-id="rittv" tvg-name="RIT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/rittv.png" group-title="Canal de Documentários", RIT
+#EXTINF:-1 tvg-id="rittv" tvg-name="RIT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/rittv.png" group-title="Canal Evangélico", RIT
 https://acesso.ecast.site:3648/live/ritlive.m3u8
 
 #EXTINF:-1 tvg-id="redevida" tvg-name="REDEVIDA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redevida.png" group-title="Canal Católico", REDE VIDA
