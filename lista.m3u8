@@ -132,11 +132,14 @@ https://stream.live.novotempo.com/tv/smil:tvnovotempo.smil/chunklist_b3628000_sl
 #EXTINF:-1 tvg-id="rittv" tvg-name="RIT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/rittv.png" group-title="Canal Evangélico", RIT
 https://acesso.ecast.site:3648/live/ritlive.m3u8
 
-#EXTINF:-1 tvg-id="tvuniversal" tvg-name="TVUNIVERSAL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tvuniversal.png" group-title="Canal de Filmes", TV UNIVERSAL
+#EXTINF:-1 tvg-id="tvuniversal" tvg-name="TVUNIVERSAL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tvuniversal.png" group-title="Canal Evangélico", TV UNIVERSAL
 https://644398c.ha.azioncdn.net/primary/tvuniversal_480p.sdp/playlist.m3u8
 
 #EXTINF:-1 tvg-id="cnova" tvg-name="CNOVA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnova.png" group-title="Canal Católico", CANÇÃO NOVA
 http://46.151.196.223:14225/
+
+#EXTINF:-1 tvg-id="tvaparecida" tvg-name="TVAPARECIDA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tvaparecida.png" group-title="Canal Católico", TV APARECIDA
+https://cdn.jmvstream.com/w/LVW-9716/LVW9716_HbtQtezcaw/playlist.m3u8
 
 #EXTINF:-1 tvg-id="desimpedidos" tvg-name="DESIMPEDIDOS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/desimpedidos.png" group-title="Canal de Esportes", DESIMPEDIDOS
 https://cc-vvkv6xjfc6w5v.akamaized.net/ogc/desi/desi_h265.m3u8
