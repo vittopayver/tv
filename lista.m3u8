@@ -32,9 +32,6 @@ http://79.127.243.211:14258/
 #EXTINF:-1 tvg-id="cnnbr" tvg-name="CNN BRASIL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnn.png" group-title="Canal de Notícias", CNN BRASIL
 http://79.127.243.211:14249/
 
-#EXTINF:-1 tvg-id="uol" tvg-name="uol" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/uol.png" group-title="Canal Diversos", UOL
-https://raw.githubusercontent.com/vittopayver/lista/refs/heads/main/links/globosp.html
-
 #EXTINF:-1 tvg-id="gazeta" tvg-name="GAZETA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gazeta.png" group-title="Canal Diversos", GAZETA
 https://video08.logicahost.com.br/tvc21/tvc21/playlist.m3u8
 
@@ -78,12 +75,10 @@ http://79.127.243.211:14660/
 #EXTINF:-1 tvg-id="hbo" tvg-name="HBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", HBO+
 http://200.4.96.59:8825/play/a04w/index.m3u8
 
+#EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal de Filmes", TNT
+https://cr7v.short.gy/ManoTV/esc2/index.m3u8
 #EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal de Filmes", TNT SÉRIES
 http://79.127.243.211:14619/
-#EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal de Filmes", TNT ESPORTES
-https://cr7v.short.gy/ManoTV/esc2/index.m3u8
-#EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal de Filmes", TNT
-http://200.4.96.59:8825/play/a04f/index.m3u8
 
 #EXTINF:-1 tvg-id="telecine" tvg-name="TELECINE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/telecine.png" group-title="Canal de Filmes", ACTION
 http://79.127.243.211:14632/
