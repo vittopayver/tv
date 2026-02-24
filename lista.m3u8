@@ -124,6 +124,9 @@ http://185.152.67.187:14392/
 #EXTINF:-1 tvg-id="tvnt" tvg-name="NT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tvnt.png" group-title="Canal Evangélico", NOVO TEMPO
 https://stream.live.novotempo.com/tv/smil:tvnovotempo.smil/chunklist_b3628000_slpor.m3u8
 
+#EXTINF:-1 tvg-id="3anjo" tvg-name="3ANJO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/3anjos.png" group-title="Canal Evangélico", TERCEIRO ANJO
+https://streamer1.streamhost.org/salive/GMI3anjoh/playlist.m3u8
+
 #EXTINF:-1 tvg-id="rittv" tvg-name="RIT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/rittv.png" group-title="Canal Evangélico", RIT
 https://acesso.ecast.site:3648/live/ritlive.m3u8
 
