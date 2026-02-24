@@ -31,6 +31,8 @@ http://79.127.243.211:14258/
 
 #EXTINF:-1 tvg-id="cnnbr" tvg-name="CNN BRASIL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnn.png" group-title="Canal de Notícias", CNN BRASIL
 http://79.127.243.211:14249/
+#EXTINF:-1 tvg-id="cnnbr" tvg-name="CNN BRASIL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnn.png" group-title="Canal de Notícias", CNN MONEY
+https://amg01391-sbtinfast-amg01391c11-lg-br-9982.playouts.now.amagi.tv/playlist/amg01391-addigital-cnnmoneyhevc-lgbr/playlist.m3u8
 
 #EXTINF:-1 tvg-id="gazeta" tvg-name="GAZETA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gazeta.png" group-title="Canal Diversos", GAZETA
 https://video08.logicahost.com.br/tvc21/tvc21/playlist.m3u8
