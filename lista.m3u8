@@ -30,7 +30,7 @@ http://185.152.67.187:14474/
 https://streaming.cloudecast.com/hls/redetves/index.m3u8
 #EXTINF:-1 tvg-id="redetv" tvg-name="REDETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redetv.png" group-title="Canal Aberto | Imperatriz", REDE TV MA
 https://5b33b873179a2.streamlock.net:1443/canal17/livestream/playlist.m3u8
-#EXTINF:-1 tvg-id="redetv" tvg-name="REDETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redetv.png" group-title="Canal Aberto | Guará Caxias", REDE TV SP
+#EXTINF:-1 tvg-id="redetv" tvg-name="REDETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redetv.png" group-title="Canal Aberto | Caxias", REDE TV MA
 https://srv1.zcast.com.br/igo8807/igo8807/playlist.m3u8
 #EXTINF:-1 tvg-id="redetv" tvg-name="REDETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redetv.png" group-title="Canal Aberto | Paraná", REDE TV PR
 https://tv02.zas.media:1936/redetvparana/redetvparana/playlist.m3u8?ManoTV
