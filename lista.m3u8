@@ -141,6 +141,9 @@ https://68882bdaf156a.streamlock.net/impd/ngrp:impd_all/chunklist_w1960836974_b1
 #EXTINF:-1 tvg-id="cnova" tvg-name="CNOVA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnova.png" group-title="Canal Católico", CANÇÃO NOVA
 http://46.151.196.223:14225/
 
+#EXTINF:-1 tvg-id="redevida" tvg-name="REDEVIDA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redevida.png" group-title="Canal Católico", REDE VIDA
+http://46.151.196.223:14244/
+
 #EXTINF:-1 tvg-id="tvaparecida" tvg-name="TVAPARECIDA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tvaparecida.png" group-title="Canal Católico", TV APARECIDA
 https://cdn.jmvstream.com/w/LVW-9716/LVW9716_HbtQtezcaw/playlist.m3u8
 
