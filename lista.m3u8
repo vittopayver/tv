@@ -2,7 +2,7 @@
 http://46.151.196.223:14212/
 #EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto | Rio de Janeiro", GLOBO RJ
 http://79.127.238.228:14217/
-#EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto | Goiás", GLOBO GO
+#EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto | Jataí", GLOBO GO
 http://79.127.238.228:14173/
 #EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal de Notícias", GLOBO NEWS 
 http://79.127.243.211:14254/
