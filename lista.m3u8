@@ -91,7 +91,7 @@ http://79.127.243.211:14648/
 http://79.127.243.211:14652/
 
 #EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal de Filmes e Séries", TNT
-https://cr7v.short.gy/ManoTV/esc2/index.m3u8
+http://79.127.243.211:14615/
 #EXTINF:-1 tvg-id="tnt" tvg-name="TNT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tnt.png" group-title="Canal de Filmes e Séries", TNT SÉRIES
 http://79.127.243.211:14619/
 
