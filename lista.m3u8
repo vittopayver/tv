@@ -1,9 +1,9 @@
+#EXTINF:-1 tvg-id="bbb" tvg-name="BBB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="Canal de Reality | Big Brother Brasil", BBB MOSAICO
+46.151.196.223:14946
 #EXTINF:-1 tvg-id="bbb" tvg-name="BBB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="Canal de Reality | Big Brother Brasil", BBB CÂMERA 1
 https://image-storage-51.imgcontent.xyz/live/bbb26/index.m3u8  
 #EXTINF:-1 tvg-id="bbb" tvg-name="BBB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="Canal de Reality | Big Brother Brasil", BBB CÂMERA 2
 https://image-storage-51.imgcontent.xyz/live/bbb26-2/index.m3u8
-#EXTINF:-1 tvg-id="bbb" tvg-name="BBB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="Canal de Reality | Big Brother Brasil", BBB MOSAICO
-https://image-storage-51.imgcontent.xyz/live/bbb26-3/index.m3u8   
 
 #EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto | Rio de Janeiro", GLOBO RJ
 http://79.127.243.211:14027/
