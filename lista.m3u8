@@ -3,9 +3,7 @@ http://46.151.196.223:14948/
 #EXTINF:-1 tvg-id="bbb" tvg-name="BBB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="Canal de Reality | Big Brother Brasil", BBB CÂMERA 1
 http://46.151.196.223:14901/
 #EXTINF:-1 tvg-id="bbb" tvg-name="BBB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="Canal de Reality | Big Brother Brasil", BBB CÂMERA 2
-https://image-storage-51.imgcontent.xyz/live/bbb26-2/index.m3u8
-#EXTINF:-1 tvg-id="bbb" tvg-name="BBB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bbb.png" group-title="Canal de Reality | Big Brother Brasil", BBB MULTE SHOW
-46.151.196.223:14044
+46.151.196.223:14158
 
 #EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto | Rio de Janeiro", GLOBO SP
 http://46.151.196.223:14886/
