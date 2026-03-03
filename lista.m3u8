@@ -82,6 +82,9 @@ http://79.127.243.211:14436/
 #EXTINF:-1 tvg-id="ratimbum" tvg-name="RATIMBUM" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/ratimbum.png" group-title="Canal Infantil", RATIMBUM
 http://79.127.243.211:14432/
 
+#EXTINF:-1 tvg-id="multishow" tvg-name="MULTISHOW" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/multishow.png" group-title="Canal de Filmes", MULTI SHOW 
+http://46.151.196.223:14044/
+
 #EXTINF:-1 tvg-id="space" tvg-name="SPACE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/space.png" group-title="Canal de Filmes", SPACE
 http://46.151.196.223:14607/
 
