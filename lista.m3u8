@@ -30,6 +30,8 @@ https://stream.ads.ottera.tv/playlist.m3u8?network_id=5431&avod=1&coppa=0&is_lat
 
 #EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/band.png" group-title="Canal Aberto | São Paulo", BAND SP
 http://79.127.238.228:14298/
+#EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bandnews.png" group-title="Canal Aberto | São Paulo", BAND NEWS
+http://vipgerretger.top:8080/VIP017341743530938376/8fe1d88fc2c0/4834
 #EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bandsports.png" group-title="Canal de Esportes", BAND SPORTS
 http://185.152.67.187:14474/
 
