@@ -70,9 +70,6 @@ http://79.127.243.211:14312/
 #EXTINF:-1 tvg-id="multishow" tvg-name="MULTISHOW" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/multishow.png" group-title="Canal Diversos", MULTI SHOW 
 http://46.151.196.223:14044/
 
-#EXTINF:-1 tvg-id="bis" tvg-name="BIS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bis.png" group-title="Canal de Musicas", BIS
-http://79.127.243.211:14286/
-
 #EXTINF:-1 tvg-id="cultura" tvg-name="TV CULTURA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cultura.png" group-title="Canal Diversos", TV CULTURA
 https://player-tvcultura.stream.uol.com.br/live/tvcultura.m3u8
 
@@ -85,8 +82,14 @@ http://79.127.243.211:14436/
 #EXTINF:-1 tvg-id="ratimbum" tvg-name="RATIMBUM" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/ratimbum.png" group-title="Canal Infantil", RATIMBUM
 http://79.127.243.211:14432/
 
+#EXTINF:-1 tvg-id="bis" tvg-name="BIS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bis.png" group-title="Canal de Musicas", BIS
+http://79.127.243.211:14286/
+
 #EXTINF:-1 tvg-id="space" tvg-name="SPACE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/space.png" group-title="Canal de Filmes", SPACE
 http://46.151.196.223:14607/
+
+#EXTINF:-1 tvg-id="sony" tvg-name="SONY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sony.png" group-title="Canal de Filmes", SONY CHANNEL
+http://46.151.196.223:14603/
 
 #EXTINF:-1 tvg-id="megapix" tvg-name="MEGAPIX" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/megapix.png" group-title="Canal de Filmes", MEGAPIX
 http://vipgerretger.top:8080/VIP017341743530938376/8fe1d88fc2c0/4877
