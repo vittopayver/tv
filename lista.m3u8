@@ -86,6 +86,9 @@ https://stream.ads.ottera.tv/playlist.m3u8?network_id=5442
 #EXTINF:-1 tvg-id="gloob" tvg-name="GLOOB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gloob.png" group-title="Canal Infantil", GLOOB
 http://79.127.243.211:14436/
 
+#EXTINF:-1 tvg-id="dkids" tvg-name="DKIDS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/dkids.png" group-title="Canal Infantil", DISCOVERY KIDS
+http://vipketseyket.top:8080/VIP017741743173529373/aacb05f76c36/4845
+
 #EXTINF:-1 tvg-id="ratimbum" tvg-name="RATIMBUM" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/ratimbum.png" group-title="Canal Infantil", RATIMBUM
 http://79.127.243.211:14432/
 
