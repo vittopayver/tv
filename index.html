@@ -3,523 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>G-Hub Tv</title>
+    <script src="https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.min.js"></script>
     <style>
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none; -webkit-user-select: none;
-        }
-        html, body {
-            background: #000; color: #f1f1f1;
-            overflow: hidden; height: 100%; width: 100%;
-        }
-        .tv-container {
-            position: relative; width: 100vw; height: 100vh; background: #000;
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html,body{background:#000;overflow:hidden;width:100%;height:100%;}
+
+        #vid{
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            object-fit:contain;background:#000;z-index:1;
         }
 
-        /* ── VÍDEO ── */
-        #video-player-tv {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: contain; background: #000;
-            display: block; opacity: 0;
-            transition: opacity 0.2s ease; z-index: 1;
+        #sp{
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            background:#000;z-index:50;
+            display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
         }
-        #video-player-tv.ready { opacity: 1; }
+        #sp.off{display:none;}
+        .ring{
+            width:72px;height:72px;
+            border:5px solid rgba(255,255,255,.08);
+            border-top-color:#4ecb00;border-right-color:#1a8c00;
+            border-radius:50%;animation:spin .75s linear infinite;
+        }
+        @keyframes spin{to{transform:rotate(360deg);}}
+        #sp-txt{color:#555;font:13px sans-serif;text-align:center;padding:0 24px;line-height:1.7;}
 
-        /* ── CLICK OVERLAY ── */
-        .tv-click-overlay {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%; z-index: 5;
+        /* OSD */
+        #osd{
+            position:fixed;bottom:48px;right:48px;z-index:60;
+            display:none;flex-direction:column;align-items:flex-end;gap:8px;
         }
+        #osd.on{display:flex;}
+        .osd-live{
+            display:flex;align-items:center;gap:6px;
+            background:rgba(0,0,0,.7);border:1px solid rgba(78,203,0,.5);
+            border-radius:20px;padding:4px 12px 4px 9px;
+            font:700 11px/1 sans-serif;letter-spacing:1.2px;color:#4ecb00;text-transform:uppercase;
+        }
+        .osd-dot{width:8px;height:8px;background:#4ecb00;border-radius:50%;animation:p 1.4s ease-in-out infinite;}
+        @keyframes p{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+        .osd-num{font:900 5rem/1 sans-serif;color:#fff;letter-spacing:-3px;
+            text-shadow:0 0 40px rgba(78,203,0,.4),0 2px 20px rgba(0,0,0,.95);}
+        .osd-nm{font:500 .9rem/1 sans-serif;color:rgba(255,255,255,.5);max-width:260px;
+            overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
-        /* ── SPINNER ── */
-        .tv-loading-screen {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%; background: #000;
-            display: flex; align-items: center; justify-content: center;
-            z-index: 20; opacity: 0; pointer-events: none;
-            transition: opacity 0.25s ease;
-        }
-        .tv-loading-screen.show { opacity: 1; pointer-events: all; }
-        .tv-spinner {
-            width: 80px; height: 80px;
-            border: 5px solid rgba(255,255,255,0.07);
-            border-top-color: #4ecb00; border-right-color: #1a8c00;
-            border-radius: 50%; animation: tvSpin 0.75s linear infinite;
-        }
-        @keyframes tvSpin { to { transform: rotate(360deg); } }
+        #bar{position:fixed;bottom:0;left:0;right:0;height:2px;
+            background:linear-gradient(to right,#4ecb00,#1a8c00);z-index:10;display:none;}
+        #bar.on{display:block;}
 
-        /* ── ERROS ── */
-        .tv-error-screen {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.88);
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            z-index: 15; opacity: 0; pointer-events: none;
-            transition: opacity 0.3s ease;
-            text-align: center; padding: 24px;
-        }
-        .tv-error-screen.show { opacity: 1; pointer-events: all; }
-        .tv-error-icon  { font-size: 42px; margin-bottom: 14px; }
-        .tv-error-title { font-size: 16px; font-weight: 700; color: #f1f1f1; margin-bottom: 8px; }
-        .tv-error-sub   { font-size: 13px; color: #888; max-width: 280px; line-height: 1.6; margin-bottom: 22px; }
-        .tv-error-btn {
-            background: linear-gradient(135deg, #4ecb00, #1a8c00);
-            color: #fff; border: none; padding: 11px 30px;
-            border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;
-        }
-        .tv-error-screen.unavail .tv-error-btn { background: #2a2a2a; color: #bbb; }
-
-        /* ══ OSD — INFO DO CANAL ══════════════════════════════════════
-           Canto inferior direito. Aparece 3.5s ao trocar canal.
-        ══════════════════════════════════════════════════════════════ */
-        .tv-osd {
-            position: absolute; bottom: 52px; right: 52px;
-            z-index: 30;
-            display: flex; flex-direction: column;
-            align-items: flex-end; gap: 10px;
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.35s ease;
-        }
-        .tv-osd.show { opacity: 1; }
-
-        /* Badge AO VIVO */
-        .tv-osd-live {
-            display: flex; align-items: center; gap: 7px;
-            background: rgba(0,0,0,0.6);
-            border: 1px solid rgba(78,203,0,0.55);
-            border-radius: 20px; padding: 4px 13px 4px 10px;
-            font-size: 11px; font-weight: 700;
-            letter-spacing: 1.4px; color: #4ecb00;
-            text-transform: uppercase;
-        }
-        .tv-osd-live-dot {
-            width: 8px; height: 8px; background: #4ecb00;
-            border-radius: 50%; flex-shrink: 0;
-            animation: osdPulse 1.4s ease-in-out infinite;
-        }
-
-        /* Número */
-        .tv-osd-number-wrap {
-            display: flex; align-items: baseline; gap: 8px;
-        }
-        .tv-osd-ch-label {
-            font-size: 1.05rem; font-weight: 500;
-            color: rgba(255,255,255,0.4); letter-spacing: 0.5px; padding-bottom: 6px;
-        }
-        .tv-osd-number {
-            font-size: 6rem; font-weight: 900; color: #fff;
-            line-height: 1; letter-spacing: -4px;
-            text-shadow: 0 0 50px rgba(78,203,0,0.4), 0 2px 24px rgba(0,0,0,0.95);
-        }
-
-        /* Nome */
-        .tv-osd-name {
-            font-size: 0.95rem; font-weight: 500;
-            color: rgba(255,255,255,0.5); letter-spacing: 0.3px;
-            max-width: 280px; overflow: hidden;
-            text-overflow: ellipsis; white-space: nowrap; text-align: right;
-        }
-
-        /* ── SCAN BADGE — discreto, canto superior esquerdo ── */
-        .tv-scan-badge {
-            position: absolute; top: 24px; left: 28px; z-index: 30;
-            display: flex; align-items: center; gap: 8px;
-            background: rgba(0,0,0,0.6);
-            border: 1px solid rgba(78,203,0,0.3);
-            border-radius: 20px; padding: 5px 14px 5px 10px;
-            font-size: 11px; font-weight: 600; color: #4ecb00;
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .tv-scan-badge.show { opacity: 1; }
-        .tv-scan-dot {
-            width: 6px; height: 6px; background: #4ecb00;
-            border-radius: 50%; animation: osdPulse 1s ease-in-out infinite;
-        }
-
-        /* ── BARRA VIVA ── */
-        .tv-progress {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(to right, #4ecb00, #1a8c00);
-            z-index: 10; opacity: 0; transition: opacity 0.3s ease;
-        }
-        .tv-progress.show { opacity: 1; }
-
-        @keyframes osdPulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50%       { opacity: 0.4; transform: scale(0.7); }
-        }
+        #click-ov{position:fixed;top:0;left:0;width:100%;height:100%;z-index:20;}
     </style>
 </head>
 <body>
-<div class="tv-container" id="tv-container">
 
-    <video id="video-player-tv" preload="auto" playsinline webkit-playsinline x5-playsinline></video>
-    <div class="tv-click-overlay" id="tv-click-overlay"></div>
-
-    <!-- Spinner -->
-    <div class="tv-loading-screen show" id="tv-loading-screen">
-        <div class="tv-spinner"></div>
-    </div>
-
-    <!-- Erros -->
-    <div class="tv-error-screen" id="tv-error-retry">
-        <div class="tv-error-icon">⚠️</div>
-        <div class="tv-error-title">Não foi possível reproduzir</div>
-        <div class="tv-error-sub">Pressione OK / Enter para tentar novamente.</div>
-        <button class="tv-error-btn" id="tv-retry-btn">Tentar novamente</button>
-    </div>
-    <div class="tv-error-screen unavail" id="tv-error-unavail">
-        <div class="tv-error-icon">📡</div>
-        <div class="tv-error-title">Canal indisponível</div>
-        <div class="tv-error-sub">Use ↑ ↓ no controle para trocar de canal.</div>
-        <button class="tv-error-btn" id="tv-unavail-btn">Próximo canal</button>
-    </div>
-
-    <!-- OSD: info do canal -->
-    <div class="tv-osd" id="tv-osd">
-        <div class="tv-osd-live">
-            <div class="tv-osd-live-dot"></div>AO VIVO
-        </div>
-        <div class="tv-osd-number-wrap">
-            <span class="tv-osd-ch-label">CH</span>
-            <span class="tv-osd-number" id="tv-osd-number">1</span>
-        </div>
-        <div class="tv-osd-name" id="tv-osd-name">Canal 1</div>
-    </div>
-
-    <!-- Scan badge -->
-    <div class="tv-scan-badge" id="tv-scan-badge">
-        <div class="tv-scan-dot"></div>
-        <span id="tv-scan-text">Escaneando…</span>
-    </div>
-
-    <!-- Barra verde viva -->
-    <div class="tv-progress" id="tv-progress"></div>
+<video id="vid" preload="auto" playsinline webkit-playsinline muted></video>
+<div id="sp"><div class="ring"></div><div id="sp-txt">Procurando canais…</div></div>
+<div id="osd">
+    <div class="osd-live"><div class="osd-dot"></div>AO VIVO</div>
+    <div class="osd-num" id="osd-n">1</div>
+    <div class="osd-nm"  id="osd-nm">Canal 1</div>
 </div>
+<div id="bar"></div>
+<div id="click-ov"></div>
 
 <script>
-/* ══ PROTEÇÃO ══════════════════════════════════════════════════════════ */
-(function() {
-    var pt;
-    function bail() {
-        try { if (document.exitFullscreen) document.exitFullscreen().catch(function(){}); else if (document.webkitExitFullscreen) document.webkitExitFullscreen(); } catch(e){}
-        setTimeout(function(){ if (screen.orientation && screen.orientation.lock) screen.orientation.lock('portrait').catch(function(){}); }, 100);
-    }
-    ['mousedown','touchstart'].forEach(function(ev){ document.addEventListener(ev, function(){ pt = setTimeout(bail, 800); }); });
-    ['mouseup','mouseleave','touchend','touchcancel'].forEach(function(ev){ document.addEventListener(ev, function(){ clearTimeout(pt); }); });
-    document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
-    document.addEventListener('keydown', function(e){
-        if (e.keyCode===123){ e.preventDefault(); return false; }
-        if (e.ctrlKey && e.shiftKey && (e.keyCode===73||e.keyCode===74)){ e.preventDefault(); return false; }
-        if (e.ctrlKey && (e.keyCode===85||e.keyCode===83)){ e.preventDefault(); return false; }
-    });
-    document.onselectstart = function(){ return false; };
-    document.oncopy = function(){ return false; };
-})();
+var vid    = document.getElementById('vid');
+var sp     = document.getElementById('sp');
+var spTxt  = document.getElementById('sp-txt');
+var osd    = document.getElementById('osd');
+var osdN   = document.getElementById('osd-n');
+var osdNm  = document.getElementById('osd-nm');
+var bar    = document.getElementById('bar');
+var clickOv= document.getElementById('click-ov');
 
-/* ══ ELEMENTOS ═════════════════════════════════════════════════════════ */
-var video        = document.getElementById('video-player-tv');
-var loadingScr   = document.getElementById('tv-loading-screen');
-var errRetry     = document.getElementById('tv-error-retry');
-var errUnavail   = document.getElementById('tv-error-unavail');
-var retryBtn     = document.getElementById('tv-retry-btn');
-var unavailBtn   = document.getElementById('tv-unavail-btn');
-var osdEl        = document.getElementById('tv-osd');
-var osdNumber    = document.getElementById('tv-osd-number');
-var osdName      = document.getElementById('tv-osd-name');
-var scanBadge    = document.getElementById('tv-scan-badge');
-var scanText     = document.getElementById('tv-scan-text');
-var progressBar  = document.getElementById('tv-progress');
-var clickOverlay = document.getElementById('tv-click-overlay');
+var channels = [];
+var curIdx   = -1;
+var osdTmr   = null;
+var mpPlayer = null;
 
-/* ══ ESTADO ════════════════════════════════════════════════════════════ */
-var channels     = [];
-var currentIndex = -1;
-var scanDone     = false;
+/* ── Proxy CORS: envolve URL http:// para evitar Mixed Content ──────
+   Usa allorigins.win como proxy público.
+   Formato: https://api.allorigins.win/raw?url=<URL_ENCODED>
+   Para streams MPEG-TS não funciona por ser binário —
+   usamos corsproxy.io que faz proxy transparente de bytes.
+   Fallback: tentativa direta (funciona se página for http://).      */
+var PROXIES = [
+    'https://corsproxy.io/?',          /* proxy 1 */
+    'https://api.codetabs.com/v1/proxy?quest=', /* proxy 2 */
+];
 
-/* ══ UI HELPERS ════════════════════════════════════════════════════════ */
-function showSpinner() { loadingScr.classList.add('show'); }
-function hideSpinner() { loadingScr.classList.remove('show'); }
-function hideErrors()  { errRetry.classList.remove('show'); errUnavail.classList.remove('show'); }
-function showUnavail() { hideSpinner(); hideErrors(); errUnavail.classList.add('show'); }
-function showVideoEl() { video.classList.add('ready'); progressBar.classList.add('show'); }
-function hideVideoEl() { video.classList.remove('ready'); progressBar.classList.remove('show'); }
-
-/* ══ OSD ═══════════════════════════════════════════════════════════════ */
-var osdTimer = null;
-function showOSD(index) {
-    var num  = index + 1;
-    var name = (channels[index] && channels[index].name) || ('Canal ' + num);
-    osdNumber.textContent = num;
-    osdName.textContent   = name;
-    osdEl.classList.add('show');
-    if (osdTimer) clearTimeout(osdTimer);
-    osdTimer = setTimeout(function(){ osdEl.classList.remove('show'); }, 3500);
+function proxiedUrl(rawUrl, proxyIndex) {
+    if (proxyIndex === undefined) proxyIndex = 0;
+    if (proxyIndex >= PROXIES.length) return rawUrl; /* sem proxy — direto */
+    return PROXIES[proxyIndex] + encodeURIComponent(rawUrl);
 }
 
-/* ══ SCAN BADGE ════════════════════════════════════════════════════════ */
-function updateScanBadge(found, tested) {
-    if (scanDone) return;
-    scanBadge.classList.add('show');
-    scanText.textContent = found + ' canais · ' + tested + '/1000';
-}
-function hideScanBadge() {
-    scanDone = true;
-    scanBadge.classList.remove('show');
+/* ── spinner ──────────────────────────────────────────────────────── */
+function spOff(){ sp.classList.add('off'); }
+
+/* ── OSD ──────────────────────────────────────────────────────────── */
+function showOSD(i){
+    osdN.textContent  = i+1;
+    osdNm.textContent = (channels[i]&&channels[i].name)||('Canal '+(i+1));
+    osd.classList.add('on');
+    if(osdTmr) clearTimeout(osdTmr);
+    osdTmr = setTimeout(function(){ osd.classList.remove('on'); }, 3500);
 }
 
-/* ══ FULLSCREEN ════════════════════════════════════════════════════════ */
-function enterFs() {
-    var e = document.documentElement;
-    try {
-        if (e.requestFullscreen)         { e.requestFullscreen({ navigationUI:'hide' }).catch(function(){}); return; }
-        if (e.webkitRequestFullscreen)   { e.webkitRequestFullscreen(); return; }
-        if (e.mozRequestFullScreen)      { e.mozRequestFullScreen(); return; }
-        if (e.msRequestFullscreen)       { e.msRequestFullscreen(); return; }
-        if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
-    } catch(err){}
+/* ── fullscreen ───────────────────────────────────────────────────── */
+function enterFs(){
+    var e=document.documentElement;
+    try{
+        if(e.requestFullscreen)       {e.requestFullscreen({navigationUI:'hide'}).catch(function(){});return;}
+        if(e.webkitRequestFullscreen) {e.webkitRequestFullscreen();return;}
+        if(vid.webkitEnterFullscreen) vid.webkitEnterFullscreen();
+    }catch(ex){}
 }
-function exitFs() {
-    try {
-        if (document.exitFullscreen)            document.exitFullscreen().catch(function(){});
-        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-        else if (document.mozCancelFullScreen)  document.mozCancelFullScreen();
-        else if (document.msExitFullscreen)     document.msExitFullscreen();
-    } catch(e){}
+function exitFs(){
+    try{
+        if(document.exitFullscreen)            document.exitFullscreen().catch(function(){});
+        else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+    }catch(e){}
 }
-setTimeout(function(){ enterFs(); }, 600);
-['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(function(ev){
-    document.addEventListener(ev, function(){
-        var inFs = !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement);
-        if (!inFs) setTimeout(enterFs, 150);
+setTimeout(enterFs,600);
+['fullscreenchange','webkitfullscreenchange'].forEach(function(ev){
+    document.addEventListener(ev,function(){
+        var inFs=!!(document.fullscreenElement||document.webkitFullscreenElement);
+        if(!inFs) setTimeout(enterFs,200);
     });
 });
 
-/* ══ WAKE LOCK ═════════════════════════════════════════════════════════ */
-var wakeLock = null;
-function tryWakeLock() {
-    try {
-        if (navigator.wakeLock && document.visibilityState==='visible') {
-            if (wakeLock && !wakeLock.released) return;
-            navigator.wakeLock.request('screen').then(function(wl){
-                wakeLock = wl;
-                wl.addEventListener('release', function(){ wakeLock=null; if(document.visibilityState==='visible') setTimeout(tryWakeLock,200); });
+/* ── wake lock ────────────────────────────────────────────────────── */
+var wl=null;
+function keepAwake(){
+    try{
+        if(navigator.wakeLock&&document.visibilityState==='visible'&&!(wl&&!wl.released)){
+            navigator.wakeLock.request('screen').then(function(w){
+                wl=w;w.addEventListener('release',function(){wl=null;keepAwake();});
             }).catch(function(){});
         }
-    } catch(e){}
+    }catch(e){}
 }
-tryWakeLock();
-document.addEventListener('visibilitychange', function(){
-    if (document.visibilityState==='visible') { tryWakeLock(); if(video.paused && currentIndex>=0) _safePlay(); }
+keepAwake();
+document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState==='visible'){keepAwake();if(vid.paused&&curIdx>=0)vid.play().catch(function(){});}
 });
 
-/* ══ ENGINE: mpegts.js ═════════════════════════════════════════════════ */
-var _mpegtsInstance = null;
-var _currentUrl     = '';
-var _retryCount     = 0;
-var _retryTimer     = null;
-var _stallTimer     = null;
-var _sessionActive  = false;
-var _isPlaying      = false;
-
-var MAX_RETRIES      = 3;
-var RETRY_DELAYS     = [3000, 6000, 12000];
-var STALL_LIMIT_COLD = 25000;
-var STALL_LIMIT_HOT  = 18000;
-
-function _destroyEngine() {
-    _sessionActive = false;
-    if (_mpegtsInstance) {
-        try { _mpegtsInstance.pause(); _mpegtsInstance.unload(); _mpegtsInstance.detachMediaElement(); _mpegtsInstance.destroy(); } catch(e){}
-        _mpegtsInstance = null;
-    }
-    try { video.pause(); video.removeAttribute('src'); video.load(); } catch(e){}
-    _clearStall();
-}
-function _clearStall() { if (_stallTimer){ clearTimeout(_stallTimer); _stallTimer=null; } }
-function _clearRetry() { if (_retryTimer){ clearTimeout(_retryTimer); _retryTimer=null; } }
-
-function _safePlay() {
-    video.muted=false; video.volume=1;
-    var p = video.play();
-    if (p && p.catch) {
-        p.catch(function(err){
-            if (err && err.name==='NotAllowedError') {
-                video.muted=true;
-                var u=function(){ video.muted=false; video.volume=1; };
-                document.addEventListener('touchstart',u,{once:true,passive:true});
-                document.addEventListener('click',u,{once:true});
-                video.play().catch(function(){});
-            }
-        });
+/* ── destroy player ───────────────────────────────────────────────── */
+function destroyMp(){
+    if(mpPlayer){
+        try{mpPlayer.pause();mpPlayer.unload();mpPlayer.detachMediaElement();mpPlayer.destroy();}catch(e){}
+        mpPlayer=null;
     }
 }
 
-function _runMpegts(url, onFail) {
-    if (typeof mpegts==='undefined'||!mpegts.isSupported()){ onFail(); return; }
-    _mpegtsInstance = mpegts.createPlayer(
-        { type:'mpegts', url:url, isLive:true, hasAudio:true, hasVideo:true },
-        { enableWorker:true, lazyLoad:false, liveBufferLatencyChasing:false,
-          seekType:'range', cors:true, withCredentials:false, ioRetryCount:3, ioRetryDelay:1000 }
+/* ── playUrl com fallback de proxy ───────────────────────────────── */
+function playUrl(rawUrl, proxyIdx){
+    if(proxyIdx === undefined) proxyIdx = 0;
+    destroyMp();
+
+    /* tenta direto se página for http, senão usa proxy */
+    var pageIsHttp = location.protocol === 'http:';
+    var useUrl = pageIsHttp ? rawUrl : proxiedUrl(rawUrl, proxyIdx);
+
+    spTxt.textContent = 'Conectando' + (proxyIdx > 0 ? ' (proxy '+(proxyIdx)+')' : '') + '…';
+
+    mpPlayer = mpegts.createPlayer(
+        {type:'mpegts', url:useUrl, isLive:true, hasAudio:true, hasVideo:true},
+        {enableWorker:true, lazyLoad:false, liveBufferLatencyChasing:true,
+         cors:true, withCredentials:false}
     );
-    _mpegtsInstance.attachMediaElement(video);
-    _mpegtsInstance.load();
-    _safePlay();
-    var eh=function(){ _mpegtsInstance.off(mpegts.Events.ERROR,eh); onFail(); };
-    _mpegtsInstance.on(mpegts.Events.ERROR, eh);
+
+    /* se der erro de rede, tenta próximo proxy */
+    mpPlayer.on(mpegts.Events.ERROR, function(type){
+        if(type === mpegts.ErrorTypes.NETWORK_ERROR || type === mpegts.ErrorTypes.MEDIA_ERROR){
+            var next = proxyIdx + 1;
+            if(next <= PROXIES.length){
+                destroyMp();
+                playUrl(rawUrl, next);
+            } else {
+                spTxt.textContent = 'Canal indisponível. Use ↑↓ para trocar.';
+            }
+        }
+    });
+
+    mpPlayer.attachMediaElement(vid);
+    mpPlayer.load();
+
+    vid.muted  = true;
+    vid.volume = 1;
+    vid.play().catch(function(){});
 }
 
-function _doRetry() {
-    _clearStall(); _clearRetry();
-    if (_retryCount>=MAX_RETRIES){ _sessionActive=false; showUnavail(); return; }
-    var delay=RETRY_DELAYS[_retryCount]||12000;
-    _retryCount++;
-    showSpinner();
-    _retryTimer=setTimeout(function(){
-        if(!_sessionActive) return;
-        _destroyEngine();
-        setTimeout(function(){
-            if(!_sessionActive) return;
-            _runMpegts(_currentUrl, function(){ _doRetry(); });
-            var limit=_isPlaying?STALL_LIMIT_HOT:STALL_LIMIT_COLD;
-            _stallTimer=setTimeout(function(){ if(_sessionActive) _doRetry(); }, limit);
-        }, 100);
-    }, delay);
+/* ── eventos do vídeo ─────────────────────────────────────────────── */
+vid.addEventListener('playing', function(){
+    spOff();
+    bar.classList.add('on');
+    setTimeout(function(){ vid.muted=false; vid.volume=1; }, 300);
+    keepAwake();
+});
+
+vid.addEventListener('error', function(){
+    /* erro no elemento <video> — Mixed Content costuma aparecer aqui */
+    if(curIdx >= 0 && channels[curIdx]){
+        var raw = channels[curIdx].rawUrl;
+        var curProxy = channels[curIdx].proxyIdx || 0;
+        var next = curProxy + 1;
+        if(next <= PROXIES.length){
+            channels[curIdx].proxyIdx = next;
+            destroyMp();
+            playUrl(raw, next);
+        }
+    }
+});
+
+/* ── teclado / controle ───────────────────────────────────────────── */
+document.addEventListener('keydown',function(e){
+    if(['Escape','Back','Backspace'].includes(e.key)){e.preventDefault();exitFs();return;}
+    if(['ArrowDown','Down','ChannelDown'].includes(e.key)){
+        e.preventDefault();
+        playChannel((curIdx+1)%Math.max(channels.length,1));return;
+    }
+    if(['ArrowUp','Up','ChannelUp'].includes(e.key)){
+        e.preventDefault();
+        playChannel((curIdx-1+Math.max(channels.length,1))%Math.max(channels.length,1));return;
+    }
+    if(['Enter','OK'].includes(e.key)){e.preventDefault();if(curIdx>=0)playChannel(curIdx);}
+});
+clickOv.addEventListener('click',function(){ if(curIdx>=0) showOSD(curIdx); });
+
+function playChannel(i){
+    if(!channels.length) return;
+    if(i<0) i=channels.length-1;
+    if(i>=channels.length) i=0;
+    curIdx=i;
+    showOSD(i);
+    playUrl(channels[i].rawUrl, 0);
 }
 
-function loadMediaUrl(url) {
-    if (!url){ showUnavail(); return; }
-    _destroyEngine(); _clearRetry();
-    _currentUrl=url; _retryCount=0; _sessionActive=true;
-    hideVideoEl(); showSpinner(); hideErrors();
-    setTimeout(function(){
-        if(!_sessionActive) return;
-        _runMpegts(url, function(){ _doRetry(); });
-        var limit=_isPlaying?STALL_LIMIT_HOT:STALL_LIMIT_COLD;
-        _stallTimer=setTimeout(function(){ if(_sessionActive) _doRetry(); }, limit);
-    }, 80);
-}
-
-/* ══ EVENTOS DO VÍDEO ══════════════════════════════════════════════════ */
-video.addEventListener('playing', function(){
-    _clearStall(); _isPlaying=true; video.muted=false; video.volume=1;
-    hideSpinner(); hideErrors(); showVideoEl(); tryWakeLock();
-});
-video.addEventListener('timeupdate', function(){
-    _clearStall(); if(video.muted){ video.muted=false; video.volume=1; }
-});
-video.addEventListener('waiting',   function(){ if(_sessionActive && currentIndex>=0) showSpinner(); });
-video.addEventListener('canplay',   function(){ hideSpinner(); });
-video.addEventListener('loadstart', function(){ if(currentIndex>=0){ hideVideoEl(); showSpinner(); } });
-video.addEventListener('error',     function(){
-    if(!_sessionActive||currentIndex<0){ hideSpinner(); return; }
-    if(!_mpegtsInstance){ _clearStall(); _doRetry(); }
-});
-
-/* ══ PLAY CHANNEL ══════════════════════════════════════════════════════ */
-function playChannel(index) {
-    if (channels.length===0) return;
-    if (index<0) index=channels.length-1;
-    if (index>=channels.length) index=0;
-    currentIndex=index;
-    showOSD(index);
-    loadMediaUrl(channels[index].url);
-}
-
-/* ══ CONTROLE REMOTO / TECLADO ═════════════════════════════════════════ */
-document.addEventListener('keydown', function(e){
-    if (['Escape','Back','Backspace'].includes(e.key)){ e.preventDefault(); exitFs(); return; }
-    if (['ArrowDown','Down','ChannelDown'].includes(e.key)){ e.preventDefault(); playChannel(currentIndex+1); return; }
-    if (['ArrowUp','Up','ChannelUp'].includes(e.key)){   e.preventDefault(); playChannel(currentIndex-1); return; }
-    if (['Enter','OK'].includes(e.key)){ e.preventDefault(); if(currentIndex>=0) playChannel(currentIndex); return; }
-});
-
-/* ══ CLICK: mostra OSD do canal atual ═════════════════════════════════ */
-clickOverlay.addEventListener('click', function(){
-    if (currentIndex>=0) showOSD(currentIndex);
-});
-
-/* ══ BOTÕES DE ERRO ════════════════════════════════════════════════════ */
-retryBtn.addEventListener('click',   function(e){ e.stopPropagation(); if(currentIndex>=0) playChannel(currentIndex); });
-unavailBtn.addEventListener('click', function(e){ e.stopPropagation(); playChannel(currentIndex+1); });
-
-/* ══ SCAN DE PORTAS ════════════════════════════════════════════════════
-   IP: 46.151.196.223 | Portas: 14000–14999 | Lotes de 30
-   O PRIMEIRO canal encontrado toca IMEDIATAMENTE.
-   O scan continua em background acumulando os demais canais.
-══════════════════════════════════════════════════════════════════════ */
-function generateUrlsToTest() {
-    var urls=[], ip='46.151.196.223';
-    for (var port=14000; port<=14999; port++)
-        urls.push({ url:'http://'+ip+':'+port+'/', port:port });
-    return urls;
-}
-
-function testUrl(urlInfo, timeout) {
-    timeout=timeout||2000;
+/* ── SCAN ─────────────────────────────────────────────────────────── */
+function testPort(port){
+    var url='http://46.151.196.223:'+port+'/';
     return new Promise(function(resolve){
         var ctrl=new AbortController();
-        var tid=setTimeout(function(){ ctrl.abort(); resolve(false); }, timeout);
-        fetch(urlInfo.url, { method:'HEAD', signal:ctrl.signal, mode:'no-cors', cache:'no-store' })
-            .then(function(){ clearTimeout(tid); resolve(true); })
-            .catch(function(){ clearTimeout(tid); resolve(false); });
+        var tid=setTimeout(function(){ctrl.abort();resolve(null);},2000);
+        fetch(url,{method:'HEAD',signal:ctrl.signal,mode:'no-cors',cache:'no-store'})
+            .then(function(){clearTimeout(tid);resolve(url);})
+            .catch(function(){clearTimeout(tid);resolve(null);});
     });
 }
 
-async function scanAndPlay() {
-    var urlsToTest  = generateUrlsToTest();
-    var total       = urlsToTest.length;
-    var tested      = 0;
-    var firstPlayed = false;
-    var batchSize   = 30;
-
-    updateScanBadge(0, 0);
-
-    for (var i=0; i<total; i+=batchSize) {
-        var batch   = urlsToTest.slice(i, i+batchSize);
-        var results = await Promise.all(
-            batch.map(function(urlInfo){
-                return testUrl(urlInfo).then(function(online){
-                    tested++;
-                    return { url:urlInfo.url, online:online };
-                });
-            })
-        );
-
-        results.forEach(function(r){
-            if (!r.online) return;
-            channels.push({ name:'Canal '+(channels.length+1), url:r.url });
-            updateScanBadge(channels.length, tested);
-
-            /* ── Primeiro canal encontrado: toca IMEDIATAMENTE ── */
-            if (!firstPlayed) {
-                firstPlayed  = true;
-                currentIndex = 0;
+async function scan(){
+    var batch=30, found=false;
+    for(var p=14000; p<=14999; p+=batch){
+        var ports=[];
+        for(var q=p; q<p+batch&&q<=14999; q++) ports.push(q);
+        var res = await Promise.all(ports.map(testPort));
+        res.forEach(function(url){
+            if(!url) return;
+            channels.push({name:'Canal '+(channels.length+1), rawUrl:url, proxyIdx:0});
+            if(!found){
+                found=true;
+                curIdx=0;
+                spOff();
                 showOSD(0);
-                loadMediaUrl(r.url);
+                playUrl(url, 0);
             }
         });
     }
-
-    hideScanBadge();
-    if (channels.length===0) { hideSpinner(); showUnavail(); }
+    if(!found){
+        spTxt.textContent='Nenhum canal encontrado.\nVerifique a conexão.';
+    }
 }
 
-/* ══ START ══════════════════════════════════════════════════════════════ */
-scanAndPlay();
+scan();
 </script>
-
-<!-- ENGINE: mpegts.js -->
-<script src="https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.min.js"></script>
 </body>
 </html>
