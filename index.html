@@ -6,8 +6,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Player IPTV</title>
-
+    <title>G-Hub Tv</title>
     <style>
         * {
             margin: 0; padding: 0; box-sizing: border-box;
@@ -15,7 +14,6 @@
             -webkit-tap-highlight-color: transparent;
             user-select: none; -webkit-user-select: none;
         }
-
         body {
             background: #000;
             color: #f1f1f1;
@@ -23,14 +21,12 @@
             height: 100vh;
             width: 100vw;
         }
-
         .tv-container {
             position: relative;
             width: 100vw;
             height: 100vh;
             background: #000;
         }
-
         #video-player-tv {
             width: 100%; height: 100%;
             object-fit: contain;
@@ -48,44 +44,57 @@
             z-index: 3; cursor: pointer;
         }
 
+        /* ── CANAL OVERLAY ── */
         .tv-channels-overlay {
             position: absolute;
             top: 0; left: 0; bottom: 0;
             width: 320px;
-            background: rgba(10,10,10,0.55);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(5,15,5,0.72);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             z-index: 10;
             transform: translateX(-100%);
             transition: transform 0.3s ease;
-            border-right: 2px solid rgba(160,0,255,0.35);
+            border-right: 2px solid rgba(78,203,0,0.35);
             display: flex; flex-direction: column;
         }
         .tv-channels-overlay.show { transform: translateX(0); }
 
         .tv-channels-header {
-            padding: 30px 20px 15px 30px;
-            background: rgba(10,10,10,0.55);
+            padding: 30px 20px 15px 20px;
+            background: rgba(5,15,5,0.72);
             flex-shrink: 0; position: relative; z-index: 2;
         }
         .tv-channels-header::after {
             content: '';
             position: absolute; bottom: -40px; left: 0; right: 0; height: 40px;
-            background: linear-gradient(to bottom, rgba(10,10,10,0.90), transparent);
+            background: linear-gradient(to bottom, rgba(5,15,5,0.90), transparent);
             pointer-events: none; z-index: 1;
         }
+
+        .tv-header-title-row {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 10px;
+        }
+        .tv-header-logo {
+            width: 60px; height: 60px;
+            object-fit: contain;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 8px rgba(78,203,0,0.6));
+        }
         .tv-channels-title {
-            font-size: 2rem; font-weight: 700; margin-bottom: 10px;
-            background: linear-gradient(135deg, #a000ff, #2d5bff);
+            font-size: 2rem; font-weight: 700;
+            background: linear-gradient(135deg, #4ecb00, #1a8c00);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text; position: relative; z-index: 3;
         }
         .tv-channels-count {
-            background: linear-gradient(135deg, #a000ff, #2d5bff);
+            background: linear-gradient(135deg, #4ecb00, #1a8c00);
             color: white; padding: 6px 16px; border-radius: 20px;
             font-size: 1rem; display: inline-block; position: relative; z-index: 3;
         }
 
+        /* ── LISTA ── */
         .tv-channels-list {
             display: flex; flex-direction: column; gap: 4px;
             padding: 20px 16px 30px; overflow-y: auto; flex: 1;
@@ -100,22 +109,22 @@
             border-left: 3px solid transparent;
         }
         .tv-channel-item:hover {
-            background: rgba(255,255,255,0.06);
+            background: rgba(78,203,0,0.07);
             transform: translateX(4px);
         }
         .tv-channel-item.active {
-            background: rgba(160,0,255,0.08);
-            border-left-color: #a000ff;
+            background: rgba(78,203,0,0.10);
+            border-left-color: #4ecb00;
         }
         .tv-channel-item.focused {
-            background: rgba(160,0,255,0.12);
-            border-color: #a000ff;
+            background: rgba(78,203,0,0.14);
+            border-color: #4ecb00;
             transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(160,0,255,0.4);
+            box-shadow: 0 0 20px rgba(78,203,0,0.35);
         }
         .tv-channel-thumb {
             width: 100px; height: 60px; border-radius: 8px;
-            background: linear-gradient(135deg, #a000ff, #2d5bff);
+            background: linear-gradient(135deg, #1a8c00, #4ecb00);
             flex-shrink: 0; position: relative; overflow: hidden;
         }
         .tv-channel-thumb img {
@@ -136,7 +145,7 @@
         .tv-channel-meta { display: flex; flex-direction: column; gap: 3px; }
         .tv-live-indicator { display: flex; align-items: center; gap: 4px; font-size: 11px; color: #aaa; }
         .tv-live-dot {
-            width: 6px; height: 6px; background: #a000ff;
+            width: 6px; height: 6px; background: #4ecb00;
             border-radius: 50%; animation: tvPulse 2s ease-in-out infinite;
         }
         .tv-channel-cat { font-size: 11px; color: #888; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -146,6 +155,7 @@
             50%       { opacity: 0.5; transform: scale(0.8); }
         }
 
+        /* ── LOADING ── */
         .tv-loading-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; display: flex; flex-direction: column;
@@ -158,11 +168,20 @@
         .tv-spinner {
             width: 60px; height: 60px;
             border: 4px solid rgba(255,255,255,0.08);
-            border-top-color: #a000ff; border-right-color: #2d5bff;
+            border-top-color: #4ecb00; border-right-color: #1a8c00;
             border-radius: 50%; animation: tvSpin 0.8s linear infinite;
+            margin-bottom: 16px;
+        }
+        .tv-loading-text {
+            font-size: 13px; color: #4ecb00; letter-spacing: 0.5px;
+            animation: loadFade 1.5s ease-in-out infinite;
+        }
+        @keyframes loadFade {
+            0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
         }
         @keyframes tvSpin { to { transform: rotate(360deg); } }
 
+        /* ── ERROS ── */
         .tv-error-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; display: flex; flex-direction: column;
@@ -175,7 +194,7 @@
         .tv-error-title { font-size: 15px; font-weight: 600; color: #f1f1f1; margin-bottom: 6px; }
         .tv-error-sub   { font-size: 12px; color: #888; margin-bottom: 18px; max-width: 260px; line-height: 1.5; }
         .tv-error-btn {
-            background: linear-gradient(135deg, #a000ff, #2d5bff);
+            background: linear-gradient(135deg, #4ecb00, #1a8c00);
             color: #fff; border: none; padding: 10px 28px;
             border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;
         }
@@ -183,102 +202,80 @@
 
         .tv-msg { text-align: center; padding: 25px; font-size: 1.1rem; }
         .tv-msg.loading { color: #888; }
-        .tv-msg.error   { color: #a000ff; }
+        .tv-msg.error   { color: #4ecb00; }
 
         .tv-channels-list::-webkit-scrollbar { width: 6px; }
-        .tv-channels-list::-webkit-scrollbar-track { background: rgba(10,10,10,0.5); }
-        .tv-channels-list::-webkit-scrollbar-thumb { background: rgba(160,0,255,0.5); border-radius: 3px; }
-        .tv-channels-list::-webkit-scrollbar-thumb:hover { background: rgba(160,0,255,0.8); }
+        .tv-channels-list::-webkit-scrollbar-track { background: rgba(5,15,5,0.5); }
+        .tv-channels-list::-webkit-scrollbar-thumb { background: rgba(78,203,0,0.5); border-radius: 3px; }
+        .tv-channels-list::-webkit-scrollbar-thumb:hover { background: rgba(78,203,0,0.8); }
     </style>
 </head>
 <body>
 
-<div class="tv-wrapper">
-    <div class="tv-container" id="tv-container">
+<div class="tv-container" id="tv-container">
 
-        <video id="video-player-tv" preload="auto" muted playsinline webkit-playsinline></video>
+    <video id="video-player-tv" preload="auto" muted playsinline webkit-playsinline></video>
 
-        <div class="tv-click-overlay" id="tv-click-overlay"></div>
+    <div class="tv-click-overlay" id="tv-click-overlay"></div>
 
-        <div class="tv-loading-screen" id="tv-loading-screen">
-            <div class="tv-spinner"></div>
-        </div>
-
-        <div class="tv-error-screen" id="tv-error-retry">
-            <div class="tv-error-icon">⚠️</div>
-            <div class="tv-error-title">Não foi possível reproduzir</div>
-            <div class="tv-error-sub">Pressione OK ou clique no canal novamente para tentar reconectar.</div>
-            <button class="tv-error-btn" id="tv-retry-btn">Tentar novamente</button>
-        </div>
-
-        <div class="tv-error-screen unavail" id="tv-error-unavail">
-            <div class="tv-error-icon">📡</div>
-            <div class="tv-error-title">Canal indisponível no momento</div>
-            <div class="tv-error-sub">Este canal está temporariamente fora do ar. Tente outro canal ou volte mais tarde.</div>
-            <button class="tv-error-btn" id="tv-unavail-btn">Escolher outro canal</button>
-        </div>
-
-        <div class="tv-channels-overlay" id="tv-channels-overlay">
-            <div class="tv-channels-header">
-                <h3 class="tv-channels-title">G-Hub Tv</h3>
-                <span class="tv-channels-count" id="tv-channel-count">0 | Canais Disponíveis</span>
-            </div>
-            <div class="tv-channels-list" id="tv-channels-list">
-                <div class="tv-msg loading">Carregando canais...</div>
-            </div>
-        </div>
-
+    <div class="tv-loading-screen" id="tv-loading-screen">
+        <div class="tv-spinner"></div>
+        <div class="tv-loading-text">Buscando canais...</div>
     </div>
+
+    <div class="tv-error-screen" id="tv-error-retry">
+        <div class="tv-error-icon">⚠️</div>
+        <div class="tv-error-title">Não foi possível reproduzir</div>
+        <div class="tv-error-sub">Pressione OK ou clique no canal novamente para tentar reconectar.</div>
+        <button class="tv-error-btn" id="tv-retry-btn">Tentar novamente</button>
+    </div>
+
+    <div class="tv-error-screen unavail" id="tv-error-unavail">
+        <div class="tv-error-icon">📡</div>
+        <div class="tv-error-title">Canal indisponível no momento</div>
+        <div class="tv-error-sub">Este canal está temporariamente fora do ar. Tente outro canal ou volte mais tarde.</div>
+        <button class="tv-error-btn" id="tv-unavail-btn">Escolher outro canal</button>
+    </div>
+
+    <div class="tv-channels-overlay" id="tv-channels-overlay">
+        <div class="tv-channels-header">
+            <div class="tv-header-title-row">
+                <img class="tv-header-logo" src="data:image/png;base64,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" alt="G-Hub Tv logo">
+                <h3 class="tv-channels-title">G-Hub Tv</h3>
+            </div>
+            <span class="tv-channels-count" id="tv-channel-count">0 | Canais Disponíveis</span>
+        </div>
+        <div class="tv-channels-list" id="tv-channels-list">
+            <div class="tv-msg loading">Carregando canais...</div>
+        </div>
+    </div>
+
 </div>
 
 <script>
-// ══════════════════════════════════════════════════════════════════╄1�7
-// FUNÇÃO PARA SAIR DO FULLSCREEN E VOLTAR PARA RETRATO
-// ══════════════════════════════════════════════════════════════════╄1�7
+/* ══ PROTEÇÃO ══════════════════════════════════════════════════════════ */
 (function() {
     let pressTimer;
-    
     function exitFullscreenAndGoPortrait() {
-        // Primeiro: tenta sair do fullscreen
         try {
-            if (document.exitFullscreen) {
-                document.exitFullscreen().catch(() => {});
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
-            }
+            if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+            else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+            else if (document.msExitFullscreen) document.msExitFullscreen();
         } catch(e) {}
-        
-        // Depois: tenta travar em modo retrato
         setTimeout(() => {
-            if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('portrait').catch(err => {
-                    console.log('Não foi possível travar em retrato:', err);
-                });
-            }
-        }, 100); // Pequeno delay para garantir que saiu do fullscreen
+            if (screen.orientation && screen.orientation.lock)
+                screen.orientation.lock('portrait').catch(() => {});
+        }, 100);
     }
-
-    document.addEventListener('mousedown', (e) => {
-        pressTimer = setTimeout(exitFullscreenAndGoPortrait, 800);
-    });
-    document.addEventListener('mouseup', () => clearTimeout(pressTimer));
+    document.addEventListener('mousedown',  () => { pressTimer = setTimeout(exitFullscreenAndGoPortrait, 800); });
+    document.addEventListener('mouseup',    () => clearTimeout(pressTimer));
     document.addEventListener('mouseleave', () => clearTimeout(pressTimer));
-    
-    // Suporte para touch
-    document.addEventListener('touchstart', (e) => {
-        pressTimer = setTimeout(exitFullscreenAndGoPortrait, 800);
-    });
-    document.addEventListener('touchend', () => clearTimeout(pressTimer));
-    document.addEventListener('touchcancel', () => clearTimeout(pressTimer));
+    document.addEventListener('touchstart', () => { pressTimer = setTimeout(exitFullscreenAndGoPortrait, 800); });
+    document.addEventListener('touchend',   () => clearTimeout(pressTimer));
+    document.addEventListener('touchcancel',() => clearTimeout(pressTimer));
 })();
 
-// ══════════════════════════════════════════════════════════════════╄1�7
-// PROTEÇÃO CONTRA INSPEÇÃO (comum)
-// ══════════════════════════════════════════════════════════════════╄1�7
 (function() {
     'use strict';
     const det = () => {
@@ -296,8 +293,10 @@
     document.oncopy = () => false;
 })();
 
+/* ══ CONFIG ════════════════════════════════════════════════════════════ */
 const PLAYLIST_URL = atob('aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3ZpdHRvcGF5dmVyL3R2L3JlZnMvaGVhZHMvbWFpbi9saXN0YS5tM3U4');
 
+/* ══ URL OBFUSCATION ═══════════════════════════════════════════════════ */
 const urlProxy = new Map();
 let urlCounter = 0;
 function obfuscateUrl(url) {
@@ -316,6 +315,7 @@ function patchVideoSrc(video) {
     Object.defineProperty(video, 'currentSrc', { get: () => '[PROTECTED]', configurable: false });
 }
 
+/* ══ PLAYLIST PARSER ═══════════════════════════════════════════════════ */
 function parsePlaylist(data) {
     const lines = data.split('\n');
     const channels = [];
@@ -330,12 +330,10 @@ function parsePlaylist(data) {
             if (url && !url.startsWith('#')) {
                 const lm = attrs.match(/tvg-logo="([^"]*)"/);
                 const gm = attrs.match(/group-title="([^"]*)"/);
-                const km = attrs.match(/link="([^"]*)"/);
                 channels.push({
                     name, url: obfuscateUrl(url),
                     logo:  lm ? lm[1] : '',
-                    group: gm ? gm[1] : '',
-                    link:  km ? km[1] : ''
+                    group: gm ? gm[1] : ''
                 });
             }
         }
@@ -343,10 +341,7 @@ function parsePlaylist(data) {
     return channels;
 }
 
-// ┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�
-// ════════════════════   MODO TV   ════════════════════════════════
-// ┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�
-
+/* ══ ELEMENTOS ═════════════════════════════════════════════════════════ */
 const video        = document.getElementById('video-player-tv');
 const loadingScr   = document.getElementById('tv-loading-screen');
 const errRetry     = document.getElementById('tv-error-retry');
@@ -364,37 +359,79 @@ let channels = [], currentIndex = -1, errorCount = 0;
 let overlayVisible = false, hideOverlayTmr = null;
 let isFirstLoad = true, channelEls = [], focusedIdx = 0;
 
+/* ══ STALL DETECTION ═══════════════════════════════════════════════════ */
 const STALL_LIMIT = 20000;
 let stallTimer = null;
 function clearStall() { if (stallTimer) { clearTimeout(stallTimer); stallTimer = null; } }
+function onWait() { if (!stallTimer) stallTimer = setTimeout(triggerError, STALL_LIMIT); }
+function rmStall() {
+    video.removeEventListener('timeupdate', clearStall);
+    video.removeEventListener('playing',    clearStall);
+    video.removeEventListener('waiting',    onWait);
+    video.removeEventListener('stalled',    onWait);
+    video.removeEventListener('error',      triggerError);
+}
+function addStall() {
+    rmStall();
+    video.addEventListener('timeupdate', clearStall);
+    video.addEventListener('playing',    clearStall);
+    video.addEventListener('waiting',    onWait);
+    video.addEventListener('stalled',    onWait);
+    video.addEventListener('error',      triggerError);
+}
+
 function triggerError() {
     clearStall(); rmStall(); loadingScr.classList.remove('show');
     errorCount++;
     if (errorCount === 1) { hideErrors(); errRetry.classList.add('show'); }
     else                  { hideErrors(); errUnavail.classList.add('show'); }
 }
-function rmStall() {
-    video.removeEventListener('timeupdate', clearStall);
-    video.removeEventListener('playing',   clearStall);
-    video.removeEventListener('waiting',   onWait);
-    video.removeEventListener('stalled',   onWait);
-    video.removeEventListener('error',     triggerError);
-}
-function onWait() { if (!stallTimer) stallTimer = setTimeout(triggerError, STALL_LIMIT); }
-function addStall() {
-    rmStall();
-    video.addEventListener('timeupdate', clearStall);
-    video.addEventListener('playing',   clearStall);
-    video.addEventListener('waiting',   onWait);
-    video.addEventListener('stalled',   onWait);
-    video.addEventListener('error',     triggerError);
-}
-
 function hideErrors() { errRetry.classList.remove('show'); errUnavail.classList.remove('show'); }
 
-retryBtn.addEventListener('click', e => { e.stopPropagation(); if (currentIndex >= 0) playChannel(currentIndex, true); });
-unavailBtn.addEventListener('click', e => { e.stopPropagation(); hideErrors(); });
+/* ══ FULLSCREEN ════════════════════════════════════════════════════════ */
+function enterFs() {
+    if (window.innerHeight > window.innerWidth) return;
+    const e = document.documentElement;
+    try {
+        if (e.requestFullscreen)       { e.requestFullscreen({ navigationUI: 'hide' }).catch(() => {}); return; }
+        if (e.webkitRequestFullscreen) { e.webkitRequestFullscreen(); return; }
+        if (e.mozRequestFullScreen)    { e.mozRequestFullScreen(); return; }
+        if (e.msRequestFullscreen)     { e.msRequestFullscreen(); return; }
+        if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+    } catch(err) {}
+}
+function exitFs() {
+    try {
+        if (document.exitFullscreen)        document.exitFullscreen().catch(() => {});
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        else if (document.mozCancelFullScreen)  document.mozCancelFullScreen();
+        else if (document.msExitFullscreen)     document.msExitFullscreen();
+    } catch(e) {}
+}
+setTimeout(() => { if (window.innerHeight <= window.innerWidth) enterFs(); }, 500);
+['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(ev => {
+    document.addEventListener(ev, () => {
+        const inFs = !!(document.fullscreenElement || document.webkitFullscreenElement ||
+                        document.mozFullScreenElement || document.msFullscreenElement);
+        if (!inFs && window.innerHeight <= window.innerWidth) setTimeout(enterFs, 100);
+    });
+});
 
+/* ══ SEEK TO LAST MINUTE ═══════════════════════════════════════════════ */
+function seekLastMin() {
+    return new Promise(res => {
+        if (video.duration && isFinite(video.duration)) {
+            const t = Math.max(0, video.duration - 60);
+            const s = () => { video.removeEventListener('seeked', s); res(); };
+            video.addEventListener('seeked', s);
+            video.currentTime = t;
+        } else res();
+    });
+}
+video.addEventListener('loadedmetadata', () => seekLastMin());
+video.addEventListener('ended', () => { if (currentIndex === 0) { video.currentTime = 0; video.play(); } });
+
+/* ══ OVERLAY ═══════════════════════════════════════════════════════════ */
 function showOverlayInitial() {
     overlayVisible = true; overlay.classList.add('show');
     hideOverlayTmr = setTimeout(hideOverlay, 5000);
@@ -419,65 +456,10 @@ function updateFocus() {
 
 clickOverlay.addEventListener('click', toggleOverlay);
 overlay.addEventListener('click', e => e.stopPropagation());
+retryBtn.addEventListener('click',   e => { e.stopPropagation(); if (currentIndex >= 0) playChannel(currentIndex, true); });
+unavailBtn.addEventListener('click', e => { e.stopPropagation(); hideErrors(); });
 
-function enterFs() {
-    // ══════════════════════════════════════════════════════════╄1�7
-    // NÃO ENTRA EM FULLSCREEN SE ESTIVER EM MODO RETRATO (em pé)
-    // ══════════════════════════════════════════════════════════╄1�7
-    if (window.innerHeight > window.innerWidth) {
-        console.log('Modo retrato: fullscreen bloqueado');
-        return;
-    }
-    
-    const e = document.documentElement;
-    try {
-        if (e.requestFullscreen)       { e.requestFullscreen({ navigationUI: 'hide' }).catch(() => {}); return; }
-        if (e.webkitRequestFullscreen) { e.webkitRequestFullscreen(); return; }
-        if (e.mozRequestFullScreen)    { e.mozRequestFullScreen(); return; }
-        if (e.msRequestFullscreen)     { e.msRequestFullscreen(); return; }
-        if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
-    } catch(err) {}
-}
-function exitFs() {
-    try {
-        if (document.exitFullscreen)        document.exitFullscreen().catch(() => {});
-        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-        else if (document.mozCancelFullScreen)  document.mozCancelFullScreen();
-        else if (document.msExitFullscreen)     document.msExitFullscreen();
-    } catch(e) {}
-}
-
-// Só tenta entrar em fullscreen após 500ms se NÃO estiver em retrato
-setTimeout(() => {
-    if (window.innerHeight <= window.innerWidth) {
-        enterFs();
-    }
-}, 500);
-
-['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(ev => {
-    document.addEventListener(ev, () => {
-        const inFs = !!(document.fullscreenElement || document.webkitFullscreenElement ||
-                        document.mozFullScreenElement || document.msFullscreenElement);
-        if (!inFs && window.innerHeight <= window.innerWidth) {
-            // Só tenta reentrar em fullscreen se não estiver em retrato
-            setTimeout(enterFs, 100);
-        }
-    });
-});
-
-function seekLastMin() {
-    return new Promise(res => {
-        if (video.duration && isFinite(video.duration)) {
-            const t = Math.max(0, video.duration - 60);
-            const s = () => { video.removeEventListener('seeked', s); res(); };
-            video.addEventListener('seeked', s);
-            video.currentTime = t;
-        } else res();
-    });
-}
-video.addEventListener('loadedmetadata', () => seekLastMin());
-video.addEventListener('ended', () => { if (currentIndex === 0) { video.currentTime = 0; video.play(); } });
-
+/* ══ KEYBOARD ══════════════════════════════════════════════════════════ */
 document.addEventListener('keydown', e => {
     if (['Escape','Back','Backspace'].includes(e.key)) {
         e.preventDefault();
@@ -485,18 +467,9 @@ document.addEventListener('keydown', e => {
         return;
     }
     if (['Enter','OK'].includes(e.key) && !overlayVisible) { e.preventDefault(); toggleOverlay(); return; }
-
     if (!overlayVisible && channelEls.length > 0) {
-        if (['ArrowDown','Down'].includes(e.key)) {
-            e.preventDefault();
-            playChannel(currentIndex + 1 < channels.length ? currentIndex + 1 : 0);
-            return;
-        }
-        if (['ArrowUp','Up'].includes(e.key)) {
-            e.preventDefault();
-            playChannel(currentIndex - 1 >= 0 ? currentIndex - 1 : channels.length - 1);
-            return;
-        }
+        if (['ArrowDown','Down'].includes(e.key)) { e.preventDefault(); playChannel(currentIndex + 1 < channels.length ? currentIndex + 1 : 0); return; }
+        if (['ArrowUp','Up'].includes(e.key))     { e.preventDefault(); playChannel(currentIndex - 1 >= 0 ? currentIndex - 1 : channels.length - 1); return; }
     }
     if (overlayVisible && channelEls.length > 0) {
         if (['ArrowDown','Down'].includes(e.key))  { e.preventDefault(); focusedIdx = Math.min(focusedIdx + 1, channelEls.length - 1); updateFocus(); }
@@ -505,6 +478,7 @@ document.addEventListener('keydown', e => {
     }
 });
 
+/* ══ RENDER CHANNELS ═══════════════════════════════════════════════════ */
 function renderChannels(channels_) {
     channelsList.innerHTML = '';
     channelEls = [];
@@ -534,53 +508,194 @@ function renderChannels(channels_) {
     focusedIdx = 0;
 }
 
-function playChannel(index, isRetry) {
-    if (index < 0 || index >= channels.length) return;
-    clearStall(); rmStall();
-    if (!isRetry) errorCount = 0;
-    const ch = channels[index];
-    hideErrors();
-    loadingScr.classList.add('show');
+/* ══ PLAY ENGINE — multi-engine com fallback ═══════════════════════════
+   Ordem: HLS.js → mpegts.js → Shaka Player → dash.js → HTML5 nativo
+   Igual à lógica do código de referência (pasted_text).
+═══════════════════════════════════════════════════════════════════════ */
+let activeHls    = null;
+let activeMpegts = null;
+let activeShaka  = null;
+let activeDash   = null;
+
+function destroyEngines() {
+    if (activeHls)    { try { activeHls.destroy();    } catch(e) {} activeHls    = null; }
+    if (activeMpegts) { try { activeMpegts.destroy(); } catch(e) {} activeMpegts = null; }
+    if (activeShaka)  { try { activeShaka.destroy();  } catch(e) {} activeShaka  = null; }
+    if (activeDash)   { try { activeDash.reset();     } catch(e) {} activeDash   = null; }
+}
+
+function waitForEngines(cb) {
+    const needed = ['Hls', 'mpegts', 'shaka', 'dashjs'];
+    let tries = 0;
+    const check = () => {
+        if (needed.every(n => window[n] !== undefined) || tries > 30) { cb(); return; }
+        tries++;
+        setTimeout(check, 200);
+    };
+    check();
+}
+
+function loadMediaUrl(url, onSuccess, onFail) {
+    destroyEngines();
     video.classList.remove('ready');
-    channelEls.forEach((el, i) => el.classList.toggle('active', i === index));
+    loadingScr.classList.add('show');
 
-    video.src = ch.url;
-    video.load();
+    const isHLS  = /\.m3u8(\?|$)/i.test(url);
+    const isDASH = /\.mpd(\?|$)/i.test(url);
+    const isFLV  = /\.flv(\?|$)/i.test(url);
+    const isTS   = /\.ts(\?|$)/i.test(url) || /\/stream/i.test(url);
 
-    const onErr = () => { cleanup(); triggerError(); };
-    const onCan = () => {
-        cleanup(); errorCount = 0; video.muted = false;
+    function onReady() {
         seekLastMin().then(() => {
             setTimeout(() => {
                 loadingScr.classList.remove('show');
                 video.classList.add('ready');
-                // Só entra em fullscreen se NÃO estiver em retrato
-                if (window.innerHeight <= window.innerWidth) {
-                    enterFs();
-                }
+                if (window.innerHeight <= window.innerWidth) enterFs();
                 video.play().catch(() => {});
                 if (isFirstLoad) { isFirstLoad = false; showOverlayInitial(); }
                 addStall();
+                if (onSuccess) onSuccess();
             }, 50);
         });
-    };
-    const loadTmr = setTimeout(() => {
-        if (loadingScr.classList.contains('show')) { cleanup(); triggerError(); }
-    }, 15000);
-    function cleanup() {
-        clearTimeout(loadTmr);
-        video.removeEventListener('canplay', onCan);
-        video.removeEventListener('error',   onErr);
     }
-    video.addEventListener('canplay', onCan);
-    video.addEventListener('error',   onErr);
-    currentIndex = index;
+
+    function tryHLS() {
+        if (typeof Hls !== 'undefined' && Hls.isSupported() && (isHLS || !isDASH && !isFLV && !isTS)) {
+            const hls = new Hls({
+                enableWorker: true,
+                lowLatencyMode: true,
+                backBufferLength: 0,
+                liveBackBufferLength: 0,
+                maxBufferLength: 8,
+                maxMaxBufferLength: 16,
+                liveSyncDurationCount: 2,
+                liveMaxLatencyDurationCount: 4,
+                manifestLoadingTimeOut: 10000,
+                levelLoadingTimeOut: 10000,
+                fragLoadingTimeOut: 20000
+            });
+            activeHls = hls;
+            hls.loadSource(url);
+            hls.attachMedia(video);
+            let resolved = false;
+            hls.on(Hls.Events.MANIFEST_PARSED, () => { resolved = true; onReady(); });
+            hls.on(Hls.Events.ERROR, (ev, data) => {
+                if (!resolved && data.fatal) { hls.destroy(); activeHls = null; tryMpegts(); }
+            });
+            return;
+        }
+        tryMpegts();
+    }
+
+    function tryMpegts() {
+        if (typeof mpegts !== 'undefined' && mpegts.isSupported() && (isFLV || isTS)) {
+            const type = isFLV ? 'flv' : 'mpegts';
+            const player = mpegts.createPlayer({ type, url, isLive: true }, {
+                enableWorker: true, lazyLoadMaxDuration: 5, liveBufferLatencyChasing: true
+            });
+            activeMpegts = player;
+            player.attachMediaElement(video);
+            player.load();
+            let resolved = false;
+            video.addEventListener('canplay', function onCan() {
+                video.removeEventListener('canplay', onCan);
+                resolved = true; onReady();
+            });
+            player.on(mpegts.Events.ERROR, () => {
+                if (!resolved) { player.destroy(); activeMpegts = null; tryShaka(); }
+            });
+            return;
+        }
+        tryShaka();
+    }
+
+    function tryShaka() {
+        if (typeof shaka !== 'undefined' && (isDASH || isHLS)) {
+            shaka.polyfill.installAll();
+            if (!shaka.Player.isBrowserSupported()) { tryDash(); return; }
+            const player = new shaka.Player(video);
+            activeShaka = player;
+            player.configure({ streaming: { bufferingGoal: 10, rebufferingGoal: 2, bufferBehind: 5 } });
+            let resolved = false;
+            player.load(url).then(() => { resolved = true; onReady(); }).catch(() => {
+                if (!resolved) { player.destroy(); activeShaka = null; tryDash(); }
+            });
+            return;
+        }
+        tryDash();
+    }
+
+    function tryDash() {
+        if (typeof dashjs !== 'undefined' && isDASH) {
+            const player = dashjs.MediaPlayer().create();
+            activeDash = player;
+            player.initialize(video, url, false);
+            player.updateSettings({ streaming: { delay: { liveDelay: 2 }, liveCatchup: { enabled: true } } });
+            let resolved = false;
+            video.addEventListener('canplay', function onCan() {
+                video.removeEventListener('canplay', onCan);
+                resolved = true; onReady();
+            });
+            setTimeout(() => { if (!resolved) { player.reset(); activeDash = null; tryNative(); } }, 10000);
+            return;
+        }
+        tryNative();
+    }
+
+    function tryNative() {
+        video.src = url;
+        video.load();
+        let resolved = false;
+        const onCan = () => { cleanup(); resolved = true; onReady(); };
+        const onErr = () => { cleanup(); if (!resolved && onFail) onFail(); else if (!resolved) triggerError(); };
+        const loadTmr = setTimeout(() => {
+            if (!resolved) { cleanup(); if (onFail) onFail(); else triggerError(); }
+        }, 15000);
+        function cleanup() { clearTimeout(loadTmr); video.removeEventListener('canplay', onCan); video.removeEventListener('error', onErr); }
+        video.addEventListener('canplay', onCan);
+        video.addEventListener('error',   onErr);
+    }
+
+    waitForEngines(tryHLS);
 }
 
+/* ══ PLAY CHANNEL ══════════════════════════════════════════════════════ */
+function playChannel(index, isRetry) {
+    if (index < 0 || index >= channels.length) return;
+    clearStall(); rmStall();
+    if (!isRetry) errorCount = 0;
+    hideErrors();
+    channelEls.forEach((el, i) => el.classList.toggle('active', i === index));
+    currentIndex = index;
+    const ch = channels[index];
+    const rawUrl = deobfuscateUrl(ch.url);
+    loadMediaUrl(rawUrl, null, () => { errorCount++; triggerError(); });
+}
+
+/* ══ FETCH PLAYLIST ════════════════════════════════════════════════════ */
 fetch(PLAYLIST_URL)
-    .then(r => { if (!r.ok) throw new Error(); return r.text(); })
-    .then(data => { channels = parsePlaylist(data); renderChannels(channels); })
-    .catch(() => { channelsList.innerHTML = '<div class="tv-msg error">Erro ao carregar a playlist</div>'; });
+    .then(r => r.text())
+    .then(data => {
+        channels = parsePlaylist(data);
+        if (channels.length === 0) {
+            channelsList.innerHTML = '<div class="tv-msg error">Nenhum canal encontrado</div>';
+            return;
+        }
+        renderChannels(channels);
+    })
+    .catch(() => {
+        channelsList.innerHTML = '<div class="tv-msg error">Erro ao carregar playlist</div>';
+        loadingScr.classList.remove('show');
+    });
 </script>
+
+<!-- ENGINE 1: HLS.js -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
+<!-- ENGINE 2: mpegts.js -->
+<script src="https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.min.js"></script>
+<!-- ENGINE 3: Shaka Player -->
+<script src="https://cdn.jsdelivr.net/npm/shaka-player@4.14.12/dist/shaka-player.compiled.js"></script>
+<!-- ENGINE 4: dash.js -->
+<script src="https://cdn.jsdelivr.net/npm/dashjs@4.7.4/dist/dash.all.min.js"></script>
 </body>
 </html>
