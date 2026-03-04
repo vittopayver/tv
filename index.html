@@ -63,7 +63,7 @@
         .tv-channels-overlay.show { transform: translateX(0); }
 
         .tv-channels-header {
-            padding: 24px 22px 14px 22px;
+            padding: 30px 26px 18px 26px;
             background: rgba(5,15,5,0.82);
             flex-shrink: 0; position: relative; z-index: 2;
         }
@@ -75,25 +75,25 @@
         }
 
         .tv-header-title-row {
-            display: flex; align-items: center; gap: 12px;
-            margin-bottom: 10px;
+            display: flex; align-items: center; gap: 14px;
+            margin-bottom: 14px;
         }
         .tv-header-logo {
-            width: 52px; height: 52px;
+            width: 72px; height: 72px;
             object-fit: contain;
             flex-shrink: 0;
-            filter: drop-shadow(0 0 8px rgba(78,203,0,0.6));
+            filter: drop-shadow(0 0 10px rgba(78,203,0,0.6));
         }
         .tv-channels-title {
-            font-size: 1.9rem; font-weight: 700;
+            font-size: 2.4rem; font-weight: 700;
             background: linear-gradient(135deg, #4ecb00, #1a8c00);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text; position: relative; z-index: 3;
         }
         .tv-channels-count {
             background: linear-gradient(135deg, #4ecb00, #1a8c00);
-            color: white; padding: 5px 16px; border-radius: 20px;
-            font-size: 0.95rem; display: inline-block; position: relative; z-index: 3;
+            color: white; padding: 7px 20px; border-radius: 20px;
+            font-size: 1.1rem; display: inline-block; position: relative; z-index: 3;
         }
 
         /* ── LISTA ── */
@@ -103,9 +103,9 @@
         }
         .tv-channel-item {
             background: transparent;
-            padding: 10px 14px; border-radius: 12px; cursor: pointer;
+            padding: 14px 16px; border-radius: 14px; cursor: pointer;
             transition: all 0.2s ease;
-            display: flex; align-items: center; gap: 14px;
+            display: flex; align-items: center; gap: 16px;
             outline: none;
             border: 2px solid transparent;
             border-left: 4px solid transparent;
@@ -125,7 +125,7 @@
             box-shadow: 0 0 22px rgba(78,203,0,0.35);
         }
         .tv-channel-thumb {
-            width: 88px; height: 58px; border-radius: 10px;
+            width: 110px; height: 72px; border-radius: 10px;
             background: linear-gradient(135deg, #1a8c00, #4ecb00);
             flex-shrink: 0; position: relative; overflow: hidden;
         }
@@ -135,22 +135,22 @@
         .tv-thumb-placeholder {
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 24px; font-weight: 700; color: rgba(255,255,255,0.6);
+            font-size: 30px; font-weight: 700; color: rgba(255,255,255,0.6);
         }
         .tv-channel-info { flex: 1; min-width: 0; }
         .tv-channel-name {
-            font-weight: 600; color: #f1f1f1; font-size: 1.05rem; margin-bottom: 5px;
+            font-weight: 600; color: #f1f1f1; font-size: 1.15rem; margin-bottom: 6px;
             overflow: hidden; text-overflow: ellipsis;
             display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
             line-height: 1.35;
         }
-        .tv-channel-meta { display: flex; flex-direction: column; gap: 3px; }
-        .tv-live-indicator { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #bbb; }
+        .tv-channel-meta { display: flex; flex-direction: column; gap: 4px; }
+        .tv-live-indicator { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #bbb; }
         .tv-live-dot {
-            width: 7px; height: 7px; background: #4ecb00;
+            width: 8px; height: 8px; background: #4ecb00;
             border-radius: 50%; animation: tvPulse 2s ease-in-out infinite;
         }
-        .tv-channel-cat { font-size: 11.5px; color: #888; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .tv-channel-cat { font-size: 12px; color: #888; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         @keyframes tvPulse {
             0%, 100% { opacity: 1; transform: scale(1); }
@@ -168,18 +168,10 @@
         .tv-loading-screen.show { opacity: 1; pointer-events: all; }
 
         .tv-spinner {
-            width: 60px; height: 60px;
-            border: 4px solid rgba(255,255,255,0.08);
+            width: 90px; height: 90px;
+            border: 6px solid rgba(255,255,255,0.08);
             border-top-color: #4ecb00; border-right-color: #1a8c00;
             border-radius: 50%; animation: tvSpin 0.8s linear infinite;
-            margin-bottom: 16px;
-        }
-        .tv-loading-text {
-            font-size: 13px; color: #4ecb00; letter-spacing: 0.5px;
-            animation: loadFade 1.5s ease-in-out infinite;
-        }
-        @keyframes loadFade {
-            0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
         }
         @keyframes tvSpin { to { transform: rotate(360deg); } }
 
@@ -216,13 +208,12 @@
 
 <div class="tv-container" id="tv-container">
 
-    <video id="video-player-tv" preload="auto" muted playsinline webkit-playsinline></video>
+    <video id="video-player-tv" preload="auto" playsinline webkit-playsinline></video>
 
     <div class="tv-click-overlay" id="tv-click-overlay"></div>
 
     <div class="tv-loading-screen" id="tv-loading-screen">
         <div class="tv-spinner"></div>
-        <div class="tv-loading-text">Buscando canais...</div>
     </div>
 
     <div class="tv-error-screen" id="tv-error-retry">
@@ -480,35 +471,7 @@ document.addEventListener('keydown', e => {
     }
 });
 
-/* ══ RENDER CHANNELS ═══════════════════════════════════════════════════ */
-function renderChannels(channels_) {
-    channelsList.innerHTML = '';
-    channelEls = [];
-    channelCount.textContent = `${channels_.length} | Canais Disponíveis`;
-    channels_.forEach((ch, idx) => {
-        const el = document.createElement('div');
-        el.className = 'tv-channel-item';
-        el.setAttribute('tabindex', '0');
-        el.innerHTML = `
-            <div class="tv-channel-thumb">
-                ${ch.logo
-                    ? `<img src="${ch.logo}" alt="${ch.name}" onerror="this.style.display='none'">`
-                    : `<div class="tv-thumb-placeholder">${ch.name.charAt(0)}</div>`}
-            </div>
-            <div class="tv-channel-info">
-                <div class="tv-channel-name">${ch.name}</div>
-                <div class="tv-channel-meta">
-                    <div class="tv-live-indicator"><div class="tv-live-dot"></div><span>Ao vivo</span></div>
-                    <div class="tv-channel-cat">${ch.group || 'Geral'}</div>
-                </div>
-            </div>`;
-        el.addEventListener('click', e => { e.stopPropagation(); playChannel(idx); hideOverlay(); });
-        channelsList.appendChild(el);
-        channelEls.push(el);
-    });
-    if (channels_.length > 0) playChannel(0);
-    focusedIdx = 0;
-}
+
 
 /* ══ PLAY ENGINE — multi-engine com fallback ═══════════════════════════
    Ordem: HLS.js → mpegts.js → Shaka Player → dash.js → HTML5 nativo
@@ -553,7 +516,7 @@ function loadMediaUrl(url, onSuccess, onFail) {
                 loadingScr.classList.remove('show');
                 video.classList.add('ready');
                 if (window.innerHeight <= window.innerWidth) enterFs();
-                video.play().catch(() => {});
+                video.muted = false; video.volume = 1; video.play().catch(() => {});
                 if (isFirstLoad) { isFirstLoad = false; showOverlayInitial(); }
                 addStall();
                 if (onSuccess) onSuccess();
@@ -674,13 +637,46 @@ function playChannel(index, isRetry) {
     loadMediaUrl(rawUrl, null, () => { errorCount++; triggerError(); });
 }
 
+/* ══ RENDER CHANNELS ═══════════════════════════════════════════════════ */
+function renderChannels(channels_) {
+    channelsList.innerHTML = '';
+    channelEls = [];
+    channelCount.textContent = `${channels_.length} | Canais Disponíveis`;
+    channels_.forEach((ch, idx) => {
+        const el = document.createElement('div');
+        el.className = 'tv-channel-item';
+        el.setAttribute('tabindex', '0');
+        el.innerHTML = `
+            <div class="tv-channel-thumb">
+                ${ch.logo
+                    ? `<img src="${ch.logo}" alt="${ch.name}" onerror="this.style.display='none'">`
+                    : `<div class="tv-thumb-placeholder">${ch.name.charAt(0)}</div>`}
+            </div>
+            <div class="tv-channel-info">
+                <div class="tv-channel-name">${ch.name}</div>
+                <div class="tv-channel-meta">
+                    <div class="tv-live-indicator"><div class="tv-live-dot"></div><span>Ao vivo</span></div>
+                    <div class="tv-channel-cat">${ch.group || 'Geral'}</div>
+                </div>
+            </div>`;
+        el.addEventListener('click', e => { e.stopPropagation(); playChannel(idx); hideOverlay(); });
+        channelsList.appendChild(el);
+        channelEls.push(el);
+    });
+    if (channels_.length > 0) playChannel(0);
+    focusedIdx = 0;
+}
+
 /* ══ FETCH PLAYLIST ════════════════════════════════════════════════════ */
 fetch(PLAYLIST_URL)
     .then(r => r.text())
     .then(data => {
-        channels = parsePlaylist(data);
+        const remote = parsePlaylist(data);
+        // Mescla: extras no topo, depois os da playlist
+        channels = remote;
         if (channels.length === 0) {
             channelsList.innerHTML = '<div class="tv-msg error">Nenhum canal encontrado</div>';
+            loadingScr.classList.remove('show');
             return;
         }
         renderChannels(channels);
