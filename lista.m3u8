@@ -93,6 +93,9 @@ http://79.127.243.211:14623/
 #EXTINF:-1 tvg-id="cinemax" tvg-name="CINEMAX" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cinemax.png" group-title="Canal de Filmes", CINEMAX
 http://vipgerretger.top:8080/VIP017341743530938376/8fe1d88fc2c0/4876
 
+#EXTINF:-1 tvg-id="studio" tvg-name="STUDIO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/studio.png" group-title="Canal de Filmes", STUDIO
+http://46.151.196.223:14613/
+
 #EXTINF:-1 tvg-id="axn" tvg-name="AXN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/axn.png" group-title="Canal de Filmes", AXN
 http://79.127.243.211:14569/
 
