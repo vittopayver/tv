@@ -102,7 +102,8 @@ http://79.127.243.211:14668/
 http://79.127.243.211:14660/
 #EXTINF:-1 tvg-id="hbo" tvg-name="HBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", SIGNATURE
 http://vipketseyket.top:8080/VIP017741743173529373/aacb05f76c36/4873
-
+#EXTINF:-1 tvg-id="hbo" tvg-name="HBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", FAMILY
+http://vipketseyket.top:8080/VIP017741743173529373/aacb05f76c36/4871
 
 #EXTINF:-1 tvg-id="telecine" tvg-name="TELECINE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/telecine.png" group-title="Canal de Filmes", ACTION
 http://79.127.243.211:14632/
