@@ -89,6 +89,8 @@ http://vipketseyket.top:8080/VIP017741743173529373/aacb05f76c36/4877
 
 #EXTINF:-1 tvg-id="universaltv" tvg-name="UNIVERSALTV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/universaltv.png" group-title="Canal de Filmes", UNIVERSAL TV
 http://79.127.243.211:14623/
+#EXTINF:-1 tvg-id="universaltv" tvg-name="UNIVERSALTV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/universalr.png" group-title="Canal de Reality", UNIVERSAL REALITY
+http://46.151.196.223:14686/
 
 #EXTINF:-1 tvg-id="cinemax" tvg-name="CINEMAX" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cinemax.png" group-title="Canal de Filmes", CINEMAX
 http://vipgerretger.top:8080/VIP017341743530938376/8fe1d88fc2c0/4876
@@ -155,9 +157,6 @@ http://185.152.67.187:14367/
 http://185.152.67.187:14379/
 #EXTINF:-1 tvg-id="discovery" tvg-name="DISCOVERY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/discovery.png" group-title="Canal de Séries", ANIMAL PLANET
 http://185.152.67.187:14386/
-
-#EXTINF:-1 tvg-id="universalr" tvg-name="UNIVERSALR" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/universalr.png" group-title="Canal de Reality", UNIVERSAL REALITY
-http://46.151.196.223:14686/
 
 #EXTINF:-1 tvg-id="mtv" tvg-name="MTV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/mtv.png" group-title="Canal de Reality", MTV
 http://46.151.196.223:14590/
