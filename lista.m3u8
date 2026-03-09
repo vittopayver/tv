@@ -1,5 +1,5 @@
 #EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto | Rio de Janeiro", GLOBO SP
-http://79.127.238.228:14172/
+http://46.151.196.223:14754/
 #EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal de Notícias", GLOBO NEWS 
 http://79.127.243.211:14254/
 #EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globoplay.png" group-title="Canal NOVELAS", GLOBO PLAY
@@ -24,7 +24,7 @@ http://46.151.196.223:14079/
 #EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bandsports.png" group-title="Canal de Esportes", BAND SPORTS
 http://185.152.67.187:14474/
 
-#EXTINF:-1 tvg-id="redetv" tvg-name="REDETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redetv.png" group-title="Canal Aberto | Espirito Santo", REDE TV
+#EXTINF:-1 tvg-id="redetv" tvg-name="REDETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redetv.png" group-title="Canal Aberto | São Paulo", REDE TV SP
 http://185.152.67.187:14266/
 
 #EXTINF:-1 tvg-id="cnnbr" tvg-name="CNN BRASIL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnn.png" group-title="Canal de Notícias", CNN BRASIL
