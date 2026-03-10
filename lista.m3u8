@@ -193,7 +193,7 @@ https://amg00716-globo-amg00716c1-tcl-br-9495.playouts.now.amagi.tv/1080p-cc/ind
 https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.m3u8
 
 #EXTINF:-1 tvg-id="xsports" tvg-name="XSPORTS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/xsports.png" group-title="Canal de Esportes", X SPORTS
-http://185.152.67.187:14006/
+http://46.151.196.223:14536/
 
 #EXTINF:-1 tvg-id="sportv" tvg-name="SPORTV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sportv.png" group-title="Canal de Esportes", SPORTV
 http://46.151.196.223:14286/
