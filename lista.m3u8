@@ -15,7 +15,7 @@ https://amg00527-amg00527c5-amgplt0026.playout.now3.amagi.tv/ts-us-w2-n1/playlis
 #EXTINF:-1 tvg-id="record" tvg-name="RECORD" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/record.png" group-title="Canal Aberto | São Paulo", RECORD SP
 http://79.127.238.228:14057/
 #EXTINF:-1 tvg-id="record" tvg-name="RECORD" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/record.png" group-title="Canal de Notícias", RECORD NEWS 
-http://46.151.196.223:14938/
+http://46.151.196.223:14500/
 
 #EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/band.png" group-title="Canal Aberto | São Paulo", BAND SP
 http://79.127.238.228:14298/
@@ -39,7 +39,7 @@ http://79.127.243.211:14258/
 https://cr7v.short.gy/ManoTV/TimesBrasil/Whats75991634025/CNBC/Index.m3u8
 
 #EXTINF:-1 tvg-id="uol" tvg-name="UOL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/uol.png" group-title="Canal de Notícias", CANAL UOL
-http://46.151.196.223:14817/
+http://46.151.196.223:14577/
 
 #EXTINF:-1 tvg-id="gazeta" tvg-name="GAZETA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gazeta.png" group-title="Canal Diversos", GAZETA
 https://video08.logicahost.com.br/tvc21/tvc21/playlist.m3u8
