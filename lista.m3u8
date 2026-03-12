@@ -72,7 +72,7 @@ http://79.127.243.211:14286/
 http://46.151.196.223:14607/
 
 #EXTINF:-1 tvg-id="sony" tvg-name="SONY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sony.png" group-title="Canal de Filmes", SONY CHANNEL
-http://46.151.196.223:14603/
+http://46.151.196.223:14179/
 
 #EXTINF:-1 tvg-id="megapix" tvg-name="MEGAPIX" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/megapix.png" group-title="Canal de Filmes", MEGAPIX
 http://vipketseyket.top:8080/VIP017741743173529373/aacb05f76c36/4877
