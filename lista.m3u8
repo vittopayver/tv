@@ -171,7 +171,7 @@ http://46.151.196.223:14235/
 http://46.151.196.223:14239/
 
 #EXTINF:-1 tvg-id="cnova" tvg-name="CNOVA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnova.png" group-title="Canal Católico", CANÇÃO NOVA
-http://46.151.196.223:14225/
+http://46.151.196.223:14226/
 
 #EXTINF:-1 tvg-id="redevida" tvg-name="REDEVIDA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redevida.png" group-title="Canal Católico", REDE VIDA
 http://46.151.196.223:14244/
