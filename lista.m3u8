@@ -76,7 +76,7 @@ http://79.127.243.211:14286/
 http://46.151.196.223:14363/
 
 #EXTINF:-1 tvg-id="curta!" tvg-name="CURTA!" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/curta!.png" group-title="Canal de Artes", CURTA!
-http//46.151.196.223:14376/
+http://46.151.196.223:14376/
 
 #EXTINF:-1 tvg-id="space" tvg-name="SPACE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/space.png" group-title="Canal de Filmes", SPACE
 http://46.151.196.223:14607/
