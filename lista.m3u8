@@ -173,6 +173,9 @@ http://46.151.196.223:14239/
 #EXTINF:-1 tvg-id="cnova" tvg-name="CNOVA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnova.png" group-title="Canal Católico", CANÇÃO NOVA
 http://46.151.196.223:14225/
 
+#EXTINF:-1 tvg-id="paieterno" tvg-name="PAIETERNO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/paieterno.png" group-title="Canal Católico", PAI ETERNO
+http://46.151.196.223:14233/
+
 #EXTINF:-1 tvg-id="redevida" tvg-name="REDEVIDA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redevida.png" group-title="Canal Católico", REDE VIDA
 http://46.151.196.223:14244/
 
