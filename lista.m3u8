@@ -170,6 +170,9 @@ http://46.151.196.223:14235/
 #EXTINF:-1 tvg-id="tvmundial" tvg-name="TVMUNDIAL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tvmundial.png" group-title="Canal Evangélico", TV MUNDIAL
 http://46.151.196.223:14239/
 
+#EXTINF:-1 tvg-id="tvplenitude" tvg-name="TVPLENITUDE" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tvplenitude.png" group-title="Canal Evangélico", TV PLENITUDE
+http://46.151.196.223:14240/
+
 #EXTINF:-1 tvg-id="cnova" tvg-name="CNOVA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnova.png" group-title="Canal Católico", CANÇÃO NOVA
 http://46.151.196.223:14225/
 
