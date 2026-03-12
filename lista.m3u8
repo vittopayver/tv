@@ -20,7 +20,7 @@ http://46.151.196.223:14102/
 #EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/band.png" group-title="Canal Aberto | São Paulo", BAND SP
 http://79.127.238.228:14298/
 #EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bandnews.png" group-title="Canal Aberto | São Paulo", BAND NEWS
-http://46.151.196.223:14080/
+http://46.151.196.223:14081/
 #EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bandsports.png" group-title="Canal de Esportes", BAND SPORTS
 http://185.152.67.187:14474/
 
