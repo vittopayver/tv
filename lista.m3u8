@@ -205,16 +205,13 @@ http://46.151.196.223:14468/
 https://cc-vvkv6xjfc6w5v.akamaized.net/ogc/desi/desi_h265.m3u8
 
 #EXTINF:-1 tvg-id="getv" tvg-name="GETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/getv.png" group-title="Canal de Esportes", GE TV
-http://46.151.196.223:14383/
+https://dfr80qz435crc.cloudfront.net/EFGH/Amagi/Globo/GE_Fast_BR/1080p-vtt/index.m3u8
 
 #EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cazetv.png" group-title="Canal de Esportes", CAZÉ TV
 https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.m3u8
 
 #EXTINF:-1 tvg-id="fifa" tvg-name="FIFA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/fifa.png" group-title="Canal de Esportes", FIFA PLUS
 https://e3be9ac5.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctYnJfRklGQVBsdXNQb3J0dWd1ZXNlX0hMUw/playlist.m3u8
-
-#EXTINF:-1 tvg-id="xsports" tvg-name="XSPORTS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/xsports.png" group-title="Canal de Esportes", X SPORTS
-http://46.151.196.223:14536/
 
 #EXTINF:-1 tvg-id="nsports" tvg-name="NSPORTS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/nsports.png" group-title="Canal de Esportes", N SPORTS
 https://ogc-nsprt-tcl-roku-syndication.otteravision.com/ogc/nsprt/nsprt_720p.m3u8
