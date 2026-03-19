@@ -208,6 +208,8 @@ http://46.151.196.223:14383/
 https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.m3u8
 
 #EXTINF:-1 tvg-id="nsports" tvg-name="NSPORTS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/nsports.png" group-title="Canal de Esportes", N SPORTS
+https://ogc-nsprt-tcl-roku-syndication.otteravision.com/ogc/nsprt/nsprt_720p.m3u8
+#EXTINF:-1 tvg-id="nsports" tvg-name="NSPORTS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/nsports.png" group-title="Canal de Esportes", N SPORTS 2
 http://46.151.196.223:14152/
 
 #EXTINF:-1 tvg-id="xsports" tvg-name="XSPORTS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/xsports.png" group-title="Canal de Esportes", X SPORTS
