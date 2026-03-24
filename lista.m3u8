@@ -90,7 +90,8 @@ http://46.151.196.223:14607/
 http://46.151.196.223:14179/
 
 #EXTINF:-1 tvg-id="megapix" tvg-name="MEGAPIX" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/megapix.png" group-title="Canal de Filmes", MEGAPIX
-http://79.127.238.228:14447/
+http://giantofthefuture.gleeze.com:25461/live/colepty1679/Hbplloxye/160.ts
+
 #EXTINF:-1 tvg-id="universaltv" tvg-name="UNIVERSALTV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/universaltv.png" group-title="Canal de Filmes", UNIVERSAL TV
 http://79.127.243.211:14623/
 #EXTINF:-1 tvg-id="universaltv" tvg-name="UNIVERSALTV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/universalr.png" group-title="Canal de Reality", UNIVERSAL REALITY
