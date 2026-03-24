@@ -213,6 +213,9 @@ https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.
 #EXTINF:-1 tvg-id="fifa" tvg-name="FIFA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/fifa.png" group-title="Canal de Esportes", FIFA PLUS
 https://e3be9ac5.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctYnJfRklGQVBsdXNQb3J0dWd1ZXNlX0hMUw/playlist.m3u8
 
+#EXTINF:-1 tvg-id="goat" tvg-name="GOAT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/goat.png" group-title="Canal de Esportes", CANAL GOAT
+http://46.151.196.223:14146/
+
 #EXTINF:-1 tvg-id="nsports" tvg-name="NSPORTS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/nsports.png" group-title="Canal de Esportes", N SPORTS
 https://ogc-nsprt-tcl-roku-syndication.otteravision.com/ogc/nsprt/nsprt_720p.m3u8
 #EXTINF:-1 tvg-id="nsports" tvg-name="NSPORTS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/nsports.png" group-title="Canal de Esportes", N SPORTS 2
