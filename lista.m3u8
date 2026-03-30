@@ -85,7 +85,7 @@ http://46.151.196.223:14376/
 http://46.151.196.223:14607/
 
 #EXTINF:-1 tvg-id="sony" tvg-name="SONY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sony.png" group-title="Canal de Filmes", SONY CHANNEL
-http://46.151.196.223:14179/
+https://spt-sonyoneclassicas-1-br.samsung.wurl.tv/playlist.m3u8
 
 #EXTINF:-1 tvg-id="megapix" tvg-name="MEGAPIX" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/megapix.png" group-title="Canal de Filmes", MEGAPIX
 http://s2.micineovs.com/MEGAPIX/index.m3u8?token=16FOTt9Ae2m8
