@@ -46,7 +46,7 @@ http://46.151.196.223:14087/
 https://amg01391-sbtinfast-amg01391c11-lg-br-9982.playouts.now.amagi.tv/playlist/amg01391-addigital-cnnmoneyhevc-lgbr/playlist.m3u8
 
 #EXTINF:-1 tvg-id="jpnews" tvg-name="JOVEM PAN NEWS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/jpnews.png" group-title="Canal de Notícias", JOVEM PAN NEWS 
-https://d6yfbj4xxtrod.cloudfront.net/out/v1/7836eb391ec24452b149f3dc6df15bbd/index.m3u8
+https://d6yfbj4xxtrod.cloudfront.net/out/v1/7836eb391ec24452b149f3dc6df15bbd/index_10.m3u8
 
 #EXTINF:-1 tvg-id="cnbc" tvg-name="CNBC" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cnbc.png" group-title="Canal de Notícias", CNBC
 https://cr7v.short.gy/ManoTV/TimesBrasil/Whats75991634025/CNBC/Index.m3u8
