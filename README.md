@@ -1,2 +1,2 @@
 # tv
-site de canais de tv
+app de canais de tv
