@@ -1,4 +1,6 @@
 {
-  "versao": "2.1.0",
-  "link": "https://meusite.com/app/atualizacao.apk"
+  "version": "1.0.1",
+  "download_url": "https://raw.githubusercontent.com/SEU_USUARIO/SEU_REPOSITORIO/main/app-release.apk",
+  "release_notes": "Correções de bugs e melhorias de performance",
+  "min_version": "1.0.0"
 }
