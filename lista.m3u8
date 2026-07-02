@@ -8,6 +8,8 @@ http://46.151.196.223:14664/
 http://46.151.196.223:14845/
 #EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto | Ceará", GLOBO
 http://46.151.196.223:14888/
+#EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto | Amazonas", GLOBO
+http://46.151.196.223:14408/
 
 #EXTINF:-1 tvg-id="sbt" tvg-name="SBT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sbt.png" group-title="Canal Aberto | São Paulo", SBT
 http://79.127.243.211:14095/
