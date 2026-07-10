@@ -90,13 +90,10 @@ https://stream.ads.ottera.tv/playlist.m3u8?network_id=5442
 #EXTINF:-1 tvg-id="gloob" tvg-name="GLOOB" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/gloob.png" group-title="Canal Infantil", GLOOB
 http://79.127.243.211:14436/
 
-#EXTINF:-1 tvg-id="dkids" tvg-name="DKIDS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/dkids.png" group-title="Canal Infantil", DISCOVERY KIDS
-http://vipketseyket.top:8080/VIP017741743173529373/aacb05f76c36/4845
-
 #EXTINF:-1 tvg-id="nick" tvg-name="NICK" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/nick.png" group-title="Canal Infantil", NICKELODEON
 https://x1co.com.br/hls/0/stream.m3u8?cachebust=a6809f
 
-#EXTINF:-1 tvg-id="dkids" tvg-name="DKIDS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/dki.png" group-title="Canal Infantil", DISNEY XD
+#EXTINF:-1 tvg-id="dkids" tvg-name="DKIDS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/dkids.png" group-title="Canal Infantil", DISNEY XD
 http://15.235.42.84:8088/rj-live/rj-live/600062.ts
 
 #EXTINF:-1 tvg-id="cn" tvg-name="CN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cn.png" group-title="Canal Infantil", CARTOON NETWORK
