@@ -134,7 +134,7 @@ http://15.235.42.84:8088/rj-live/rj-live/600810.ts
 http://15.235.42.84:8088/rj-live/rj-live/600239.ts
 
 #EXTINF:-1 tvg-id="axn" tvg-name="AXN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/axn.png" group-title="Canal de Filmes", AXN
-https://cdn-5.nxplay.com.br/AXN_TK/index.m3u8
+http://15.235.42.84:8088/rj-live/rj-live/600015.ts
 
 #EXTINF:-1 tvg-id="hbo" tvg-name="HBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/hbo.png" group-title="Canal de Filmes", HBO
 http://79.127.243.211:14668/
