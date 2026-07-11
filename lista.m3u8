@@ -169,7 +169,7 @@ http://79.127.243.211:14615/
 http://79.127.243.211:14619/
 
 #EXTINF:-1 tvg-id="amc" tvg-name="AMC" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/amc.png" group-title="Canal de Filmes e Séries", AMC
-http://79.127.243.211:14565/
+http://15.235.42.84:8088/rj-live/rj-live/600009.ts
 
 #EXTINF:-1 tvg-id="tlc" tvg-name="TLC" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tlc.png" group-title="Canal de Séries", TLC
 http://79.127.238.228:14433/
