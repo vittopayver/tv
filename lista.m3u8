@@ -98,6 +98,9 @@ http://15.235.42.84:8088/rj-live/rj-live/600062.ts
 #EXTINF:-1 tvg-id="cn" tvg-name="CN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cn.png" group-title="Canal Infantil", CARTOON NETWORK
 http://15.235.42.84:8088/rj-live/rj-live/600041.ts
 
+#EXTINF:-1 tvg-id="cartoonito" tvg-name="CARTOONITO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cartoonito.png" group-title="Canal Infantil", CARTOONITO
+http://15.235.42.84:8088/rj-live/rj-live/600043.ts
+
 #EXTINF:-1 tvg-id="ratimbum" tvg-name="RATIMBUM" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/ratimbum.png" group-title="Canal Infantil", RATIMBUM
 http://79.127.243.211:14432/
 
