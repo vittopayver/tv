@@ -9,8 +9,8 @@ http://15.235.42.84:8088/rj-live/rj-live/600102.ts
 #EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto | Mato Grosso", GLOBO
 http://15.235.42.84:8088/rj-live/rj-live/600267.ts
 #EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto | Minas Gerais", GLOBO
-http://15.235.42.84:8088/rj-live/rj-live/600280.ts
-#EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto | Bahia", GLOBO
+http://15.235.42.84:8088/rj-live/rj-live/600106.ts
+EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto | Bahia", GLOBO
 http://46.151.196.223:14853/
 #EXTINF:-1 tvg-id="globo" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globo.png" group-title="Canal Aberto | Rio Grande", GLOBO
 http://46.151.196.223:14845/
