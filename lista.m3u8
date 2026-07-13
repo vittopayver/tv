@@ -119,6 +119,8 @@ https://9ada494d.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctYn
 http://46.151.196.223:14607/
 
 #EXTINF:-1 tvg-id="sony" tvg-name="SONY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sony.png" group-title="Canal de Filmes", SONY CHANNEL
+http://15.235.42.84:8088/rj-live/rj-live/600228.ts
+#EXTINF:-1 tvg-id="sony" tvg-name="SONY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sony.png" group-title="Canal de Filmes", SONY CHANNEL 2
 http://15.235.42.84:8088/rj-live/rj-live/600229.ts
 
 #EXTINF:-1 tvg-id="megapix" tvg-name="MEGAPIX" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/megapix.png" group-title="Canal de Filmes", MEGAPIX
