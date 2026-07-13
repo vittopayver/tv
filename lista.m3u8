@@ -120,7 +120,7 @@ http://46.151.196.223:14607/
 
 #EXTINF:-1 tvg-id="sony" tvg-name="SONY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sony.png" group-title="Canal de Filmes", SONY CHANNEL
 http://15.235.42.84:8088/rj-live/rj-live/600228.ts
-#EXTINF:-1 tvg-id="sony" tvg-name="SONY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sony.png" group-title="Canal de Filmes", SONY CHANNEL 2
+#EXTINF:-1 tvg-id="sony" tvg-name="SONY" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sony.png" group-title="Canal de Filmes", SONY CHANNEL Play2
 http://15.235.42.84:8088/rj-live/rj-live/600229.ts
 
 #EXTINF:-1 tvg-id="megapix" tvg-name="MEGAPIX" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/megapix.png" group-title="Canal de Filmes", MEGAPIX
@@ -135,6 +135,8 @@ http://46.151.196.223:14686/
 http://15.235.42.84:8088/rj-live/rj-live/600810.ts
 
 #EXTINF:-1 tvg-id="studio" tvg-name="STUDIO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/studio.png" group-title="Canal de Filmes", STUDIO
+http://15.235.42.84:8088/rj-live/rj-live/600238.ts
+#EXTINF:-1 tvg-id="studio" tvg-name="STUDIO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/studio.png" group-title="Canal de Filmes", STUDIO Play2
 http://15.235.42.84:8088/rj-live/rj-live/600239.ts
 
 #EXTINF:-1 tvg-id="axn" tvg-name="AXN" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/axn.png" group-title="Canal de Filmes", AXN
