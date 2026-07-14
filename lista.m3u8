@@ -85,6 +85,9 @@ http://46.151.196.223:14043/
 #EXTINF:-1 tvg-id="cultura" tvg-name="TV CULTURA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cultura.png" group-title="Canal Diversos", TV CULTURA
 https://player-tvcultura.stream.uol.com.br/live/tvcultura.m3u8
 
+#EXTINF:-1 tvg-id="tvbrasil" tvg-name="TV BRASIL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/tvbrasil.png" group-title="Canal Diversos", TV BRASIL
+https://tvbrasil-stream.ebc.com.br/index.m3u8
+
 #EXTINF:-1 tvg-id="globoplay" tvg-name="GLOBO" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/globoplay.png" group-title="Canal NOVELAS", GLOBO PLAY
 http://79.127.238.228:14455/
 
