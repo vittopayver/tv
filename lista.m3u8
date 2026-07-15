@@ -270,7 +270,9 @@ https://cr7v.short.gy/live/JOGOO8/Index.m3u8
 #EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cazetv.png" group-title="Canal de Esportes | PLAY 4", CAZÉ TV
 https://cr7v.short.gy/ManoTV/index.m3u8
 
-#EXTINF:-1 tvg-id="bandsports" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bandsports.png" group-title="Canal de Esportes", BAND SPORTS
+#EXTINF:-1 tvg-id="bandsports" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bandsports.png" group-title="Canal de Esportes | PLAY 1", BAND SPORTS
+http://streamer.sattvacabo.com.br/BAND_SPORTS_HD/index.m3u8?token=TLGacFXd0gIXIuo2u8Zj7f4FE5J2vtgf
+#EXTINF:-1 tvg-id="bandsports" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bandsports.png" group-title="Canal de Esportes | PLAY 2", BAND SPORTS
 http://185.152.67.187:14474/
 
 #EXTINF:-1 tvg-id="fifa" tvg-name="FIFA" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/fifa.png" group-title="Canal de Esportes", FIFA PLUS
