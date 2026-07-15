@@ -51,7 +51,7 @@ http://46.151.196.223:14107/
 http://79.127.238.228:14093/
 
 #EXTINF:-1 tvg-id="sbtnews" tvg-name="SBT" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/sbt.png" group-title="Canal de Notícias", SBT NEWS
-http://15.235.42.84:8088/rj-live/rj-live/600033.ts
+http://15.235.42.84:8088/rj-live/rj-live/600859.ts
 
 #EXTINF:-1 tvg-id="recordnews" tvg-name="RECORD" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/record.png" group-title="Canal de Notícias", RECORD NEWS 
 https://rnw-rn-samsungtvplus.otteravision.com/rnw/rn/rnw_rn.m3u8
