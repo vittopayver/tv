@@ -15,12 +15,10 @@ http://gerenciar.vivatele.com/live/viva_padrao/viva2384/13
 #EXTINF:-1 tvg-id="record" tvg-name="RECORD" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/recordplus.png" group-title="Canal Aberto", RECORD PLUS
 http://46.151.196.223:14200/
 
-#EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/band.png" group-title="Canal Aberto | São Paulo", BAND
+#EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/band.png" group-title="Canal Aberto | São Paulo | PLAY 1", BAND
+https://cdn-sp2.satlabscloud.com.br/BAND_HD/index.m3u8
+#EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/band.png" group-title="Canal Aberto | São Paulo | PLAY 2", BAND
 http://s2.micineovs.com/BAND/index.m3u8?token=16FOTt9Ae2m8
-#EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/band.png" group-title="Canal Aberto | São Paulo", BAND
-http://79.127.238.228:14298/
-#EXTINF:-1 tvg-id="band" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/band.png" group-title="Canal Aberto | Rio de Janeiro", BAND
-http://gerenciar.vivatele.com/viva_padrao/viva2384/3
 
 #EXTINF:-1 tvg-id="redetv" tvg-name="REDETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/redetv.png" group-title="Canal Aberto | São Paulo", REDE TV
 http://185.152.67.187:14266/
