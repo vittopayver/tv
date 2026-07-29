@@ -31,7 +31,7 @@ https://stream.ads.ottera.tv/playlist.m3u8?network_id=5431&avod=1&coppa=0&is_lat
 https://rnw-rn-samsungtvplus.otteravision.com/rnw/rn/rnw_rn.m3u8
 
 #EXTINF:-1 tvg-id="bandnews" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bandnews.png" group-title="Canal Aberto | São Paulo", BAND NEWS
-http://46.151.196.223:14081/
+http://gerenciar.vivatele.com:80/viva_padrao/viva2384/21.m3u8
 
 #EXTINF:-1 tvg-id="uol" tvg-name="UOL" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/uol.png" group-title="Canal de Notícias", CANAL UOL
 https://jmp2.uk/plu-64b9370b409629000802d32b.m3u8
