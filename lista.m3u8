@@ -228,15 +228,10 @@ http://46.151.196.223:14468/
 #EXTINF:-1 tvg-id="desimpedidos" tvg-name="DESIMPEDIDOS" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/desimpedidos.png" group-title="Canal de Esportes", DESIMPEDIDOS
 https://cc-vvkv6xjfc6w5v.akamaized.net/ogc/desi/desi.m3u8
 
-#EXTINF:-1 tvg-id="getv" tvg-name="GETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/getv.png" group-title="Canal de Esportes | PLAY 1", GE TV
-http://46.151.196.223:14548/
-#EXTINF:-1 tvg-id="getv" tvg-name="GETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/getv.png" group-title="Canal de Esportes | PLAY 2", GE TV
+#EXTINF:-1 tvg-id="getv" tvg-name="GETV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/getv.png" group-title="Canal de Esportes", GE TV
 https://amg00716-globo-amg00716c1-tcl-br-9495.playouts.now.amagi.tv/720p-cc/index.m3u8
 
-
-#EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cazetv.png" group-title="Canal de Esportes | PLAY 1", CAZÉ TV
-https://cr7v.short.gy/live/JOGOO8/Index.m3u8
-#EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cazetv.png" group-title="Canal de Esportes | PLAY 2", CAZÉ TV
+#EXTINF:-1 tvg-id="cazetv" tvg-name="CAZÉ TV" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/cazetv.png" group-title="Canal de Esportes", CAZÉ TV
 https://cr7v.short.gy/ManoTV/index.m3u8
 
 #EXTINF:-1 tvg-id="bandsports" tvg-name="BAND" tvg-logo="https://raw.githubusercontent.com/vittopayver/tv/refs/heads/main/img/bandsports.png" group-title="Canal de Esportes | PLAY 1", BAND SPORTS
