@@ -282,12 +282,14 @@ function playSiren(){
 }
 
 // ===== ANÁLISE: PAVIO MAIOR QUE O CORPO (sem olhar cor) =====
+const WICK_BODY_RATIO = 3; // o pavio precisa ser pelo menos 3x o corpo (corpo bem menor)
+
 function analyzeCandle(c){
   const body = Math.abs(c.close - c.open);
   const upperWick = c.high - Math.max(c.open, c.close);
   const lowerWick = Math.min(c.open, c.close) - c.low;
   const maxWick = Math.max(upperWick, lowerWick);
-  return { maxWick, wickDominant: maxWick > body };
+  return { maxWick, wickDominant: maxWick > body * WICK_BODY_RATIO };
 }
 
 function fmtTime(d){
@@ -362,11 +364,11 @@ historyOverlay.addEventListener('click', (e) => {
 
 function evaluateSymbol(id){
   const h = history[id];
-  if(!h || h.length < 2) return;
-  const c1 = analyzeCandle(h[0]);
-  const c2 = analyzeCandle(h[1]); // vela mais recente fechada
-  if(c1.wickDominant && c2.wickDominant){
-    const key = h[1].time;
+  if(!h || h.length < 1) return;
+  const last = h[h.length - 1]; // vela mais recente fechada
+  const c = analyzeCandle(last);
+  if(c.wickDominant){
+    const key = last.time;
     if(lastAlertedKey[id] !== key){
       lastAlertedKey[id] = key;
       pushAlert(labelById[id]);
@@ -453,4 +455,3 @@ Promise.all(SYMBOLS.map(bootstrapHistory)).then(connectWebSocket);
 </script>
 </body>
 </html>
-
