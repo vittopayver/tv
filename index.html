@@ -49,6 +49,7 @@
     color:var(--text); cursor:pointer;
   }
   .icon-btn svg{width:18px;height:18px;}
+  #notifIcon{cursor:default;}
   .brand-pill{
     display:flex;align-items:center;gap:6px;
     padding:8px 16px; border-radius:999px;
@@ -85,7 +86,10 @@
     display:flex; align-items:center; gap:10px;
     background:var(--warn-bg); border:1px solid rgba(217,119,6,.25); border-radius:12px;
     padding:12px 14px; margin-bottom:8px;
+    animation: alert-in .25s ease, alert-out .4s ease 3.6s forwards;
   }
+  @keyframes alert-in{ from{opacity:0; transform:translateY(-6px);} to{opacity:1; transform:translateY(0);} }
+  @keyframes alert-out{ to{opacity:0; transform:translateY(-6px); margin-bottom:-46px; padding-top:0; padding-bottom:0; height:0;} }
   .alert-item:last-child{margin-bottom:0;}
   .alert-item .dot{width:9px;height:9px;border-radius:50%;background:var(--warn); flex-shrink:0;}
   .alert-item .sym{font-weight:700; color:var(--text); font-family:var(--mono); font-size:.95rem;}
@@ -93,12 +97,247 @@
 
   .disclaimer{color:var(--muted-2); font-size:.66rem; line-height:1.4; text-align:center; margin-top:14px; max-width:340px;}
 
+  .quotes-card{margin-top:12px; max-height:38vh; overflow-y:auto; -webkit-overflow-scrolling:touch;}
+  .quote-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:7px 2px; border-bottom:1px solid var(--border); font-family:var(--mono); font-size:.8rem;
+  }
+  .quote-row:last-child{border-bottom:none;}
+  .quote-row .sym{font-weight:600; color:var(--text);}
+  .quote-row .price{color:var(--muted); margin-left:auto; margin-right:8px;}
+  .quote-row .chg{min-width:56px; text-align:right;}
+  .quote-row .chg.up{color:#16a34a;}
+  .quote-row .chg.down{color:#dc2626;}
+  .quote-row .chg.flat{color:var(--muted-2);}
+
   @media(min-width:640px){
     .canvas{padding-left:calc((100% - 480px)/2); padding-right:calc((100% - 480px)/2);}
   }
 </style>
 </head>
 <body>
+
+  <header class="topbar">
+    <div class="brand-pill">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z"/></svg>
+      G-Trader
+    </div>
+    <div class="icon-btn" id="notifIcon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </div>
+  </header>
+
+  <main class="canvas" id="canvas">
+
+    <svg class="chart-mark" viewBox="0 0 64 28" fill="none">
+      <line x1="8" y1="4" x2="8" y2="22" stroke="#dc2626" stroke-width="1.4"/>
+      <rect x="5.5" y="9" width="5" height="8" rx="1" fill="#dc2626"/>
+      <line x1="20" y1="2" x2="20" y2="20" stroke="#16a34a" stroke-width="1.4"/>
+      <rect x="17.5" y="6" width="5" height="10" rx="1" fill="#16a34a"/>
+      <line x1="32" y1="6" x2="32" y2="24" stroke="#dc2626" stroke-width="1.4"/>
+      <rect x="29.5" y="10" width="5" height="7" rx="1" fill="#dc2626"/>
+      <line x1="44" y1="1" x2="44" y2="19" stroke="#16a34a" stroke-width="1.4"/>
+      <rect x="41.5" y="4" width="5" height="11" rx="1" fill="#16a34a"/>
+      <line x1="56" y1="3" x2="56" y2="21" stroke="#16a34a" stroke-width="1.4"/>
+      <rect x="53.5" y="6" width="5" height="9" rx="1" fill="#16a34a"/>
+    </svg>
+
+    <div class="status-line"><span class="live-dot"></span><span id="statusText">Monitorando M5...</span></div>
+
+    <div class="card">
+      <h2>Alertas</h2>
+      <div id="alertsList"><div class="alerts-empty">Nenhum alerta no momento.</div></div>
+    </div>
+
+    <div class="card quotes-card">
+      <h2>Cotações</h2>
+      <div id="quotesList"></div>
+    </div>
+
+    <div class="disclaimer">Alerta de contexto — não é recomendação de entrada.</div>
+
+  </main>
+
+<script>
+// ===== ATIVOS (cripto real via Binance, usado como proxy pros pares Blitz/Digital) =====
+const SYMBOLS = [
+  { id:'BTCUSDT', label:'BTC/USDT' }, { id:'ETHUSDT', label:'ETH/USDT' },
+  { id:'XRPUSDT', label:'XRP/USDT' }, { id:'SOLUSDT', label:'SOL/USDT' },
+  { id:'BNBUSDT', label:'BNB/USDT' }, { id:'DOGEUSDT', label:'DOGE/USDT' },
+  { id:'ADAUSDT', label:'ADA/USDT' }, { id:'BCHUSDT', label:'BCH/USDT' },
+  { id:'LINKUSDT', label:'LINK/USDT' }, { id:'ATOMUSDT', label:'ATOM/USDT' },
+  { id:'ARBUSDT', label:'ARB/USDT' }, { id:'TIAUSDT', label:'TIA/USDT' },
+  { id:'DYDXUSDT', label:'DYDX/USDT' }, { id:'DASHUSDT', label:'DASH/USDT' },
+  { id:'HBARUSDT', label:'HBAR/USDT' }, { id:'FETUSDT', label:'FET/USDT' },
+  { id:'FLOKIUSDT', label:'FLOKI/USDT' }, { id:'WIFUSDT', label:'WIF/USDT' },
+  { id:'1000BONKUSDT', label:'BONK/USDT' }, { id:'1000SATSUSDT', label:'1000SATS/USDT' }
+];
+const TF_LABEL = 'M5';
+const labelById = Object.fromEntries(SYMBOLS.map(s => [s.id, s.label]));
+const history = {};       // id -> últimas 2 velas fechadas
+const quoteCells = {};    // id -> { priceEl, chgEl }
+
+function buildQuoteRows(){
+  SYMBOLS.forEach(sym => {
+    const row = document.createElement('div');
+    row.className = 'quote-row';
+    row.innerHTML = `<span class="sym">${sym.label}</span><span class="price" id="qp-${sym.id}">--</span><span class="chg flat" id="qc-${sym.id}">--</span>`;
+    quotesList.appendChild(row);
+    quoteCells[sym.id] = {
+      priceEl: row.querySelector(`#qp-${sym.id}`),
+      chgEl: row.querySelector(`#qc-${sym.id}`)
+    };
+  });
+}
+
+function updateQuote(id, open, close){
+  const cell = quoteCells[id];
+  if(!cell) return;
+  const decimals = close < 1 ? 6 : close < 10 ? 4 : 2;
+  cell.priceEl.textContent = close.toFixed(decimals);
+  const pct = open ? ((close - open) / open) * 100 : 0;
+  cell.chgEl.textContent = (pct >= 0 ? '▲ ' : '▼ ') + Math.abs(pct).toFixed(2) + '%';
+  cell.chgEl.className = 'chg ' + (pct > 0 ? 'up' : pct < 0 ? 'down' : 'flat');
+}
+
+const lastAlertedKey = {}; // id -> timestamp da última vela já alertada
+
+const alertsList = document.getElementById('alertsList');
+const quotesList = document.getElementById('quotesList');
+const statusText = document.getElementById('statusText');
+
+// ===== SIRENE (gerada por código, sem arquivo de áudio) =====
+let audioCtx = null;
+function unlockAudio(){
+  if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if(audioCtx.state === 'suspended') audioCtx.resume();
+}
+document.addEventListener('click', unlockAudio, { once:true });
+document.addEventListener('touchstart', unlockAudio, { once:true });
+
+function playSiren(){
+  if(!audioCtx) unlockAudio();
+  if(!audioCtx) return;
+  const duration = 1.6;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'sawtooth';
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  const now = audioCtx.currentTime;
+  gain.gain.setValueAtTime(0.35, now);
+  for(let i = 0; i < 4; i++){
+    const t = now + i * (duration / 4);
+    osc.frequency.setValueAtTime(600, t);
+    osc.frequency.linearRampToValueAtTime(1200, t + duration / 8);
+    osc.frequency.linearRampToValueAtTime(600, t + duration / 4);
+  }
+  gain.gain.setValueAtTime(0.35, now + duration - 0.1);
+  gain.gain.linearRampToValueAtTime(0, now + duration);
+  osc.start(now);
+  osc.stop(now + duration);
+}
+
+// ===== ANÁLISE: PAVIO MAIOR QUE O CORPO (sem olhar cor) =====
+function analyzeCandle(c){
+  const body = Math.abs(c.close - c.open);
+  const upperWick = c.high - Math.max(c.open, c.close);
+  const lowerWick = Math.min(c.open, c.close) - c.low;
+  const maxWick = Math.max(upperWick, lowerWick);
+  return { maxWick, wickDominant: maxWick > body };
+}
+
+// ===== ALERTA — aparece e some sozinho ~4s depois =====
+function pushAlert(label){
+  const empty = alertsList.querySelector('.alerts-empty');
+  if(empty) empty.remove();
+
+  const div = document.createElement('div');
+  div.className = 'alert-item';
+  div.innerHTML = `<span class="dot"></span><span class="sym">${label}</span><span class="tf">${TF_LABEL}</span>`;
+  alertsList.prepend(div);
+
+  setTimeout(() => {
+    div.remove();
+    if(!alertsList.children.length){
+      alertsList.innerHTML = '<div class="alerts-empty">Nenhum alerta no momento.</div>';
+    }
+  }, 4000);
+
+  playSiren();
+}
+
+function evaluateSymbol(id){
+  const h = history[id];
+  if(!h || h.length < 2) return;
+  const c1 = analyzeCandle(h[0]);
+  const c2 = analyzeCandle(h[1]); // vela mais recente fechada
+  if(c1.wickDominant && c2.wickDominant){
+    const key = h[1].time;
+    if(lastAlertedKey[id] !== key){
+      lastAlertedKey[id] = key;
+      pushAlert(labelById[id]);
+    }
+  }
+}
+
+// ===== VELAS INICIAIS (via REST, só pra ter histórico assim que a página abre) =====
+async function bootstrapHistory(sym){
+  try{
+    const res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${sym.id}&interval=5m&limit=3`);
+    const raw = await res.json();
+    const closed = raw.slice(0, raw.length - 1).map(k => ({
+      time: k[0], open: parseFloat(k[1]), high: parseFloat(k[2]), low: parseFloat(k[3]), close: parseFloat(k[4])
+    }));
+    history[sym.id] = closed.slice(-2);
+    // marca como já "visto" pra não disparar alerta de algo que já estava acontecendo antes de abrir o site
+    if(history[sym.id].length === 2) lastAlertedKey[sym.id] = history[sym.id][1].time;
+  } catch(e){ console.error('Erro no histórico inicial de', sym.id, e); }
+}
+
+// ===== WEBSOCKET — velas em tempo real direto da Binance =====
+let ws = null;
+function connectWebSocket(){
+  const streams = SYMBOLS.map(s => s.id.toLowerCase() + '@kline_5m').join('/');
+  ws = new WebSocket(`wss://stream.binance.com:9443/stream?streams=${streams}`);
+
+  ws.onopen = () => { statusText.textContent = `Monitorando ${SYMBOLS.length} ativos em M5 — tempo real`; };
+
+  ws.onmessage = (event) => {
+    const msg = JSON.parse(event.data);
+    const k = msg.data && msg.data.k;
+    if(!k) return;
+
+    const id = msg.data.s; // símbolo em maiúsculo, ex: BTCUSDT
+    if(!labelById[id]) return;
+
+    // cotação atualiza a cada tick, mesmo com a vela ainda se formando
+    updateQuote(id, parseFloat(k.o), parseFloat(k.c));
+
+    if(!k.x) return; // o resto (alerta) só nos interessa quando a vela FECHA
+
+    const candle = { time:k.t, open:parseFloat(k.o), high:parseFloat(k.h), low:parseFloat(k.l), close:parseFloat(k.c) };
+    const h = history[id] || [];
+    h.push(candle);
+    history[id] = h.slice(-2);
+
+    evaluateSymbol(id);
+  };
+
+  ws.onclose = () => {
+    statusText.textContent = 'Reconectando...';
+    setTimeout(connectWebSocket, 3000);
+  };
+  ws.onerror = () => { ws.close(); };
+}
+
+// ===== INÍCIO =====
+statusText.textContent = 'Carregando...';
+buildQuoteRows();
+Promise.all(SYMBOLS.map(bootstrapHistory)).then(connectWebSocket);
+</script>
+</body>
+</html>
 
   <header class="topbar">
     <div class="brand-pill">
