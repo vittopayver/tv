@@ -362,7 +362,28 @@ historyOverlay.addEventListener('click', (e) => {
   if(e.target === historyOverlay) historyOverlay.classList.remove('open');
 });
 
+// ===== JANELA EM QUE A CORRETORA SÓ OPERA EM OTC (fim de semana, mercado real fechado) =====
+// Forex/ações fecham sexta ~22:00 UTC e reabrem domingo ~22:00 UTC — ajuste aqui se sua corretora usar outro horário.
+function isOtcOnlyWindow(){
+  const now = new Date();
+  const day = now.getUTCDay();   // 0=domingo ... 6=sábado
+  const hour = now.getUTCHours();
+  if(day === 6) return true;                 // sábado inteiro
+  if(day === 0 && hour < 22) return true;     // domingo antes das 22:00 UTC
+  if(day === 5 && hour >= 22) return true;    // sexta a partir das 22:00 UTC
+  return false;
+}
+
+function updateStatusText(){
+  if(isOtcOnlyWindow()){
+    statusText.textContent = 'Mercado fechado (fim de semana) — alertas pausados';
+  } else {
+    statusText.textContent = `Monitorando ${SYMBOLS.length} ativos em M5 — tempo real`;
+  }
+}
+
 function evaluateSymbol(id){
+  if(isOtcOnlyWindow()) return; // corretora só operaria em OTC agora — não alerta
   const h = history[id];
   if(!h || h.length < 1) return;
   const last = h[h.length - 1]; // vela mais recente fechada
@@ -419,7 +440,7 @@ function connectWebSocket(){
   const streams = SYMBOLS.map(s => s.id.toLowerCase() + '@kline_5m').join('/');
   ws = new WebSocket(`wss://stream.binance.com:9443/stream?streams=${streams}`);
 
-  ws.onopen = () => { statusText.textContent = `Monitorando ${SYMBOLS.length} ativos em M5 — tempo real`; };
+  ws.onopen = () => { updateStatusText(); };
 
   ws.onmessage = (event) => {
     const msg = JSON.parse(event.data);
@@ -452,6 +473,7 @@ function connectWebSocket(){
 statusText.textContent = 'Carregando...';
 buildQuoteRows();
 Promise.all(SYMBOLS.map(bootstrapHistory)).then(connectWebSocket);
+setInterval(updateStatusText, 60000);
 </script>
 </body>
 </html>
