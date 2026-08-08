@@ -282,7 +282,7 @@ function playSiren(){
 }
 
 // ===== ANÁLISE: PAVIO MAIOR QUE O CORPO (sem olhar cor) =====
-const WICK_BODY_RATIO = 3; // o pavio precisa ser pelo menos 3x o corpo (corpo bem menor)
+const WICK_BODY_RATIO = 2; // o pavio precisa ser pelo menos 2x o corpo (corpo bem menor)
 
 function analyzeCandle(c){
   const body = Math.abs(c.close - c.open);
