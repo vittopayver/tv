@@ -385,11 +385,11 @@ function updateStatusText(){
 function evaluateSymbol(id){
   if(isOtcOnlyWindow()) return; // corretora só operaria em OTC agora — não alerta
   const h = history[id];
-  if(!h || h.length < 1) return;
-  const last = h[h.length - 1]; // vela mais recente fechada
-  const c = analyzeCandle(last);
-  if(c.wickDominant){
-    const key = last.time;
+  if(!h || h.length < 2) return;
+  const c1 = analyzeCandle(h[0]); // vela anterior
+  const c2 = analyzeCandle(h[1]); // vela mais recente fechada (a "segunda" da sequência)
+  if(c1.wickDominant && c2.wickDominant){
+    const key = h[1].time; // dispara assim que a segunda vela do padrão fecha
     if(lastAlertedKey[id] !== key){
       lastAlertedKey[id] = key;
       pushAlert(labelById[id]);
