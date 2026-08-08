@@ -8,16 +8,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#FBFBFC;
-    --surface:#FFFFFF;
-    --surface-alt:#F1F1F3;
-    --border:rgba(0,0,0,.09);
-    --text:#0D0D0D;
-    --muted:#6E6E80;
-    --muted-2:#9A9AA6;
-    --accent:#17A673;
-    --warn:#D97706;
-    --warn-bg:#FEF3E2;
+    --bg:#0B0E17;
+    --surface:#141A29;
+    --surface-alt:#1B2338;
+    --border:rgba(255,255,255,.08);
+    --text:#F5F7FA;
+    --muted:#8A93A6;
+    --muted-2:#5C6478;
+    --accent:#00C896;
+    --otc:#FF7A1A;
+    --otc-bg:rgba(255,122,26,.14);
+    --danger:#FF4D4F;
     --mono:'IBM Plex Mono', monospace;
     --body:'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif;
   }
@@ -37,78 +38,113 @@
   .topbar{
     position:sticky; top:0; z-index:30;
     display:flex; align-items:center; justify-content:space-between;
-    padding:8px 12px 6px;
-    background:linear-gradient(180deg, #EFEFF1 0%, rgba(239,239,241,0) 100%);
+    padding:10px 12px 8px;
+    background:linear-gradient(180deg, var(--bg) 0%, rgba(11,14,23,0) 100%);
     flex-shrink:0;
   }
   .icon-btn{
     width:38px;height:38px;border-radius:50%;
     background:var(--surface); border:1px solid var(--border);
     display:flex;align-items:center;justify-content:center;
-    box-shadow:0 1px 2px rgba(0,0,0,.04);
-    color:var(--text); cursor:pointer;
+    color:var(--text); cursor:pointer; position:relative;
   }
   .icon-btn svg{width:18px;height:18px;}
-  #notifIcon{cursor:default;}
+  .icon-btn .dot-badge{
+    position:absolute; top:6px; right:7px; width:7px; height:7px; border-radius:50%;
+    background:var(--otc); display:none;
+  }
+  .icon-btn .dot-badge.show{display:block;}
   .brand-pill{
     display:flex;align-items:center;gap:6px;
     padding:8px 16px; border-radius:999px;
     background:var(--surface); border:1px solid var(--border);
     color:var(--accent); font-weight:600; font-size:.88rem;
-    box-shadow:0 1px 2px rgba(0,0,0,.04);
   }
   .brand-pill svg{width:14px;height:14px;}
 
   /* ===== canvas ===== */
-  .canvas{ flex:1; overflow-y:auto; padding:5vh 14px 14px; -webkit-overflow-scrolling:touch; display:flex; flex-direction:column; justify-content:flex-start; min-height:0; align-items:center; }
+  .canvas{ flex:1; overflow-y:auto; padding:4vh 14px 14px; -webkit-overflow-scrolling:touch; display:flex; flex-direction:column; justify-content:flex-start; min-height:0; align-items:center; }
 
   .chart-mark{width:72px; height:30px; display:block; margin:0 auto 8px;}
 
   .status-line{
     display:flex; align-items:center; gap:6px; justify-content:center;
-    font-family:var(--mono); font-size:.7rem; color:var(--muted); margin-bottom:18px;
+    font-family:var(--mono); font-size:.7rem; color:var(--muted); margin-bottom:16px;
   }
-  .live-dot{width:6px;height:6px;border-radius:50%; background:#22c55e; box-shadow:0 0 0 0 rgba(34,197,94,.5); animation:pulse 1.8s infinite;}
+  .live-dot{width:6px;height:6px;border-radius:50%; background:var(--accent); box-shadow:0 0 0 0 rgba(0,200,150,.5); animation:pulse 1.8s infinite;}
   @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(34,197,94,.45);}
-    70%{box-shadow:0 0 0 6px rgba(34,197,94,0);}
-    100%{box-shadow:0 0 0 0 rgba(34,197,94,0);}
+    0%{box-shadow:0 0 0 0 rgba(0,200,150,.45);}
+    70%{box-shadow:0 0 0 6px rgba(0,200,150,0);}
+    100%{box-shadow:0 0 0 0 rgba(0,200,150,0);}
   }
 
-  /* ===== alerts ===== */
   .card{
     background:var(--surface); border:1px solid var(--border); border-radius:16px;
-    padding:16px; width:100%; max-width:420px; box-shadow:0 1px 3px rgba(0,0,0,.03);
+    padding:16px; width:100%; max-width:420px; box-shadow:0 2px 10px rgba(0,0,0,.25);
   }
-  .card h2{font-size:.9rem; font-weight:600; text-align:center; margin-bottom:12px;}
+  .card h2{font-size:.9rem; font-weight:600; text-align:center; margin-bottom:12px; color:var(--text);}
+
+  /* ===== alerts (toast, some sozinho) ===== */
   .alerts-empty{color:var(--muted-2); font-size:.8rem; text-align:center; padding:14px 0;}
   .alert-item{
-    display:flex; align-items:center; gap:10px;
-    background:var(--warn-bg); border:1px solid rgba(217,119,6,.25); border-radius:12px;
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    background:var(--otc-bg); border:1px solid rgba(255,122,26,.3); border-radius:12px;
     padding:12px 14px; margin-bottom:8px;
-    animation: alert-in .25s ease, alert-out .4s ease 3.6s forwards;
+    animation: alert-in .25s ease, alert-out .4s ease 19.35s forwards;
   }
   @keyframes alert-in{ from{opacity:0; transform:translateY(-6px);} to{opacity:1; transform:translateY(0);} }
-  @keyframes alert-out{ to{opacity:0; transform:translateY(-6px); margin-bottom:-46px; padding-top:0; padding-bottom:0; height:0;} }
-  .alert-item:last-child{margin-bottom:0;}
-  .alert-item .dot{width:9px;height:9px;border-radius:50%;background:var(--warn); flex-shrink:0;}
-  .alert-item .sym{font-weight:700; color:var(--text); font-family:var(--mono); font-size:.95rem;}
-  .alert-item .tf{color:#8a5a08; font-family:var(--mono); font-size:.78rem; margin-left:auto;}
+  @keyframes alert-out{ to{opacity:0; transform:translateY(-6px); margin-bottom:-70px; padding-top:0; padding-bottom:0; height:0;} }
+  .alert-item .dot{width:9px;height:9px;border-radius:50%;background:var(--otc); flex-shrink:0;}
+  .alert-item .sym{font-weight:700; color:var(--text); font-family:var(--mono); font-size:.92rem;}
+  .alert-item .otc-tag{
+    font-family:var(--mono); font-size:.62rem; font-weight:700; color:var(--otc);
+    background:rgba(255,122,26,.18); border-radius:999px; padding:2px 7px;
+  }
+  .alert-item .time{color:var(--muted); font-family:var(--mono); font-size:.72rem; margin-left:auto;}
+  .alert-item .tf{color:var(--accent); font-family:var(--mono); font-size:.72rem; font-weight:600;}
 
   .disclaimer{color:var(--muted-2); font-size:.66rem; line-height:1.4; text-align:center; margin-top:14px; max-width:340px;}
 
-  .quotes-card{margin-top:12px; max-height:38vh; overflow-y:auto; -webkit-overflow-scrolling:touch;}
+  /* ===== quotes ===== */
+  .quotes-card{margin-top:12px; max-height:34vh; overflow-y:auto; -webkit-overflow-scrolling:touch;}
   .quote-row{
     display:flex; align-items:center; justify-content:space-between;
-    padding:7px 2px; border-bottom:1px solid var(--border); font-family:var(--mono); font-size:.8rem;
+    padding:8px 2px; border-bottom:1px solid var(--border); font-family:var(--mono); font-size:.78rem;
   }
   .quote-row:last-child{border-bottom:none;}
   .quote-row .sym{font-weight:600; color:var(--text);}
   .quote-row .price{color:var(--muted); margin-left:auto; margin-right:8px;}
   .quote-row .chg{min-width:56px; text-align:right;}
-  .quote-row .chg.up{color:#16a34a;}
-  .quote-row .chg.down{color:#dc2626;}
+  .quote-row .chg.up{color:var(--accent);}
+  .quote-row .chg.down{color:var(--danger);}
   .quote-row .chg.flat{color:var(--muted-2);}
+
+  /* ===== painel de histórico (sininho) ===== */
+  .history-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:50;
+    display:none; align-items:flex-end; justify-content:center;
+  }
+  .history-overlay.open{display:flex;}
+  .history-panel{
+    background:var(--surface); border-top-left-radius:20px; border-top-right-radius:20px;
+    width:100%; max-width:480px; max-height:70vh; overflow-y:auto;
+    padding:16px; border:1px solid var(--border); border-bottom:none;
+  }
+  .history-panel h3{font-size:.95rem; margin-bottom:2px;}
+  .history-panel .sub{color:var(--muted); font-size:.72rem; margin-bottom:12px;}
+  .history-row{
+    display:flex; align-items:center; gap:8px; padding:9px 2px; border-bottom:1px solid var(--border);
+    font-family:var(--mono); font-size:.8rem;
+  }
+  .history-row:last-child{border-bottom:none;}
+  .history-row .sym{font-weight:600; flex-shrink:0;}
+  .history-row .otc-tag{font-size:.6rem; color:var(--otc); background:rgba(255,122,26,.15); border-radius:999px; padding:2px 6px;}
+  .history-row .time{margin-left:auto; color:var(--muted); font-size:.72rem;}
+  .history-close{
+    display:block; margin:14px auto 0; padding:10px 24px; border-radius:999px;
+    background:var(--surface-alt); border:1px solid var(--border); color:var(--text);
+    font-family:inherit; font-size:.82rem;
+  }
 
   @media(min-width:640px){
     .canvas{padding-left:calc((100% - 480px)/2); padding-right:calc((100% - 480px)/2);}
@@ -122,24 +158,25 @@
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z"/></svg>
       G-Trader
     </div>
-    <div class="icon-btn" id="notifIcon" aria-hidden="true">
+    <button class="icon-btn" id="notifIcon" aria-label="Ver histórico de alertas">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-    </div>
+      <span class="dot-badge" id="notifDot"></span>
+    </button>
   </header>
 
   <main class="canvas" id="canvas">
 
     <svg class="chart-mark" viewBox="0 0 64 28" fill="none">
-      <line x1="8" y1="4" x2="8" y2="22" stroke="#dc2626" stroke-width="1.4"/>
-      <rect x="5.5" y="9" width="5" height="8" rx="1" fill="#dc2626"/>
-      <line x1="20" y1="2" x2="20" y2="20" stroke="#16a34a" stroke-width="1.4"/>
-      <rect x="17.5" y="6" width="5" height="10" rx="1" fill="#16a34a"/>
-      <line x1="32" y1="6" x2="32" y2="24" stroke="#dc2626" stroke-width="1.4"/>
-      <rect x="29.5" y="10" width="5" height="7" rx="1" fill="#dc2626"/>
-      <line x1="44" y1="1" x2="44" y2="19" stroke="#16a34a" stroke-width="1.4"/>
-      <rect x="41.5" y="4" width="5" height="11" rx="1" fill="#16a34a"/>
-      <line x1="56" y1="3" x2="56" y2="21" stroke="#16a34a" stroke-width="1.4"/>
-      <rect x="53.5" y="6" width="5" height="9" rx="1" fill="#16a34a"/>
+      <line x1="8" y1="4" x2="8" y2="22" stroke="#FF4D4F" stroke-width="1.4"/>
+      <rect x="5.5" y="9" width="5" height="8" rx="1" fill="#FF4D4F"/>
+      <line x1="20" y1="2" x2="20" y2="20" stroke="#00C896" stroke-width="1.4"/>
+      <rect x="17.5" y="6" width="5" height="10" rx="1" fill="#00C896"/>
+      <line x1="32" y1="6" x2="32" y2="24" stroke="#FF4D4F" stroke-width="1.4"/>
+      <rect x="29.5" y="10" width="5" height="7" rx="1" fill="#FF4D4F"/>
+      <line x1="44" y1="1" x2="44" y2="19" stroke="#00C896" stroke-width="1.4"/>
+      <rect x="41.5" y="4" width="5" height="11" rx="1" fill="#00C896"/>
+      <line x1="56" y1="3" x2="56" y2="21" stroke="#00C896" stroke-width="1.4"/>
+      <rect x="53.5" y="6" width="5" height="9" rx="1" fill="#00C896"/>
     </svg>
 
     <div class="status-line"><span class="live-dot"></span><span id="statusText">Monitorando M5...</span></div>
@@ -158,8 +195,17 @@
 
   </main>
 
+  <div class="history-overlay" id="historyOverlay">
+    <div class="history-panel">
+      <h3>Histórico de alertas</h3>
+      <div class="sub">Últimas 24 horas</div>
+      <div id="historyList"></div>
+      <button class="history-close" id="historyClose">Fechar</button>
+    </div>
+  </div>
+
 <script>
-// ===== ATIVOS (cripto real via Binance, usado como proxy pros pares Blitz/Digital) =====
+// ===== ATIVOS (cripto real via Binance, exibidos como (OTC) — proxy pros pares Blitz/Digital) =====
 const SYMBOLS = [
   { id:'BTCUSDT', label:'BTC/USDT' }, { id:'ETHUSDT', label:'ETH/USDT' },
   { id:'XRPUSDT', label:'XRP/USDT' }, { id:'SOLUSDT', label:'SOL/USDT' },
@@ -170,41 +216,38 @@ const SYMBOLS = [
   { id:'DYDXUSDT', label:'DYDX/USDT' }, { id:'DASHUSDT', label:'DASH/USDT' },
   { id:'HBARUSDT', label:'HBAR/USDT' }, { id:'FETUSDT', label:'FET/USDT' },
   { id:'FLOKIUSDT', label:'FLOKI/USDT' }, { id:'WIFUSDT', label:'WIF/USDT' },
-  { id:'1000BONKUSDT', label:'BONK/USDT' }, { id:'1000SATSUSDT', label:'1000SATS/USDT' }
+  { id:'1000BONKUSDT', label:'BONK/USDT' }, { id:'1000SATSUSDT', label:'1000SATS/USDT' },
+  { id:'JUPUSDT', label:'JUP/USDT' }, { id:'SHIBUSDT', label:'SHIB/USDT' },
+  { id:'STXUSDT', label:'STX/USDT' }, { id:'TRUMPUSDT', label:'TRUMP/USDT' },
+  { id:'ONDOUSDT', label:'ONDO/USDT' }, { id:'PENGUUSDT', label:'PENGU/USDT' },
+  { id:'DOTUSDT', label:'DOT/USDT' }, { id:'SEIUSDT', label:'SEI/USDT' },
+  { id:'WLDUSDT', label:'WLD/USDT' }, { id:'RAYUSDT', label:'RAY/USDT' },
+  { id:'SUIUSDT', label:'SUI/USDT' }, { id:'RENDERUSDT', label:'RENDER/USDT' },
+  { id:'TAOUSDT', label:'TAO/USDT' }, { id:'LTCUSDT', label:'LTC/USDT' },
+  { id:'TRXUSDT', label:'TRX/USDT' }, { id:'AVAXUSDT', label:'AVAX/USDT' },
+  { id:'NEARUSDT', label:'NEAR/USDT' }, { id:'APTUSDT', label:'APT/USDT' },
+  { id:'OPUSDT', label:'OP/USDT' }, { id:'INJUSDT', label:'INJ/USDT' },
+  { id:'FILUSDT', label:'FIL/USDT' }, { id:'ETCUSDT', label:'ETC/USDT' },
+  { id:'XLMUSDT', label:'XLM/USDT' }, { id:'ALGOUSDT', label:'ALGO/USDT' },
+  { id:'ICPUSDT', label:'ICP/USDT' }, { id:'UNIUSDT', label:'UNI/USDT' },
+  { id:'AAVEUSDT', label:'AAVE/USDT' }, { id:'SANDUSDT', label:'SAND/USDT' },
+  { id:'MANAUSDT', label:'MANA/USDT' }, { id:'PEPEUSDT', label:'PEPE/USDT' }
 ];
 const TF_LABEL = 'M5';
+const ALERT_DURATION_MS = 20000;
+
 const labelById = Object.fromEntries(SYMBOLS.map(s => [s.id, s.label]));
-const history = {};       // id -> últimas 2 velas fechadas
-const quoteCells = {};    // id -> { priceEl, chgEl }
-
-function buildQuoteRows(){
-  SYMBOLS.forEach(sym => {
-    const row = document.createElement('div');
-    row.className = 'quote-row';
-    row.innerHTML = `<span class="sym">${sym.label}</span><span class="price" id="qp-${sym.id}">--</span><span class="chg flat" id="qc-${sym.id}">--</span>`;
-    quotesList.appendChild(row);
-    quoteCells[sym.id] = {
-      priceEl: row.querySelector(`#qp-${sym.id}`),
-      chgEl: row.querySelector(`#qc-${sym.id}`)
-    };
-  });
-}
-
-function updateQuote(id, open, close){
-  const cell = quoteCells[id];
-  if(!cell) return;
-  const decimals = close < 1 ? 6 : close < 10 ? 4 : 2;
-  cell.priceEl.textContent = close.toFixed(decimals);
-  const pct = open ? ((close - open) / open) * 100 : 0;
-  cell.chgEl.textContent = (pct >= 0 ? '▲ ' : '▼ ') + Math.abs(pct).toFixed(2) + '%';
-  cell.chgEl.className = 'chg ' + (pct > 0 ? 'up' : pct < 0 ? 'down' : 'flat');
-}
-
+const history = {};        // id -> últimas 2 velas fechadas
 const lastAlertedKey = {}; // id -> timestamp da última vela já alertada
+const alertHistory = [];   // { label, time } — últimas 24h
+const quoteCells = {};     // id -> { priceEl, chgEl }
 
 const alertsList = document.getElementById('alertsList');
 const quotesList = document.getElementById('quotesList');
 const statusText = document.getElementById('statusText');
+const notifDot = document.getElementById('notifDot');
+const historyOverlay = document.getElementById('historyOverlay');
+const historyList = document.getElementById('historyList');
 
 // ===== SIRENE (gerada por código, sem arquivo de áudio) =====
 let audioCtx = null;
@@ -247,14 +290,26 @@ function analyzeCandle(c){
   return { maxWick, wickDominant: maxWick > body };
 }
 
-// ===== ALERTA — aparece e some sozinho ~4s depois =====
+function fmtTime(d){
+  return d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+}
+
+// ===== ALERTA — aparece, some sozinho em 20s, e entra no histórico de 24h =====
 function pushAlert(label){
+  const now = new Date();
+
   const empty = alertsList.querySelector('.alerts-empty');
   if(empty) empty.remove();
 
   const div = document.createElement('div');
   div.className = 'alert-item';
-  div.innerHTML = `<span class="dot"></span><span class="sym">${label}</span><span class="tf">${TF_LABEL}</span>`;
+  div.innerHTML = `
+    <span class="dot"></span>
+    <span class="sym">${label}</span>
+    <span class="otc-tag">OTC</span>
+    <span class="tf">${TF_LABEL}</span>
+    <span class="time">${fmtTime(now)}</span>
+  `;
   alertsList.prepend(div);
 
   setTimeout(() => {
@@ -262,10 +317,48 @@ function pushAlert(label){
     if(!alertsList.children.length){
       alertsList.innerHTML = '<div class="alerts-empty">Nenhum alerta no momento.</div>';
     }
-  }, 4000);
+  }, ALERT_DURATION_MS);
+
+  alertHistory.unshift({ label, time: now });
+  pruneHistory();
+  notifDot.classList.add('show');
 
   playSiren();
 }
+
+function pruneHistory(){
+  const cutoff = Date.now() - 24 * 60 * 60 * 1000;
+  while(alertHistory.length && alertHistory[alertHistory.length - 1].time.getTime() < cutoff){
+    alertHistory.pop();
+  }
+}
+
+function renderHistory(){
+  pruneHistory();
+  if(!alertHistory.length){
+    historyList.innerHTML = '<div class="alerts-empty">Nenhum alerta nas últimas 24h.</div>';
+    return;
+  }
+  historyList.innerHTML = alertHistory.map(a => `
+    <div class="history-row">
+      <span class="sym">${a.label}</span>
+      <span class="otc-tag">OTC</span>
+      <span class="time">${fmtTime(a.time)}</span>
+    </div>
+  `).join('');
+}
+
+document.getElementById('notifIcon').addEventListener('click', () => {
+  renderHistory();
+  historyOverlay.classList.add('open');
+  notifDot.classList.remove('show');
+});
+document.getElementById('historyClose').addEventListener('click', () => {
+  historyOverlay.classList.remove('open');
+});
+historyOverlay.addEventListener('click', (e) => {
+  if(e.target === historyOverlay) historyOverlay.classList.remove('open');
+});
 
 function evaluateSymbol(id){
   const h = history[id];
@@ -281,6 +374,30 @@ function evaluateSymbol(id){
   }
 }
 
+// ===== COTAÇÕES AO VIVO =====
+function buildQuoteRows(){
+  SYMBOLS.forEach(sym => {
+    const row = document.createElement('div');
+    row.className = 'quote-row';
+    row.innerHTML = `<span class="sym">${sym.label}</span><span class="price" id="qp-${sym.id}">--</span><span class="chg flat" id="qc-${sym.id}">--</span>`;
+    quotesList.appendChild(row);
+    quoteCells[sym.id] = {
+      priceEl: row.querySelector(`#qp-${sym.id}`),
+      chgEl: row.querySelector(`#qc-${sym.id}`)
+    };
+  });
+}
+
+function updateQuote(id, open, close){
+  const cell = quoteCells[id];
+  if(!cell) return;
+  const decimals = close < 1 ? 6 : close < 10 ? 4 : 2;
+  cell.priceEl.textContent = close.toFixed(decimals);
+  const pct = open ? ((close - open) / open) * 100 : 0;
+  cell.chgEl.textContent = (pct >= 0 ? '▲ ' : '▼ ') + Math.abs(pct).toFixed(2) + '%';
+  cell.chgEl.className = 'chg ' + (pct > 0 ? 'up' : pct < 0 ? 'down' : 'flat');
+}
+
 // ===== VELAS INICIAIS (via REST, só pra ter histórico assim que a página abre) =====
 async function bootstrapHistory(sym){
   try{
@@ -290,12 +407,11 @@ async function bootstrapHistory(sym){
       time: k[0], open: parseFloat(k[1]), high: parseFloat(k[2]), low: parseFloat(k[3]), close: parseFloat(k[4])
     }));
     history[sym.id] = closed.slice(-2);
-    // marca como já "visto" pra não disparar alerta de algo que já estava acontecendo antes de abrir o site
     if(history[sym.id].length === 2) lastAlertedKey[sym.id] = history[sym.id][1].time;
   } catch(e){ console.error('Erro no histórico inicial de', sym.id, e); }
 }
 
-// ===== WEBSOCKET — velas em tempo real direto da Binance =====
+// ===== WEBSOCKET — velas e cotações em tempo real direto da Binance =====
 let ws = null;
 function connectWebSocket(){
   const streams = SYMBOLS.map(s => s.id.toLowerCase() + '@kline_5m').join('/');
@@ -308,13 +424,12 @@ function connectWebSocket(){
     const k = msg.data && msg.data.k;
     if(!k) return;
 
-    const id = msg.data.s; // símbolo em maiúsculo, ex: BTCUSDT
+    const id = msg.data.s;
     if(!labelById[id]) return;
 
-    // cotação atualiza a cada tick, mesmo com a vela ainda se formando
     updateQuote(id, parseFloat(k.o), parseFloat(k.c));
 
-    if(!k.x) return; // o resto (alerta) só nos interessa quando a vela FECHA
+    if(!k.x) return;
 
     const candle = { time:k.t, open:parseFloat(k.o), high:parseFloat(k.h), low:parseFloat(k.l), close:parseFloat(k.c) };
     const h = history[id] || [];
@@ -338,3 +453,4 @@ Promise.all(SYMBOLS.map(bootstrapHistory)).then(connectWebSocket);
 </script>
 </body>
 </html>
+
