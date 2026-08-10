@@ -71,8 +71,6 @@
   /* ===== canvas ===== */
   .canvas{ flex:1; overflow:hidden; padding:4vh 14px 14px; display:flex; flex-direction:column; justify-content:flex-start; min-height:0; align-items:center; }
 
-  .chart-mark{width:72px; height:30px; display:block; margin:0 auto 8px;}
-
   .status-line{
     display:flex; align-items:center; gap:6px; justify-content:center;
     font-family:var(--mono); font-size:.7rem; color:var(--muted); margin-bottom:16px;
@@ -98,7 +96,7 @@
 
   /* ===== quotes ===== */
   .quotes-card{margin-top:12px; flex:1; min-height:0; width:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; display:flex; flex-direction:column;}
-  .quotes-card h2{flex-shrink:0;}
+  .quotes-card h2{flex-shrink:0; font-size:1.3rem; font-weight:700; text-align:center; margin-bottom:14px; color:var(--text); letter-spacing:.01em;}
   #quotesList{overflow-y:auto; flex:1; min-height:0;}
   .quote-row{
     display:flex; align-items:center; justify-content:space-between;
@@ -168,19 +166,6 @@
   </header>
 
   <main class="canvas" id="canvas">
-
-    <svg class="chart-mark" viewBox="0 0 64 28" fill="none">
-      <line x1="8" y1="4" x2="8" y2="22" stroke="#FF4D4F" stroke-width="1.4"/>
-      <rect x="5.5" y="9" width="5" height="8" rx="1" fill="#FF4D4F"/>
-      <line x1="20" y1="2" x2="20" y2="20" stroke="#00C896" stroke-width="1.4"/>
-      <rect x="17.5" y="6" width="5" height="10" rx="1" fill="#00C896"/>
-      <line x1="32" y1="6" x2="32" y2="24" stroke="#FF4D4F" stroke-width="1.4"/>
-      <rect x="29.5" y="10" width="5" height="7" rx="1" fill="#FF4D4F"/>
-      <line x1="44" y1="1" x2="44" y2="19" stroke="#00C896" stroke-width="1.4"/>
-      <rect x="41.5" y="4" width="5" height="11" rx="1" fill="#00C896"/>
-      <line x1="56" y1="3" x2="56" y2="21" stroke="#00C896" stroke-width="1.4"/>
-      <rect x="53.5" y="6" width="5" height="9" rx="1" fill="#00C896"/>
-    </svg>
 
     <div class="status-line"><span class="live-dot"></span><span id="statusText">Monitorando M5...</span></div>
 
