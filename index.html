@@ -90,24 +90,9 @@
   }
   .card h2{font-size:.9rem; font-weight:600; text-align:center; margin-bottom:12px; color:var(--text);}
 
-  /* ===== alerts (toast, some sozinho) ===== */
+  /* ===== lista vazia (usada no painel de notificação) ===== */
   .alerts-empty{color:var(--muted-2); font-size:.8rem; text-align:center; padding:14px 0;}
-  .alert-item{
-    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-    background:var(--otc-bg); border:1px solid rgba(255,122,26,.3); border-radius:12px;
-    padding:12px 14px; margin-bottom:8px;
-    animation: alert-in .25s ease, alert-out .4s ease 19.35s forwards;
-  }
-  @keyframes alert-in{ from{opacity:0; transform:translateY(-6px);} to{opacity:1; transform:translateY(0);} }
-  @keyframes alert-out{ to{opacity:0; transform:translateY(-6px); margin-bottom:-70px; padding-top:0; padding-bottom:0; height:0;} }
-  .alert-item .dot{width:9px;height:9px;border-radius:50%;background:var(--otc); flex-shrink:0;}
-  .alert-item .sym{font-weight:700; color:var(--text); font-family:var(--mono); font-size:.92rem;}
-  .alert-item .otc-tag{
-    font-family:var(--mono); font-size:.62rem; font-weight:700; color:var(--otc);
-    background:rgba(255,122,26,.18); border-radius:999px; padding:2px 7px;
-  }
-  .alert-item .time{color:var(--muted); font-family:var(--mono); font-size:.72rem; margin-left:auto;}
-  .alert-item .tf{color:var(--accent); font-family:var(--mono); font-size:.72rem; font-weight:600;}
+
 
   .disclaimer{color:var(--muted-2); font-size:.66rem; line-height:1.4; text-align:center; margin-top:14px; max-width:340px;}
 
@@ -140,12 +125,22 @@
   .history-panel .sub{color:var(--muted); font-size:.72rem; margin-bottom:12px;}
   .history-row{
     display:flex; align-items:center; gap:8px; padding:9px 2px; border-bottom:1px solid var(--border);
-    font-family:var(--mono); font-size:.8rem;
+    font-family:var(--mono); font-size:.8rem; color:var(--muted);
   }
   .history-row:last-child{border-bottom:none;}
-  .history-row .sym{font-weight:600; flex-shrink:0;}
+  .history-row .sym{font-weight:600; flex-shrink:0; color:var(--muted);}
   .history-row .otc-tag{font-size:.6rem; color:var(--otc); background:rgba(255,122,26,.15); border-radius:999px; padding:2px 6px;}
   .history-row .time{margin-left:auto; color:var(--muted); font-size:.72rem;}
+  .history-row.latest{
+    background:var(--otc-bg); border:1px solid rgba(255,122,26,.35); border-radius:12px;
+    padding:12px 14px; margin-bottom:8px;
+  }
+  .history-row.latest .sym{color:var(--text); font-size:1rem;}
+  .history-row.latest .time{color:var(--text);}
+  .history-row.latest .badge-new{
+    font-size:.6rem; font-weight:700; color:var(--otc); background:rgba(255,122,26,.18);
+    border-radius:999px; padding:2px 7px; margin-left:4px;
+  }
   .history-close{
     display:block; margin:14px auto 0; padding:10px 24px; border-radius:999px;
     background:var(--surface-alt); border:1px solid var(--border); color:var(--text);
@@ -186,11 +181,6 @@
     </svg>
 
     <div class="status-line"><span class="live-dot"></span><span id="statusText">Monitorando M5...</span></div>
-
-    <div class="card">
-      <h2>Alertas</h2>
-      <div id="alertsList"><div class="alerts-empty">Nenhum alerta no momento.</div></div>
-    </div>
 
     <div class="card quotes-card">
       <h2>Cotações</h2>
@@ -240,15 +230,28 @@ const SYMBOLS = [
   { id:'MANAUSDT', label:'MANA/USDT' }, { id:'PEPEUSDT', label:'PEPE/USDT' }
 ];
 const TF_LABEL = 'M5';
-const ALERT_DURATION_MS = 20000;
 
 const labelById = Object.fromEntries(SYMBOLS.map(s => [s.id, s.label]));
 const history = {};        // id -> últimas 2 velas fechadas
 const lastAlertedKey = {}; // id -> timestamp da última vela já alertada
-const alertHistory = [];   // { label, time } — últimas 24h
 const quoteCells = {};     // id -> { priceEl, chgEl }
+const HISTORY_STORAGE_KEY = 'gtrader_alert_history';
 
-const alertsList = document.getElementById('alertsList');
+function loadStoredHistory(){
+  try{
+    const raw = localStorage.getItem(HISTORY_STORAGE_KEY);
+    if(!raw) return [];
+    const parsed = JSON.parse(raw);
+    return parsed.map(a => ({ label: a.label, time: new Date(a.time) }));
+  } catch(e){ return []; }
+}
+function saveHistory(){
+  try{
+    localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(alertHistory.map(a => ({ label:a.label, time:a.time.toISOString() }))));
+  } catch(e){ console.error('Erro ao salvar histórico:', e); }
+}
+const alertHistory = loadStoredHistory(); // { label, time } — armazenado por 24h
+
 const quotesList = document.getElementById('quotesList');
 const statusText = document.getElementById('statusText');
 const notifDot = document.getElementById('notifDot');
@@ -302,34 +305,16 @@ function fmtTime(d){
   return d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
 }
 
-// ===== ALERTA — aparece, some sozinho em 20s, e entra no histórico de 24h =====
+// ===== ALERTA — toca a sirene e entra na lista de notificação (persistida 24h) =====
 function pushAlert(label){
   const now = new Date();
 
-  const empty = alertsList.querySelector('.alerts-empty');
-  if(empty) empty.remove();
-
-  const div = document.createElement('div');
-  div.className = 'alert-item';
-  div.innerHTML = `
-    <span class="dot"></span>
-    <span class="sym">${label}</span>
-    <span class="otc-tag">OTC</span>
-    <span class="tf">${TF_LABEL}</span>
-    <span class="time">${fmtTime(now)}</span>
-  `;
-  alertsList.prepend(div);
-
-  setTimeout(() => {
-    div.remove();
-    if(!alertsList.children.length){
-      alertsList.innerHTML = '<div class="alerts-empty">Nenhum alerta no momento.</div>';
-    }
-  }, ALERT_DURATION_MS);
-
   alertHistory.unshift({ label, time: now });
   pruneHistory();
+  saveHistory();
   notifDot.classList.add('show');
+
+  if(historyOverlay.classList.contains('open')) renderHistory();
 
   playSiren();
 }
@@ -343,14 +328,16 @@ function pruneHistory(){
 
 function renderHistory(){
   pruneHistory();
+  saveHistory();
   if(!alertHistory.length){
     historyList.innerHTML = '<div class="alerts-empty">Nenhum alerta nas últimas 24h.</div>';
     return;
   }
-  historyList.innerHTML = alertHistory.map(a => `
-    <div class="history-row">
+  historyList.innerHTML = alertHistory.map((a, i) => `
+    <div class="history-row ${i === 0 ? 'latest' : ''}">
       <span class="sym">${a.label}</span>
       <span class="otc-tag">OTC</span>
+      ${i === 0 ? '<span class="badge-new">MAIS RECENTE</span>' : ''}
       <span class="time">${fmtTime(a.time)}</span>
     </div>
   `).join('');
