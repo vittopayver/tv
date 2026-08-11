@@ -94,12 +94,22 @@
 
   .disclaimer{color:var(--muted-2); font-size:.66rem; line-height:1.4; text-align:center; margin-top:14px; max-width:340px;}
 
+  /* ===== ícone de par (dois círculos sobrepostos, como na corretora) ===== */
+  .pair-icon{position:relative; width:28px; height:22px; flex-shrink:0;}
+  .pair-icon .circle{
+    position:absolute; width:20px; height:20px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.55rem; font-weight:700; color:#fff; border:2px solid var(--surface);
+  }
+  .pair-icon .circle.front{top:0; left:0; z-index:2;}
+  .pair-icon .circle.back{top:2px; left:9px; z-index:1;}
+
   /* ===== quotes ===== */
   .quotes-card{margin-top:12px; flex:1; min-height:0; width:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; display:flex; flex-direction:column;}
   .quotes-card h2{flex-shrink:0; font-size:1.3rem; font-weight:700; text-align:center; margin-bottom:14px; color:var(--text); letter-spacing:.01em;}
   #quotesList{overflow-y:auto; flex:1; min-height:0;}
   .quote-row{
-    display:flex; align-items:center; justify-content:space-between;
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
     padding:8px 2px; border-bottom:1px solid var(--border); font-family:var(--mono); font-size:.78rem;
   }
   .quote-row:last-child{border-bottom:none;}
@@ -137,10 +147,6 @@
   }
   .history-row.latest .sym{color:var(--text); font-size:1rem;}
   .history-row.latest .time{color:var(--text);}
-  .history-row.latest .badge-new{
-    font-size:.6rem; font-weight:700; color:var(--otc); background:rgba(255,122,26,.18);
-    border-radius:999px; padding:2px 7px; margin-left:4px;
-  }
   .history-close{
     display:block; margin:14px auto 0; padding:10px 24px; border-radius:999px;
     background:var(--surface-alt); border:1px solid var(--border); color:var(--text);
@@ -292,6 +298,29 @@ function fmtTime(d){
   return d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
 }
 
+// ===== ÍCONE EM PAR (dois círculos sobrepostos, iniciais coloridas por token) =====
+const ICON_PALETTE = ['#00C896','#FF7A1A','#3B82F6','#A855F7','#EC4899','#F59E0B','#14B8A6','#EF4444','#6366F1','#84CC16'];
+function colorForToken(token){
+  let hash = 0;
+  for(let i = 0; i < token.length; i++) hash = (hash * 31 + token.charCodeAt(i)) >>> 0;
+  return ICON_PALETTE[hash % ICON_PALETTE.length];
+}
+function pairIconHtml(label){
+  const [base, quote] = label.split('/');
+  const b = (base || '?').slice(0, 1).toUpperCase();
+  const q = (quote || base || '?').slice(0, 1).toUpperCase();
+  return `<span class="pair-icon">
+    <span class="circle front" style="background:${colorForToken(base || label)}">${b}</span>
+    <span class="circle back" style="background:${colorForToken(quote || base || label)}">${q}</span>
+  </span>`;
+}
+
+// ===== JANELA DE "RECENTE" (usa o horário do alerta como referência) =====
+const RECENT_WINDOW_MS = 30 * 60 * 1000; // últimos 30 minutos ficam destacados
+function isRecent(time){
+  return (Date.now() - time.getTime()) < RECENT_WINDOW_MS;
+}
+
 // ===== ALERTA — toca a sirene e entra na lista de notificação (persistida 24h) =====
 function pushAlert(label){
   const now = new Date();
@@ -320,11 +349,11 @@ function renderHistory(){
     historyList.innerHTML = '<div class="alerts-empty">Nenhum alerta nas últimas 24h.</div>';
     return;
   }
-  historyList.innerHTML = alertHistory.map((a, i) => `
-    <div class="history-row ${i === 0 ? 'latest' : ''}">
+  historyList.innerHTML = alertHistory.map((a) => `
+    <div class="history-row ${isRecent(a.time) ? 'latest' : ''}">
+      ${pairIconHtml(a.label)}
       <span class="sym">${a.label}</span>
       <span class="otc-tag">OTC</span>
-      ${i === 0 ? '<span class="badge-new">MAIS RECENTE</span>' : ''}
       <span class="time">${fmtTime(a.time)}</span>
     </div>
   `).join('');
@@ -382,7 +411,7 @@ function buildQuoteRows(){
   SYMBOLS.forEach(sym => {
     const row = document.createElement('div');
     row.className = 'quote-row';
-    row.innerHTML = `<span class="sym">${sym.label}</span><span class="price" id="qp-${sym.id}">--</span><span class="chg flat" id="qc-${sym.id}">--</span>`;
+    row.innerHTML = `${pairIconHtml(sym.label)}<span class="sym">${sym.label}</span><span class="price" id="qp-${sym.id}">--</span><span class="chg flat" id="qc-${sym.id}">--</span>`;
     quotesList.appendChild(row);
     quoteCells[sym.id] = {
       priceEl: row.querySelector(`#qp-${sym.id}`),
